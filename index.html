@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balaji Granites — Natural Stone, Timeless Spaces</title>
+  <meta name="description" content="Balaji Granites — Architectural natural stone and granite crafted for timeless spaces.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Scroll Experience Track: Powers the full-screen curtain reveal & granite fade-in -->
+  <div class="scroll-experience-wrapper" id="experience-track">
+    <!-- Pinned 100vh Viewport Stage -->
+    <div class="sticky-viewport-stage" id="sticky-stage">
+
+      <!-- 1. Stationary Cinematic Hero (Remains completely frozen behind the curtain) -->
+      <main class="hero-container" id="hero">
+        <!-- Background Video Container -->
+        <div class="video-wrapper">
+          <video
+            id="cinematic-video"
+            class="cinematic-video"
+            src="gemini_generated_video_bf25406b.mp4"
+            poster="frame_010.jpg"
+            autoplay
+            muted
+            playsinline
+            preload="auto"
+          ></video>
+        </div>
+
+        <!-- UI Overlay Layer (Revealed during final ~35% of video playback) -->
+        <div class="hero-ui-layer" id="hero-ui">
+          <!-- Floating Pill Navbar -->
+          <header class="navbar-wrapper" id="navbar">
+            <nav class="pill-navbar" aria-label="Main Navigation">
+              <div class="brand-badge">
+                <span class="brand-text">BALAJI GRANITES</span>
+              </div>
+              <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#products" class="nav-link" id="nav-products">Products</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+              </ul>
+            </nav>
+          </header>
+
+          <!-- Bottom Call To Action Buttons -->
+          <div class="cta-actions-wrapper" id="cta-actions">
+            <!-- Button 1: Left Dark Charcoal Stone (matching reference mockup & video) -->
+            <a href="https://balajitiles.com" class="btn btn-dark-stone" id="cta-balaji-tiles" target="_blank" rel="noopener">
+              <span>GO TO BALAJITILES.COM</span>
+            </a>
+
+            <!-- Button 2: Right Light Natural Stone with Dark Border (matching reference mockup & video) -->
+            <a href="#granite-collection" class="btn btn-light-stone" id="cta-explore-granite">
+              <span>EXPLORE GRANITE</span>
+            </a>
+          </div>
+        </div>
+      </main>
+
+      <!-- 2. Solid Warm Ivory Transition Curtain (Rises from bottom to progressively cover the Hero) -->
+      <div class="warm-ivory-curtain" id="warm-ivory-curtain" aria-hidden="true"></div>
+
+      <!-- 3. Granite Collection Showcase (Softly dissolves/emerges once curtain completes coverage) -->
+      <section class="granite-collection-section" id="granite-collection" aria-label="Granite Collection Showcase">
+        <div class="granite-collection-inner" id="granite-collection-inner">
+          <!-- Top Header: Collection Label & Slide Counter -->
+          <div class="collection-header">
+            <div class="collection-tag">
+              <span class="collection-label">GRANITE COLLECTION</span>
+            </div>
+            <div class="collection-counter" id="collection-counter" aria-live="polite">
+              <span class="counter-current" id="counter-current">01</span>
+              <span class="counter-divider">/</span>
+              <span class="counter-total">20</span>
+            </div>
+          </div>
+
+          <!-- Main Slabs Showcase Stage -->
+          <div class="slider-stage-wrapper">
+            <!-- Navigation Controls: Left Arrow -->
+            <button class="slider-nav-btn btn-prev" id="slider-prev" aria-label="Previous Granite Slab">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Slabs Showcase Track (Populated with 20 real granite images) -->
+            <div class="slabs-stage" id="slabs-stage">
+              <!-- Rendered dynamically by script.js -->
+            </div>
+
+            <!-- Navigation Controls: Right Arrow -->
+            <button class="slider-nav-btn btn-next" id="slider-next" aria-label="Next Granite Slab">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Editorial Information Panel -->
+          <div class="granite-info-panel" id="granite-info">
+            <p class="granite-origin" id="granite-origin">INDIAN GRANITE</p>
+            <h2 class="granite-title" id="granite-title">BLACK GALAXY</h2>
+            <p class="granite-desc" id="granite-desc">Deep crystalline obsidian embedded with natural star-like golden bronzite flecks.</p>
+            <div class="granite-specs">
+              <div class="spec-item">
+                <span class="spec-label">Finish</span>
+                <span class="spec-value" id="granite-finish">Mirror Polished</span>
+              </div>
+              <span class="spec-separator">•</span>
+              <div class="spec-item">
+                <span class="spec-label">Character</span>
+                <span class="spec-value" id="granite-character">Golden Bronzite Specks on Deep Black</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Minimal Progress Indicators -->
+          <div class="slider-progress-track" id="slider-progress-track">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Granite Product Detail Modal Backdrop & Container -->
+  <div class="granite-modal-backdrop" id="granite-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-granite-title">
+    <div class="granite-detail-modal" id="granite-detail-modal">
+      
+      <!-- Circular Close Button (top-right of modal) -->
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close Product Details">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Main Two-Column Content Grid -->
+      <div class="modal-content-grid">
+        
+        <!-- Left Column: Imagery & Thumbnails -->
+        <div class="modal-imagery-col">
+          <!-- Main Image Presentation with Sheen and Zoom Button -->
+          <div class="modal-main-image-wrap" id="modal-main-image-wrap">
+            <img class="modal-main-img" id="modal-main-img" src="" alt="Granite Texture Detail">
+            <div class="modal-img-sheen"></div>
+            <button class="modal-zoom-btn" id="modal-zoom-btn" aria-label="Zoom Granite Texture">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Thumbnails Row -->
+          <div class="modal-thumbnails-row" id="modal-thumbnails-row">
+            <!-- Dynamically populated thumbnails -->
+          </div>
+        </div>
+
+        <!-- Right Column: Product Information -->
+        <div class="modal-info-col">
+          <!-- Category Tag -->
+          <div class="modal-category-tag">
+            <span id="modal-granite-category">INDIAN GRANITE</span>
+          </div>
+
+          <!-- Large Granite Name -->
+          <h2 class="modal-granite-title" id="modal-granite-title">BLACK GALAXY</h2>
+
+          <!-- Short Description -->
+          <p class="modal-granite-short-desc" id="modal-granite-short-desc">
+            Deep crystalline obsidian embedded with natural star-like golden bronzite flecks.
+          </p>
+
+          <!-- 3-Column Specifications Row with Divider Lines & Circular Icons -->
+          <div class="modal-specs-grid">
+            <!-- Spec 1: Finish -->
+            <div class="modal-spec-col">
+              <div class="modal-spec-icon-badge">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 2L10.5 6.5L15 8L10.5 9.5L9 14L7.5 9.5L3 8L7.5 6.5L9 2Z"/>
+                  <path d="M17 12L18 15L21 16L18 17L17 20L16 17L13 16L16 15L17 12Z"/>
+                </svg>
+              </div>
+              <span class="modal-spec-label">Finish</span>
+              <span class="modal-spec-value" id="modal-granite-finish">Mirror Polished</span>
+            </div>
+
+            <!-- Spec 2: Character -->
+            <div class="modal-spec-col">
+              <div class="modal-spec-icon-badge">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3h12l4 6-10 12L2 9z"></path>
+                </svg>
+              </div>
+              <span class="modal-spec-label">Character</span>
+              <span class="modal-spec-value" id="modal-granite-character">Golden Bronzite Specks</span>
+            </div>
+
+            <!-- Spec 3: Origin -->
+            <div class="modal-spec-col">
+              <div class="modal-spec-icon-badge">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 20h18L12 4z"></path>
+                </svg>
+              </div>
+              <span class="modal-spec-label">Origin</span>
+              <span class="modal-spec-value" id="modal-granite-origin">Indian Granite</span>
+            </div>
+          </div>
+
+          <!-- Detailed Editorial Description -->
+          <p class="modal-granite-detailed-desc" id="modal-granite-detailed-desc">
+            Black Galaxy is a premium Indian granite known for its deep black background with natural golden mineral flecks that create a rich and elegant appearance. It is a popular choice for countertops, flooring, staircases and feature walls, offering both durability and timeless beauty.
+          </p>
+
+          <!-- Feature Pills -->
+          <div class="modal-features-row" id="modal-features-row">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Action CTA Buttons -->
+          <div class="modal-actions-row">
+            <!-- Primary WhatsApp CTA -->
+            <a href="#" class="modal-btn modal-btn-whatsapp" id="modal-btn-whatsapp" target="_blank" rel="noopener">
+              <span class="whatsapp-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </span>
+              <div class="btn-text-group">
+                <span class="btn-primary-title">CONTACT ON WHATSAPP</span>
+                <span class="btn-subtitle">Get Price · Ask Questions</span>
+              </div>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <!-- Secondary Get a Quote CTA -->
+            <a href="#" class="modal-btn modal-btn-quote" id="modal-btn-quote" target="_blank" rel="noopener">
+              <span class="quote-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <div class="btn-text-group">
+                <span class="btn-primary-title">GET A QUOTE</span>
+                <span class="btn-subtitle">Share Requirements</span>
+              </div>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- High-Resolution Texture Lightbox Zoom Modal -->
+  <div class="texture-lightbox" id="texture-lightbox" aria-hidden="true">
+    <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="High-Resolution Texture Full View">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

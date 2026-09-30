@@ -1,0 +1,1616 @@
+/* ==========================================================================
+   Balaji Tiles — Cinematic Hero Experience
+   Architectural Natural Stone Aesthetics & Pixel-Perfect Synchronization
+   ========================================================================== */
+
+:root {
+  --color-stone-dark: #1f1e1b;
+  --color-stone-charcoal: #22211e;
+  --color-stone-light-bg: #e1dfda;
+  --color-stone-light-border: #1f1e1b;
+  --color-glass-bg: rgba(240, 238, 234, 0.94);
+  --color-glass-border: rgba(255, 255, 255, 0.75);
+  --color-text-main: #1f1e1b;
+  --color-text-muted: #4e4a44;
+  --color-text-light: #f7f6f2;
+  
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hover: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #dedcd8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll Experience Track & Stationary Hero Architecture
+   -------------------------------------------------------------------------- */
+.scroll-experience-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220vh;
+  background-color: #dedcd8;
+}
+
+.sticky-viewport-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #dedcd8;
+}
+
+.hero-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #dedcd8;
+  z-index: 1;
+  /* HERO IS STRICTLY STATIONARY: NO TRANSLATE, NO SCALE, NO SHIFT */
+  transform: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cinematic Background Video
+   -------------------------------------------------------------------------- */
+.video-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  background-color: #dedcd8;
+}
+
+.cinematic-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   UI Overlay Layer
+   -------------------------------------------------------------------------- */
+.hero-ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar Styling & Reveal Motion
+   -------------------------------------------------------------------------- */
+.navbar-wrapper {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translate(-50%, -40px);
+  width: calc(100% - 140px);
+  max-width: 1140px;
+  display: flex;
+  justify-content: center;
+  
+  /* Initial hidden state */
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: 
+    transform 2.2s var(--ease-cinematic),
+    opacity 1.8s var(--ease-cinematic);
+}
+
+.hero-ui-layer.is-revealed .navbar-wrapper {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+.pill-navbar {
+  width: 100%;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 46px 0 10px;
+  background: #ebe9e4;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 9999px;
+  box-shadow: 
+    0 12px 34px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.02),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 28px;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.brand-text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+  transition: color 0.25s ease;
+  padding: 6px 2px;
+}
+
+.nav-link:hover {
+  color: var(--color-stone-dark);
+}
+
+.nav-link.active {
+  color: var(--color-stone-dark);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-stone-dark);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   CTA Buttons & Reveal Motion
+   -------------------------------------------------------------------------- */
+.cta-actions-wrapper {
+  position: absolute;
+  bottom: 54px;
+  left: 50%;
+  transform: translate(-50%, 20px) scale(0.98);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  /* Initial hidden state */
+  opacity: 0;
+  filter: blur(8px);
+  will-change: transform, opacity, filter;
+  transition: 
+    transform 2.0s var(--ease-cinematic) 0.25s,
+    opacity 1.8s var(--ease-cinematic) 0.25s,
+    filter 1.6s var(--ease-cinematic) 0.25s;
+}
+
+.hero-ui-layer.is-revealed .cta-actions-wrapper {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  filter: blur(0px);
+  pointer-events: auto;
+}
+
+/* Base Pill Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 62px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  transition: 
+    transform 0.35s var(--ease-hover),
+    box-shadow 0.35s var(--ease-hover),
+    background-color 0.35s var(--ease-hover),
+    border-color 0.35s var(--ease-hover);
+  user-select: none;
+}
+
+/* Left Button: Dark Charcoal Stone (matching reference mockup & video composition) */
+.btn-dark-stone {
+  background: var(--color-stone-charcoal);
+  color: var(--color-text-light);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.btn-dark-stone:hover {
+  background: #2e2d29;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.32),
+    0 4px 10px rgba(0, 0, 0, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Right Button: Light Natural Stone with Dark Border (matching reference mockup & video composition) */
+.btn-light-stone {
+  background: var(--color-stone-light-bg);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  color: var(--color-text-main);
+  border: 1.5px solid var(--color-stone-light-border);
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.btn-light-stone:hover {
+  background: #eae8e3;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 
+    0 10px 26px rgba(0, 0, 0, 0.09),
+    0 3px 8px rgba(0, 0, 0, 0.04);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Responsive Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .navbar-wrapper {
+    top: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .pill-navbar {
+    height: 58px;
+    padding: 0 24px 0 6px;
+  }
+
+  .nav-links {
+    gap: 22px;
+  }
+
+  .brand-badge {
+    height: 44px;
+    padding: 0 18px;
+  }
+
+  .brand-text {
+    font-size: 13.5px;
+  }
+
+  .cta-actions-wrapper {
+    bottom: 36px;
+    gap: 14px;
+  }
+
+  .btn {
+    width: 220px;
+    height: 54px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cinematic-video {
+    object-fit: cover;
+  }
+
+  .navbar-wrapper {
+    top: 18px;
+    width: calc(100% - 24px);
+    max-width: 380px;
+  }
+
+  .pill-navbar {
+    justify-content: center;
+    padding: 0 6px;
+    height: 52px;
+    background: #ebe9e4;
+  }
+
+  .nav-links {
+    display: none; /* Clean luxury aesthetic on small phone viewports */
+  }
+
+  .brand-badge {
+    height: 40px;
+    padding: 0 20px;
+  }
+
+  .brand-text {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .cta-actions-wrapper {
+    flex-direction: row;
+    width: calc(100% - 20px);
+    max-width: 380px;
+    gap: 10px;
+    bottom: 34px;
+  }
+
+  .btn {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: 48px;
+    padding: 0 8px;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Solid Warm Ivory Transition Curtain
+   (Rises progressively from viewport bottom to cover the stationary Hero)
+   -------------------------------------------------------------------------- */
+.warm-ivory-curtain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dedcd8;
+  z-index: 10;
+  box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.22);
+  transform: translate3d(0, 100%, 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Granite Collection Showcase Section
+   (Softly reveals and emerges into view once the curtain covers the viewport)
+   ========================================================================== */
+
+.granite-collection-section {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background: transparent;
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+.granite-collection-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 38px 32px 34px;
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Collection Header: Label & Editorial Counter
+   -------------------------------------------------------------------------- */
+.collection-header {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 5;
+}
+
+.collection-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.collection-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #55524c;
+  text-transform: uppercase;
+}
+
+.collection-counter {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-stone-dark);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.counter-divider {
+  font-size: 14px;
+  color: #8c8880;
+  font-weight: 400;
+}
+
+.counter-total {
+  font-size: 14px;
+  color: #8c8880;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Slider Stage: Physical 3D Granite Slabs Showcase
+   -------------------------------------------------------------------------- */
+.slider-stage-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  overflow: visible;
+}
+
+.slabs-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+}
+
+/* Individual Granite Slab (Physical rectangular slab presentation) */
+.slab-item {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #242320;
+  cursor: pointer;
+  transition: 
+    transform 0.75s var(--ease-cinematic),
+    opacity 0.75s var(--ease-cinematic),
+    box-shadow 0.75s var(--ease-cinematic),
+    filter 0.75s var(--ease-cinematic);
+  will-change: transform, opacity;
+}
+
+.slab-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.75s var(--ease-cinematic);
+}
+
+/* Polished stone specular sheen reflection (inspired by reference video) */
+.slab-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.12) 35%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+/* Subtle edge bevel for physical slab thickness */
+.slab-bevel {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+/* Floor contact shadow below each slab */
+.slab-floor-shadow {
+  position: absolute;
+  bottom: -24px;
+  left: 6%;
+  width: 88%;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(20, 19, 17, 0.38) 0%, rgba(20, 19, 17, 0) 72%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Slabs Spatial States */
+.slab-item.is-active {
+  transform: translateX(0) scale(1);
+  z-index: 10;
+  opacity: 1;
+  box-shadow: 
+    0 38px 75px -15px rgba(22, 21, 19, 0.34),
+    0 16px 32px -10px rgba(22, 21, 19, 0.18);
+  cursor: default;
+}
+
+.slab-item.is-prev {
+  transform: translateX(-370px) scale(0.74);
+  z-index: 5;
+  opacity: 0.82;
+  box-shadow: 0 20px 45px -12px rgba(22, 21, 19, 0.22);
+}
+
+.slab-item.is-prev:hover {
+  opacity: 0.96;
+  transform: translateX(-370px) scale(0.78);
+  box-shadow: 0 24px 50px -10px rgba(22, 21, 19, 0.28);
+}
+
+.slab-item.is-next {
+  transform: translateX(370px) scale(0.74);
+  z-index: 5;
+  opacity: 0.82;
+  box-shadow: 0 20px 45px -12px rgba(22, 21, 19, 0.22);
+}
+
+.slab-item.is-next:hover {
+  opacity: 0.96;
+  transform: translateX(370px) scale(0.78);
+  box-shadow: 0 24px 50px -10px rgba(22, 21, 19, 0.28);
+}
+
+.slab-item.is-far-prev {
+  transform: translateX(-680px) scale(0.55);
+  z-index: 2;
+  opacity: 0.4;
+  box-shadow: 0 10px 25px -8px rgba(22, 21, 19, 0.14);
+}
+
+.slab-item.is-far-prev:hover {
+  opacity: 0.6;
+  transform: translateX(-680px) scale(0.58);
+}
+
+.slab-item.is-far-next {
+  transform: translateX(680px) scale(0.55);
+  z-index: 2;
+  opacity: 0.4;
+  box-shadow: 0 10px 25px -8px rgba(22, 21, 19, 0.14);
+}
+
+.slab-item.is-far-next:hover {
+  opacity: 0.6;
+  transform: translateX(680px) scale(0.58);
+}
+
+.slab-item.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.35);
+  z-index: 0;
+}
+
+/* Navigation Arrow Buttons */
+.slider-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(246, 244, 240, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(31, 30, 27, 0.22);
+  color: var(--color-stone-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: 
+    background 0.3s var(--ease-hover),
+    transform 0.3s var(--ease-hover),
+    box-shadow 0.3s var(--ease-hover),
+    border-color 0.3s var(--ease-hover);
+}
+
+.slider-nav-btn:hover {
+  background: #ffffff;
+  border-color: rgba(31, 30, 27, 0.5);
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+}
+
+.slider-nav-btn:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.btn-prev { left: 42px; }
+.btn-next { right: 42px; }
+
+/* --------------------------------------------------------------------------
+   Editorial Information Panel
+   -------------------------------------------------------------------------- */
+.granite-info-panel {
+  text-align: center;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6px;
+  min-height: 125px;
+  z-index: 5;
+}
+
+.granite-origin {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #7a766e;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.granite-title {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.granite-desc {
+  font-size: 14px;
+  color: #4b4842;
+  line-height: 1.55;
+  max-width: 560px;
+  margin-bottom: 12px;
+  transition: opacity 0.35s ease;
+}
+
+.granite-specs {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12.5px;
+  color: #55524b;
+  padding: 6px 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.spec-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spec-label {
+  font-weight: 600;
+  color: var(--color-stone-dark);
+}
+
+.spec-value {
+  color: #504d46;
+}
+
+.spec-separator {
+  color: #9c978f;
+  font-size: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Progress Track (20 understated dashes)
+   -------------------------------------------------------------------------- */
+.slider-progress-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  z-index: 5;
+}
+
+.progress-dash {
+  width: 14px;
+  height: 2.5px;
+  background: rgba(31, 30, 27, 0.18);
+  border-radius: 2px;
+  transition: background 0.35s ease, width 0.35s ease;
+  cursor: pointer;
+}
+
+.progress-dash.is-active {
+  width: 34px;
+  background: var(--color-stone-dark);
+}
+
+.progress-dash:hover {
+  background: rgba(31, 30, 27, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   Granite Collection Responsive Design
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .slider-stage-wrapper {
+    height: 380px;
+  }
+
+  .slab-item {
+    width: 320px;
+    height: 320px;
+  }
+
+  .slab-item.is-prev {
+    transform: translateX(-290px) scale(0.74);
+  }
+
+  .slab-item.is-next {
+    transform: translateX(290px) scale(0.74);
+  }
+
+  .slab-item.is-far-prev {
+    transform: translateX(-520px) scale(0.55);
+  }
+
+  .slab-item.is-far-next {
+    transform: translateX(520px) scale(0.55);
+  }
+
+  .btn-prev { left: 20px; }
+  .btn-next { right: 20px; }
+}
+
+@media (max-width: 768px) {
+  .granite-collection-inner {
+    padding: 24px 16px 24px;
+  }
+
+  .slider-stage-wrapper {
+    height: 320px;
+    margin: 6px 0;
+  }
+
+  .slab-item {
+    width: 270px;
+    height: 270px;
+  }
+
+  .slab-item.is-prev {
+    transform: translateX(-220px) scale(0.74);
+  }
+
+  .slab-item.is-next {
+    transform: translateX(220px) scale(0.74);
+  }
+
+  .slab-item.is-far-prev,
+  .slab-item.is-far-next {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .btn-prev { left: 8px; width: 44px; height: 44px; }
+  .btn-next { right: 8px; width: 44px; height: 44px; }
+
+  .granite-title {
+    font-size: 24px;
+  }
+
+  .granite-desc {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .granite-specs {
+    font-size: 11.5px;
+    gap: 10px;
+    padding: 5px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .granite-collection-inner {
+    padding: 18px 12px 18px;
+  }
+
+  .slider-stage-wrapper {
+    height: 270px;
+  }
+
+  .slab-item {
+    width: 230px;
+    height: 230px;
+  }
+
+  .slab-item.is-prev {
+    transform: translateX(-160px) scale(0.72);
+  }
+
+  .slab-item.is-next {
+    transform: translateX(160px) scale(0.72);
+  }
+
+  .granite-title {
+    font-size: 21px;
+    letter-spacing: 0.1em;
+  }
+
+  .granite-desc {
+    font-size: 12.5px;
+    margin-bottom: 8px;
+  }
+
+  .granite-specs {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 12px;
+    gap: 8px;
+  }
+
+  .spec-separator {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Height-Aware Adaptations for Laptops (e.g. 1366x768, 1440x800)
+   -------------------------------------------------------------------------- */
+@media (max-height: 820px) and (min-width: 769px) {
+  .granite-collection-inner {
+    padding: 24px 28px 20px;
+  }
+
+  .slider-stage-wrapper {
+    height: 360px;
+    margin: 4px 0;
+  }
+
+  .slab-item {
+    width: 310px;
+    height: 310px;
+  }
+
+  .slab-item.is-prev {
+    transform: translateX(-310px) scale(0.74);
+  }
+
+  .slab-item.is-prev:hover {
+    transform: translateX(-310px) scale(0.78);
+  }
+
+  .slab-item.is-next {
+    transform: translateX(310px) scale(0.74);
+  }
+
+  .slab-item.is-next:hover {
+    transform: translateX(310px) scale(0.78);
+  }
+
+  .slab-item.is-far-prev {
+    transform: translateX(-560px) scale(0.55);
+  }
+
+  .slab-item.is-far-next {
+    transform: translateX(560px) scale(0.55);
+  }
+
+  .granite-title {
+    font-size: 25px;
+    margin-bottom: 4px;
+  }
+
+  .granite-desc {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .granite-info-panel {
+    min-height: 105px;
+  }
+}
+
+/* ==========================================================================
+   Granite Product Detail Modal & Architectural Presentation Card
+   ========================================================================== */
+
+/* Fullscreen Translucent Charcoal Backdrop */
+.granite-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(18, 17, 15, 0.52);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-cinematic);
+}
+
+.granite-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Main Architectural Floating Detail Card */
+.granite-detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: calc(100vh - 48px);
+  background-color: #f7f5f1;
+  border-radius: 42px;
+  padding: 44px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 45px 110px -20px rgba(0, 0, 0, 0.38),
+    0 20px 45px -10px rgba(0, 0, 0, 0.16),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  transform: translate3d(0, 18px, 0) scale(0.96);
+  opacity: 0;
+  transition: 
+    transform 0.45s var(--ease-cinematic),
+    opacity 0.45s var(--ease-cinematic);
+  overflow-y: auto;
+  overflow-x: hidden;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 30, 27, 0.2) transparent;
+}
+
+.granite-modal-backdrop.is-open .granite-detail-modal {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+}
+
+/* Modal Close Button */
+.modal-close-btn {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+  z-index: 15;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #eae6de;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #38352f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: 
+    transform 0.25s var(--ease-hover),
+    background-color 0.25s var(--ease-hover),
+    border-color 0.25s var(--ease-hover);
+  outline: none;
+}
+
+.modal-close-btn:hover {
+  background: #ded9cf;
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: scale(1.06);
+}
+
+.modal-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Two-Column Grid Layout */
+.modal-content-grid {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 46px;
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   Left Column: Granite Imagery & Thumbnails
+   -------------------------------------------------------------------------- */
+.modal-imagery-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-main-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+  overflow: hidden;
+  background-color: #22211e;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.35s ease, transform 0.4s ease;
+  user-select: none;
+}
+
+.modal-img-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.12) 34%,
+    transparent 58%
+  );
+  pointer-events: none;
+}
+
+.modal-zoom-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(20, 19, 18, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s var(--ease-hover), background 0.25s var(--ease-hover);
+  outline: none;
+}
+
+.modal-zoom-btn:hover {
+  background: rgba(20, 19, 18, 0.88);
+  transform: scale(1.08);
+}
+
+/* Thumbnails Row */
+.modal-thumbnails-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-thumb-btn {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  background: #242320;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  outline: none;
+}
+
+.modal-thumb-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.modal-thumb-btn.is-active {
+  border-color: #c9933e;
+  box-shadow: 0 4px 14px rgba(201, 147, 62, 0.35);
+  transform: scale(1.03);
+}
+
+.modal-thumb-btn img,
+.modal-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column: Product Details & Architectural Typography
+   -------------------------------------------------------------------------- */
+.modal-info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 4px;
+}
+
+.modal-category-tag {
+  display: inline-block;
+  align-self: flex-start;
+  background: #ebe6dd;
+  border-radius: 9999px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #78736a;
+  margin-bottom: 12px;
+}
+
+.modal-granite-title {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1c1b18;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.modal-granite-short-desc {
+  font-size: 14.5px;
+  color: #555148;
+  line-height: 1.55;
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+/* 3-Column Specifications Row */
+.modal-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 18px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  margin-bottom: 20px;
+}
+
+.modal-spec-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding: 0 16px;
+}
+
+.modal-spec-col:first-child {
+  padding-left: 0;
+}
+
+.modal-spec-col:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.modal-spec-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #eae5dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: #444038;
+}
+
+.modal-spec-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888277;
+  margin-bottom: 4px;
+}
+
+.modal-spec-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f1e1b;
+  line-height: 1.35;
+}
+
+/* Detailed Description */
+.modal-granite-detailed-desc {
+  font-size: 13px;
+  line-height: 1.68;
+  color: #524f46;
+  margin-bottom: 22px;
+  max-width: 510px;
+}
+
+/* Feature Pills */
+.modal-features-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.modal-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: #eae6de;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #3b3731;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.modal-feature-pill svg {
+  color: #555047;
+}
+
+/* Actions Row & CTAs */
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modal-btn {
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 
+    transform 0.25s var(--ease-hover),
+    box-shadow 0.25s var(--ease-hover),
+    background-color 0.25s var(--ease-hover);
+  outline: none;
+  border: none;
+  font-family: var(--font-sans);
+}
+
+.modal-btn-whatsapp {
+  flex: 1.15;
+  padding: 12px 22px;
+  background: #201f1c;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-btn-whatsapp:hover {
+  background: #2d2b27;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.26);
+}
+
+.whatsapp-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+
+.modal-btn-quote {
+  flex: 0.95;
+  padding: 12px 20px;
+  background: #ebe6dd;
+  border: 1.5px solid rgba(32, 31, 28, 0.14);
+  color: #201f1c;
+}
+
+.modal-btn-quote:hover {
+  background: #dfdad0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.quote-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ded8ce;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #201f1c;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.btn-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.btn-primary-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.btn-subtitle {
+  font-size: 9.5px;
+  opacity: 0.72;
+  margin-top: 2px;
+}
+
+.btn-arrow {
+  margin-left: 8px;
+  transition: transform 0.25s var(--ease-hover);
+}
+
+.modal-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   High-Resolution Lightbox Overlay
+   -------------------------------------------------------------------------- */
+.texture-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(12, 11, 10, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.texture-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.lightbox-close-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-img-wrap {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  transform: scale(0.94);
+  transition: transform 0.35s var(--ease-cinematic);
+}
+
+.texture-lightbox.is-open .lightbox-img-wrap {
+  transform: scale(1);
+}
+
+.lightbox-img-wrap img {
+  width: 100%;
+  height: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Responsive Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .granite-detail-modal {
+    padding: 34px 28px;
+    border-radius: 32px;
+    max-height: calc(100vh - 36px);
+  }
+
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .modal-imagery-col {
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .modal-close-btn {
+    top: 20px;
+    right: 20px;
+  }
+
+  .modal-granite-title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .granite-modal-backdrop {
+    padding: 16px 12px;
+  }
+
+  .granite-detail-modal {
+    padding: 24px 18px;
+    border-radius: 26px;
+    max-height: calc(100vh - 24px);
+  }
+
+  .modal-close-btn {
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .modal-main-image-wrap {
+    border-radius: 20px;
+  }
+
+  .modal-thumb-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+  }
+
+  .modal-granite-title {
+    font-size: 24px;
+    letter-spacing: 0.06em;
+  }
+
+  .modal-granite-short-desc {
+    font-size: 13px;
+  }
+
+  .modal-specs-grid {
+    padding: 14px 0;
+  }
+
+  .modal-spec-col {
+    padding: 0 8px;
+  }
+
+  .modal-spec-icon-badge {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 6px;
+  }
+
+  .modal-spec-label {
+    font-size: 9.5px;
+  }
+
+  .modal-spec-value {
+    font-size: 11px;
+  }
+
+  .modal-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    width: 100%;
+    padding: 11px 18px;
+  }
+}
+
+
+
+
