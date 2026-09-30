@@ -185,11 +185,12 @@ async function run() {
     await client.captureScreenshot('test_tile_next_slab.png');
 
     // 6. Test DRAG TO EXPLORE Pill & Portal Destination
-    console.log('\n--- TEST 6: Verifying DRAG TO EXPLORE slide setup ---');
+    console.log('\n--- TEST 6: Verifying DRAG TO EXPLORE and Balaji Tiles Portal CTA ---');
     const pillExists = await client.eval(`document.getElementById('tile-drag-pill') !== null`);
-    const portalBtnRemoved = await client.eval(`document.getElementById('tile-portal-btn') === null`);
-    console.log(`Pill exists: ${pillExists}, Old button removed: ${portalBtnRemoved}`);
-    if (!pillExists || !portalBtnRemoved) throw new Error('Pill setup incorrect');
+    const portalBtnHref = await client.eval(`document.getElementById('tile-portal-btn')?.href`);
+    console.log(`Pill exists: ${pillExists}, Portal CTA href: ${portalBtnHref}`);
+    if (!pillExists) throw new Error('Pill setup missing');
+    if (!portalBtnHref || !portalBtnHref.includes('balajitiles.com')) throw new Error('Portal CTA button missing or wrong destination');
 
     // 7. Test Upward Transition Back to Granite Finder
     console.log('\n--- TEST 7: Upward Scroll -> Reverse Transition to Granite Finder ---');

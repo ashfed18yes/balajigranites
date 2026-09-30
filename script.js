@@ -11,7 +11,14 @@ if ('scrollRestoration' in history) {
 // 2. Prevent html { scroll-behavior: smooth } from animating the initial reset
 document.documentElement.style.scrollBehavior = 'auto';
 
-// 3. Force scroll position to top instantly before anything renders or restores
+// 3. Clear stale hashes from previous sessions so browser does not jump to anchors
+if (window.location.hash && window.location.hash !== '#home') {
+  try {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  } catch (e) {}
+}
+
+// 4. Force scroll position to top instantly before anything renders or restores
 try {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 } catch (e) {
@@ -764,15 +771,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   slabsStage.addEventListener('touchmove', (e) => {
-    if (Math.abs(e.changedTouches[0].screenX - touchStartX) > 12) {
+    if (Math.abs(e.changedTouches[0].screenX - touchStartX) > 35) {
       wasDragging = true;
     }
   }, { passive: true });
 
   slabsStage.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    handleSwipeGesture();
-    setTimeout(() => { wasDragging = false; }, 80);
+    const swipeDistance = touchEndX - touchStartX;
+    if (Math.abs(swipeDistance) > 45) {
+      wasDragging = true;
+      handleSwipeGesture();
+      setTimeout(() => { wasDragging = false; }, 100);
+    } else {
+      wasDragging = false;
+    }
   }, { passive: true });
 
   function handleSwipeGesture() {
@@ -798,7 +811,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('mousemove', (e) => {
     if (!isPointerDown) return;
-    if (Math.abs(e.clientX - pointerStartX) > 10) {
+    if (Math.abs(e.clientX - pointerStartX) > 35) {
       wasDragging = true;
     }
   });
@@ -807,12 +820,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isPointerDown) return;
     isPointerDown = false;
     const dragDistance = e.clientX - pointerStartX;
-    if (dragDistance > 55) {
-      goToSlide(currentGraniteIndex - 1);
-    } else if (dragDistance < -55) {
-      goToSlide(currentGraniteIndex + 1);
+    if (Math.abs(dragDistance) > 45) {
+      wasDragging = true;
+      if (dragDistance > 45) {
+        goToSlide(currentGraniteIndex - 1);
+      } else if (dragDistance < -45) {
+        goToSlide(currentGraniteIndex + 1);
+      }
+      setTimeout(() => { wasDragging = false; }, 100);
+    } else {
+      wasDragging = false;
     }
-    setTimeout(() => { wasDragging = false; }, 80);
   });
 
   // 3. Scroll-Driven White Sheet Cover & Soft Granite UI Reveal
@@ -820,6 +838,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const warmCurtain = document.getElementById('warm-ivory-curtain');
   const graniteInner = document.getElementById('granite-collection-inner');
   const navHomeLink = document.getElementById('nav-home');
+  const navAboutLink = document.getElementById('nav-about');
   const navProductsLink = document.getElementById('nav-products');
 
   // Granite Finder DOM Elements
@@ -856,7 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isTileActive = false;
   let isTransitioning = false;
   let finderTouchStartY = 0;
-  let currentTileIndex = 2; // Initial hero: Calacatta Gold in center
+  let currentTileIndex = 0; // Starts at initial valid state (index 0)
 
   // Premium Architectural Tile Collection Data
   const TILE_COLLECTION = [
@@ -1015,12 +1034,11 @@ document.addEventListener('DOMContentLoaded', () => {
       tileSection.scrollTop = 0;
     }
 
-    currentTileIndex = 2; // Calacatta Gold
-    renderTileSlider(2);
+    currentTileIndex = 0;
+    renderTileSlider(0);
     if (typeof resetPillHandle === 'function') {
       resetPillHandle();
     }
-    isPillUnlocked = false;
 
     // Reset finder curtain
     if (finderCurtain) {
@@ -1659,7 +1677,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (idx !== currentTileIndex) {
           goToTileSlide(idx);
         } else {
-          completePillSlide();
+          window.open('https://balajitiles.com', '_blank');
         }
       });
 
@@ -1676,13 +1694,16 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTilePagination();
     renderTileSlider(currentTileIndex);
 
-    // Interactive DRAG TO EXPLORE Pill (Slide to Explore Balaji Tiles)
+    // Interactive DRAG TO EXPLORE Pill (Dragging left/right switches tiles)
     if (tileDragPill) {
+      let isPillDragging = false;
+      let pillDragStartX = 0;
+      let pillDeltaX = 0;
+
       tileDragPill.addEventListener('pointerdown', (e) => {
-        if (isPillUnlocked) return;
         isPillDragging = true;
         pillDragStartX = e.clientX;
-        pillCurrentDeltaX = 0;
+        pillDeltaX = 0;
         try {
           tileDragPill.setPointerCapture(e.pointerId);
         } catch (err) {}
@@ -1692,63 +1713,50 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       tileDragPill.addEventListener('pointermove', (e) => {
-        if (!isPillDragging || isPillUnlocked) return;
-        const maxSlide = getMaxPillSlide();
-        const rawDelta = e.clientX - pillDragStartX;
-        const deltaX = Math.max(0, Math.min(maxSlide, rawDelta));
-        pillCurrentDeltaX = deltaX;
-
+        if (!isPillDragging) return;
+        pillDeltaX = e.clientX - pillDragStartX;
+        const visualDelta = Math.max(-50, Math.min(50, pillDeltaX));
         if (dragHandleWrap) {
-          dragHandleWrap.style.transform = `translate3d(${deltaX}px, 0, 0)`;
-        }
-
-        const progress = deltaX / maxSlide;
-
-        if (dragTrackFill) {
-          dragTrackFill.style.width = `${(progress * 100).toFixed(1)}%`;
-        }
-
-        if (dragPillLabel) {
-          dragPillLabel.style.opacity = (1 - progress * 0.85).toFixed(2);
-        }
-
-        if (dragPillArrowRight) {
-          dragPillArrowRight.style.transform = `translateX(${progress * 6}px) scale(${1 + progress * 0.15})`;
+          dragHandleWrap.style.transform = `translate3d(${visualDelta}px, 0, 0)`;
         }
       });
 
-      const onPointerUp = (e) => {
-        if (!isPillDragging || isPillUnlocked) return;
+      const onPillEnd = (e) => {
+        if (!isPillDragging) return;
         isPillDragging = false;
-        const maxSlide = getMaxPillSlide();
-
-        // If dragged at least 65% of the slide track -> Complete slide & navigate!
-        if (pillCurrentDeltaX >= maxSlide * 0.65) {
-          completePillSlide();
-        } else {
-          resetPillHandle();
+        if (dragHandleWrap) {
+          dragHandleWrap.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+          dragHandleWrap.style.transform = 'translate3d(0, 0, 0)';
+        }
+        if (pillDeltaX < -25) {
+          // Dragged left -> next tile
+          goToTileSlide(currentTileIndex + 1);
+        } else if (pillDeltaX > 25) {
+          // Dragged right -> previous tile
+          goToTileSlide(currentTileIndex - 1);
         }
       };
 
-      tileDragPill.addEventListener('pointerup', onPointerUp);
-      tileDragPill.addEventListener('pointercancel', resetPillHandle);
+      tileDragPill.addEventListener('pointerup', onPillEnd);
+      tileDragPill.addEventListener('pointercancel', onPillEnd);
 
-      // Direct click on circular arrow button or right arrow triggers slide completion
+      // Direct click on circular arrow button -> advance to next tile
       if (dragArrowBtn) {
         dragArrowBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (!isPillUnlocked) {
-            completePillSlide();
+          if (currentTileIndex < TILE_COLLECTION.length - 1) {
+            goToTileSlide(currentTileIndex + 1);
           }
         });
       }
 
       const pillRightArrow = document.getElementById('drag-pill-arrow-right');
       if (pillRightArrow) {
+        pillRightArrow.style.cursor = 'pointer';
         pillRightArrow.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (!isPillUnlocked) {
-            completePillSlide();
+          if (currentTileIndex < TILE_COLLECTION.length - 1) {
+            goToTileSlide(currentTileIndex + 1);
           }
         });
       }
@@ -1831,6 +1839,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Connect Navbar "About" link to smooth scroll to collection
+  if (navAboutLink) {
+    navAboutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isTileActive) {
+        transitionBackToFinder();
+      }
+      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+      const targetScroll = trackH - window.innerHeight;
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Connect Navbar "Products" link to smooth scroll as well
   if (navProductsLink) {
     navProductsLink.addEventListener('click', (e) => {
@@ -1869,11 +1893,21 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
 
   const finderTiles = document.querySelectorAll('.finder-tile');
-  let selectedPreferences = {
-    app: 'kitchen',
+
+  // Single deterministic source of truth for Finder State
+  const finderState = {
+    application: 'kitchen',
     tone: 'dark',
-    finish: 'polished'
+    finish: 'polished',
+    results: []
   };
+
+  // Provide seamless alias getters/setters for .app
+  Object.defineProperty(finderState, 'app', {
+    get() { return this.application; },
+    set(v) { this.application = v; },
+    enumerable: true
+  });
 
   finderTiles.forEach(tile => {
     tile.addEventListener('click', () => {
@@ -1881,7 +1915,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const value = tile.dataset.value;
       if (!group || !value) return;
 
-      selectedPreferences[group] = value;
+      if (group === 'app' || group === 'application') {
+        finderState.application = value;
+      } else if (group === 'tone') {
+        finderState.tone = value;
+      } else if (group === 'finish') {
+        finderState.finish = value;
+      }
 
       document.querySelectorAll(`.finder-tile[data-group="${group}"]`).forEach(t => {
         t.classList.remove('is-selected');
@@ -1893,7 +1933,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function filterGranites(prefs) {
-    const app = prefs.app;
+    const app = prefs.application || prefs.app;
     const tone = prefs.tone;
     const finish = prefs.finish;
 
@@ -1947,7 +1987,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showFinderResults() {
-    const { matches, matchQuality } = filterGranites(selectedPreferences);
+    const { matches, matchQuality } = filterGranites(finderState);
+    finderState.results = matches;
 
     if (finderResultsCount) {
       finderResultsCount.textContent = `${matches.length} GRANITES MATCHED`;
@@ -1959,9 +2000,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (finderResultsSubtitle) {
       if (matchQuality === 'exact') {
-        const appName = selectedPreferences.app.charAt(0).toUpperCase() + selectedPreferences.app.slice(1);
-        const toneName = selectedPreferences.tone.charAt(0).toUpperCase() + selectedPreferences.tone.slice(1);
-        const finishName = selectedPreferences.finish.charAt(0).toUpperCase() + selectedPreferences.finish.slice(1);
+        const appVal = finderState.application || 'all';
+        const appName = appVal.charAt(0).toUpperCase() + appVal.slice(1);
+        const toneName = finderState.tone.charAt(0).toUpperCase() + finderState.tone.slice(1);
+        const finishName = finderState.finish.charAt(0).toUpperCase() + finderState.finish.slice(1);
         finderResultsSubtitle.textContent = `Based on your preferences (${appName} · ${toneName} · ${finishName}), here are the stones that match.`;
       } else {
         finderResultsSubtitle.textContent = "Here are some close matches based on your preferences.";
@@ -2045,6 +2087,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Expose finder state & methods
+  window.finderState = finderState;
+  window.showFinderResults = showFinderResults;
 
   /* ==========================================================================
      Granite Product Detail Modal & High-Resolution Lightbox System
@@ -2202,6 +2248,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalBackdrop.classList.remove('is-open');
       modalBackdrop.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
   }
 
