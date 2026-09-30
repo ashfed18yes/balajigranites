@@ -846,7 +846,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const tileDragPill = document.getElementById('tile-drag-pill');
   const dragHandleWrap = document.getElementById('drag-handle-wrap');
   const dragArrowBtn = document.getElementById('drag-arrow-btn');
-  const tilePortalBtn = document.getElementById('tile-portal-btn');
+  const dragPillLabel = document.getElementById('drag-pill-label');
+  const dragPillArrowRight = document.getElementById('drag-pill-arrow-right');
+  const dragTrackFill = document.getElementById('drag-track-fill');
 
   let scrollRafId = null;
   let currentScrollProgress = 0;
@@ -1015,6 +1017,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentTileIndex = 2; // Calacatta Gold
     renderTileSlider(2);
+    if (typeof resetPillHandle === 'function') {
+      resetPillHandle();
+    }
+    isPillUnlocked = false;
 
     // Reset finder curtain
     if (finderCurtain) {
@@ -1416,12 +1422,89 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
 
   let isPillDragging = false;
-  let pillDragMoved = false;
   let pillDragStartX = 0;
+  let pillCurrentDeltaX = 0;
+  let isPillUnlocked = false;
 
   let isStageDragging = false;
   let stageDragMoved = false;
   let stageDragStartX = 0;
+
+  function getMaxPillSlide() {
+    if (!tileDragPill || !dragHandleWrap) return 260;
+    const pillWidth = tileDragPill.clientWidth;
+    const handleWidth = dragHandleWrap.offsetWidth || 44;
+    return Math.max(100, pillWidth - handleWidth - 14);
+  }
+
+  function completePillSlide() {
+    if (isPillUnlocked) return;
+    isPillUnlocked = true;
+
+    const maxSlide = getMaxPillSlide();
+
+    if (dragHandleWrap) {
+      dragHandleWrap.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+      dragHandleWrap.style.transform = `translate3d(${maxSlide}px, 0, 0)`;
+    }
+
+    if (dragTrackFill) {
+      dragTrackFill.style.width = '100%';
+    }
+
+    if (dragPillLabel) {
+      dragPillLabel.textContent = 'EXPLORING BALAJI TILES...';
+      dragPillLabel.style.opacity = '1';
+    }
+
+    if (tileDragPill) {
+      tileDragPill.classList.add('is-unlocked');
+    }
+
+    setTimeout(() => {
+      if (typeof window.openBalajiTilesWebsite === 'function') {
+        window.openBalajiTilesWebsite();
+      } else {
+        window.location.href = 'https://balajitiles.com';
+      }
+    }, 320);
+  }
+
+  window.openBalajiTilesWebsite = function() {
+    window.location.href = 'https://balajitiles.com';
+  };
+
+  function resetPillHandle() {
+    isPillDragging = false;
+    pillCurrentDeltaX = 0;
+
+    if (isPillUnlocked) return;
+
+    if (dragHandleWrap) {
+      dragHandleWrap.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      dragHandleWrap.style.transform = 'translate3d(0, 0, 0)';
+    }
+
+    if (dragTrackFill) {
+      dragTrackFill.style.width = '0%';
+    }
+
+    if (dragPillLabel) {
+      dragPillLabel.textContent = 'DRAG TO EXPLORE';
+      dragPillLabel.style.opacity = '1';
+    }
+
+    if (dragPillArrowRight) {
+      dragPillArrowRight.style.transform = 'none';
+    }
+
+    if (tileDragPill) {
+      tileDragPill.classList.remove('is-unlocked');
+    }
+  }
+
+  window.completePillSlide = completePillSlide;
+  window.resetPillHandle = resetPillHandle;
 
   function renderTileSlider(activeIdx) {
     currentTileIndex = Math.max(0, Math.min(TILE_COLLECTION.length - 1, activeIdx));
@@ -1576,7 +1659,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (idx !== currentTileIndex) {
           goToTileSlide(idx);
         } else {
-          if (tilePortalBtn) tilePortalBtn.focus();
+          completePillSlide();
         }
       });
 
@@ -1593,25 +1676,13 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTilePagination();
     renderTileSlider(currentTileIndex);
 
-    // Circular Next Arrow Button
-    if (dragArrowBtn) {
-      dragArrowBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (currentTileIndex < TILE_COLLECTION.length - 1) {
-          goToTileSlide(currentTileIndex + 1);
-        } else {
-          goToTileSlide(0); // Wrap around when clicked at end
-        }
-      });
-    }
-
-    // Interactive DRAG TO EXPLORE Pill
+    // Interactive DRAG TO EXPLORE Pill (Slide to Explore Balaji Tiles)
     if (tileDragPill) {
       tileDragPill.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('#drag-arrow-btn')) return;
+        if (isPillUnlocked) return;
         isPillDragging = true;
-        pillDragMoved = false;
         pillDragStartX = e.clientX;
+        pillCurrentDeltaX = 0;
         try {
           tileDragPill.setPointerCapture(e.pointerId);
         } catch (err) {}
@@ -1621,38 +1692,66 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       tileDragPill.addEventListener('pointermove', (e) => {
-        if (!isPillDragging) return;
-        const deltaX = e.clientX - pillDragStartX;
-        if (Math.abs(deltaX) > 6) {
-          pillDragMoved = true;
-        }
-        const clampedDelta = Math.max(-20, Math.min(180, deltaX));
+        if (!isPillDragging || isPillUnlocked) return;
+        const maxSlide = getMaxPillSlide();
+        const rawDelta = e.clientX - pillDragStartX;
+        const deltaX = Math.max(0, Math.min(maxSlide, rawDelta));
+        pillCurrentDeltaX = deltaX;
+
         if (dragHandleWrap) {
-          dragHandleWrap.style.transform = `translate3d(${clampedDelta}px, 0, 0)`;
+          dragHandleWrap.style.transform = `translate3d(${deltaX}px, 0, 0)`;
+        }
+
+        const progress = deltaX / maxSlide;
+
+        if (dragTrackFill) {
+          dragTrackFill.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+
+        if (dragPillLabel) {
+          dragPillLabel.style.opacity = (1 - progress * 0.85).toFixed(2);
+        }
+
+        if (dragPillArrowRight) {
+          dragPillArrowRight.style.transform = `translateX(${progress * 6}px) scale(${1 + progress * 0.15})`;
         }
       });
 
-      const endPillDrag = (e) => {
-        if (!isPillDragging) return;
+      const onPointerUp = (e) => {
+        if (!isPillDragging || isPillUnlocked) return;
         isPillDragging = false;
-        const deltaX = e.clientX - pillDragStartX;
+        const maxSlide = getMaxPillSlide();
 
-        if (dragHandleWrap) {
-          dragHandleWrap.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-          dragHandleWrap.style.transform = 'translate3d(0, 0, 0)';
-        }
-
-        if (pillDragMoved) {
-          if (deltaX > 30) {
-            goToTileSlide(currentTileIndex + 1);
-          } else if (deltaX < -30) {
-            goToTileSlide(currentTileIndex - 1);
-          }
+        // If dragged at least 65% of the slide track -> Complete slide & navigate!
+        if (pillCurrentDeltaX >= maxSlide * 0.65) {
+          completePillSlide();
+        } else {
+          resetPillHandle();
         }
       };
 
-      tileDragPill.addEventListener('pointerup', endPillDrag);
-      tileDragPill.addEventListener('pointercancel', endPillDrag);
+      tileDragPill.addEventListener('pointerup', onPointerUp);
+      tileDragPill.addEventListener('pointercancel', resetPillHandle);
+
+      // Direct click on circular arrow button or right arrow triggers slide completion
+      if (dragArrowBtn) {
+        dragArrowBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!isPillUnlocked) {
+            completePillSlide();
+          }
+        });
+      }
+
+      const pillRightArrow = document.getElementById('drag-pill-arrow-right');
+      if (pillRightArrow) {
+        pillRightArrow.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!isPillUnlocked) {
+            completePillSlide();
+          }
+        });
+      }
     }
 
     // Direct Track / Viewport Drag Support

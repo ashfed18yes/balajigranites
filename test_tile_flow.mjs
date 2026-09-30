@@ -162,9 +162,9 @@ async function run() {
 
     await client.captureScreenshot('test_tile_revealed.png');
 
-    // 5. Test Next Arrow Button Interaction
-    console.log('\n--- TEST 5: Clicking Next Arrow Button ---');
-    await client.eval(`document.getElementById('drag-arrow-btn').click()`);
+    // 5. Test Slab Navigation via Pagination Dot
+    console.log('\n--- TEST 5: Clicking Pagination Dot to Switch Slab ---');
+    await client.eval(`document.querySelectorAll('.tile-dot')[3].click()`);
     await sleep(700);
 
     const advancedState = await client.eval(`
@@ -179,16 +179,17 @@ async function run() {
         };
       })()
     `);
-    console.log('Advanced Tile state after arrow click:', advancedState);
+    console.log('Advanced Tile state after dot click:', advancedState);
     if (advancedState.activeDotIndex !== 3) throw new Error('Active index did not advance to 3');
 
     await client.captureScreenshot('test_tile_next_slab.png');
 
-    // 6. Test Portal CTA Link
-    console.log('\n--- TEST 6: Verifying Balaji Tiles Portal Link ---');
-    const portalUrl = await client.eval(`document.getElementById('tile-portal-btn').getAttribute('href')`);
-    console.log('Portal CTA URL:', portalUrl);
-    if (portalUrl !== 'https://balajitiles.com') throw new Error('Portal URL is incorrect');
+    // 6. Test DRAG TO EXPLORE Pill & Portal Destination
+    console.log('\n--- TEST 6: Verifying DRAG TO EXPLORE slide setup ---');
+    const pillExists = await client.eval(`document.getElementById('tile-drag-pill') !== null`);
+    const portalBtnRemoved = await client.eval(`document.getElementById('tile-portal-btn') === null`);
+    console.log(`Pill exists: ${pillExists}, Old button removed: ${portalBtnRemoved}`);
+    if (!pillExists || !portalBtnRemoved) throw new Error('Pill setup incorrect');
 
     // 7. Test Upward Transition Back to Granite Finder
     console.log('\n--- TEST 7: Upward Scroll -> Reverse Transition to Granite Finder ---');

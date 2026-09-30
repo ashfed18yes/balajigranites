@@ -2587,68 +2587,51 @@ html, body {
   transform: translateX(4px);
 }
 
-/* Right: Side Label & Portal Link */
+.drag-track-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(201, 147, 62, 0.35) 0%, rgba(201, 147, 62, 0.1) 100%);
+  border-radius: 9999px;
+  pointer-events: none;
+  transition: width 0.05s linear;
+}
+
+.tile-drag-pill.is-unlocked {
+  border-color: #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.45), 0 14px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Right: Side Editorial Label */
 .tile-side-cta-wrap {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
   min-width: 200px;
 }
 
 .tile-side-label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 9.5px;
+  gap: 12px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: #7a766e;
   text-transform: uppercase;
 }
 
 .side-label-sub {
-  color: #4a4740;
+  color: #3f3c36;
 }
 
 .side-label-line {
   display: inline-block;
-  width: 24px;
+  width: 32px;
   height: 1px;
   background: #b5b0a4;
-}
-
-.tile-portal-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  background: #171614;
-  color: #f7f6f2;
-  border: 1px solid rgba(201, 147, 62, 0.5);
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-decoration: none;
-  transition: all 0.3s var(--ease-hover);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  white-space: nowrap;
-}
-
-.tile-portal-btn:hover {
-  background: #252420;
-  border-color: rgba(224, 172, 85, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-.tile-portal-btn svg {
-  transition: transform 0.25s ease;
-}
-
-.tile-portal-btn:hover svg {
-  transform: translateX(3px);
 }
 
 /* Responsive Adaptations */
@@ -2723,12 +2706,6 @@ html, body {
 
   .drag-pill-label {
     font-size: 10px;
-  }
-
-  .tile-portal-btn {
-    width: 100%;
-    max-width: 320px;
-    justify-content: center;
   }
 }
 

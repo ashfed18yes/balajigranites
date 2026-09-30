@@ -336,22 +336,24 @@
               <!-- Dynamically rendered by script.js -->
             </div>
 
-            <!-- Center: Interactive DRAG TO EXPLORE Pill -->
-            <div class="tile-drag-pill" id="tile-drag-pill" role="slider" aria-label="Drag to explore tiles" tabindex="0">
+            <!-- Center: Interactive DRAG TO EXPLORE Pill (Slide to Explore Balaji Tiles) -->
+            <div class="tile-drag-pill" id="tile-drag-pill" role="slider" aria-label="Drag to explore Balaji Tiles" tabindex="0">
+              <div class="drag-track-fill" id="drag-track-fill"></div>
+
               <div class="drag-handle-wrap" id="drag-handle-wrap">
                 <div class="drag-halo-indicator">
                   <span class="halo-dot"></span>
                 </div>
-                <button type="button" class="drag-arrow-btn" id="drag-arrow-btn" aria-label="Next Tile">
+                <button type="button" class="drag-arrow-btn" id="drag-arrow-btn" aria-label="Slide to explore Balaji Tiles">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
                 </button>
               </div>
 
-              <span class="drag-pill-label">DRAG TO EXPLORE</span>
+              <span class="drag-pill-label" id="drag-pill-label">DRAG TO EXPLORE</span>
 
-              <div class="drag-pill-arrow-right">
+              <div class="drag-pill-arrow-right" id="drag-pill-arrow-right">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
@@ -359,20 +361,13 @@
               </div>
             </div>
 
-            <!-- Right: Side Editorial Label & Portal Link -->
+            <!-- Right: Side Editorial Label (Matching Reference Mockup) -->
             <div class="tile-side-cta-wrap">
               <div class="tile-side-label">
                 <span class="side-label-top">EXPLORE OUR</span>
                 <span class="side-label-sub">TILE COLLECTION</span>
                 <span class="side-label-line"></span>
               </div>
-              <a href="https://balajitiles.com" target="_blank" rel="noopener" class="tile-portal-btn" id="tile-portal-btn" aria-label="Explore Balaji Tiles website">
-                <span>EXPLORE BALAJI TILES</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
             </div>
 
           </div>
