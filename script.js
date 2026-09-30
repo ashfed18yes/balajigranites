@@ -836,11 +836,92 @@ document.addEventListener('DOMContentLoaded', () => {
   const finderResultsSubtitle = document.getElementById('finder-results-subtitle');
   const finderChangePrefBtn = document.getElementById('finder-change-pref-btn');
 
+  // Tile Collection DOM Elements
+  const tileCurtain = document.getElementById('tile-ivory-curtain');
+  const tileSection = document.getElementById('tile-section');
+  const tileSectionInner = document.getElementById('tile-section-inner');
+  const tileStageViewport = document.getElementById('tile-stage-viewport');
+  const tileSlabsTrack = document.getElementById('tile-slabs-track');
+  const tilePagination = document.getElementById('tile-pagination');
+  const tileDragPill = document.getElementById('tile-drag-pill');
+  const dragHandleWrap = document.getElementById('drag-handle-wrap');
+  const dragArrowBtn = document.getElementById('drag-arrow-btn');
+  const tilePortalBtn = document.getElementById('tile-portal-btn');
+
   let scrollRafId = null;
   let currentScrollProgress = 0;
   let isFinderActive = false;
+  let isTileActive = false;
   let isTransitioning = false;
   let finderTouchStartY = 0;
+  let currentTileIndex = 2; // Initial hero: Calacatta Gold in center
+
+  // Premium Architectural Tile Collection Data
+  const TILE_COLLECTION = [
+    {
+      id: "slate-charcoal",
+      name: "Graphite Charcoal Marble",
+      category: "MINIMALIST TILES",
+      image: "assets/tiles/slate_charcoal.jpg",
+      size: "800 x 1600 mm",
+      finish: "Matte Velvet",
+      desc: "Deep moody graphite with subtle white crystalline mineral fissures."
+    },
+    {
+      id: "crema-marfil",
+      name: "Crema Marfil Classic",
+      category: "WARM NEUTRAL TILES",
+      image: "assets/tiles/crema_marfil.jpg",
+      size: "1200 x 1800 mm",
+      finish: "Soft Sheen",
+      desc: "Gentle creamy beige base with feather-soft cinnamon and ivory veining."
+    },
+    {
+      id: "calacatta-gold",
+      name: "Calacatta Gold Porcelain",
+      category: "LUXURY SLAB TILES",
+      image: "assets/tiles/calacatta_gold.jpg",
+      size: "1200 x 2400 mm",
+      finish: "High Gloss Glazed",
+      desc: "Sublime Italian marble aesthetics with warm golden veining and crystal white clarity."
+    },
+    {
+      id: "silver-river",
+      name: "Silver River Polished",
+      category: "CONTEMPORARY TILES",
+      image: "assets/tiles/silver_river.jpg",
+      size: "1200 x 1800 mm",
+      finish: "Silk Polish",
+      desc: "Harmonious smoky grey veining cascading across an architectural limestone tone."
+    },
+    {
+      id: "sand-travertine",
+      name: "Navona Sand Travertine",
+      category: "NATURAL STONE TILES",
+      image: "assets/tiles/sand_travertine.jpg",
+      size: "800 x 1600 mm",
+      finish: "Satin Honed",
+      desc: "Earthy warmth and linear porous textures inspired by classical Roman architecture."
+    },
+    {
+      id: "portoro-gold",
+      name: "Nero Portoro Royale",
+      category: "EXOTIC LUXE SLABS",
+      image: "assets/tiles/portoro_gold.jpg",
+      size: "1200 x 2400 mm",
+      finish: "Mirror Polish",
+      desc: "Dramatic obsidian black canvas shot with deep molten gold and amber lightning veins."
+    },
+    {
+      id: "arabescato-white",
+      name: "Arabescato Corchia",
+      category: "ARCHITECTURAL SLABS",
+      image: "assets/tiles/arabescato_white.jpg",
+      size: "1200 x 2400 mm",
+      finish: "Polished Glaze",
+      desc: "Classic Italian arabesque marble with expressive slate-charcoal brecciated webbing."
+    }
+  ];
 
   function updateTransition() {
     scrollRafId = null;
@@ -898,20 +979,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // from opacity: 0, translateY(20px), blur(6px) to opacity: 1, translateY(0), blur(0)
     const revealProgress = Math.max(0, Math.min(1, (progress - 0.85) / 0.15));
 
-    if (graniteInner && !isFinderActive && !isTransitioning) {
+    if (graniteInner && !isFinderActive && !isTileActive && !isTransitioning) {
       graniteInner.style.opacity = revealProgress.toFixed(3);
       graniteInner.style.transform = `translate3d(0, ${(1 - revealProgress) * 20}px, 0)`;
       graniteInner.style.filter = `blur(${((1 - revealProgress) * 6).toFixed(1)}px)`;
     }
 
-    if (graniteSection && !isFinderActive) {
+    if (graniteSection && !isFinderActive && !isTileActive) {
       graniteSection.style.pointerEvents = revealProgress > 0.7 ? 'auto' : 'none';
     }
   }
 
   function resetExperienceToTop() {
     isFinderActive = false;
+    isTileActive = false;
     isTransitioning = false;
+
+    // Reset tile curtain & inner
+    if (tileCurtain) {
+      tileCurtain.style.transition = 'none';
+      tileCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    if (tileSectionInner) {
+      tileSectionInner.style.transition = 'none';
+      tileSectionInner.style.opacity = '0';
+      tileSectionInner.style.transform = 'translate3d(0, 20px, 0)';
+      tileSectionInner.style.filter = 'blur(4px)';
+    }
+
+    if (tileSection) {
+      tileSection.style.pointerEvents = 'none';
+      tileSection.scrollTop = 0;
+    }
+
+    currentTileIndex = 2; // Calacatta Gold
+    renderTileSlider(2);
 
     // Reset finder curtain
     if (finderCurtain) {
@@ -1086,11 +1189,115 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 850);
   }
 
+  /* ==========================================================================
+     Granite Finder → Tile Collection Cinematic Transition (Bidirectional)
+     ========================================================================== */
+
+  function transitionToTiles() {
+    if (isTileActive || isTransitioning) return;
+    isTransitioning = true;
+
+    // STEP 3: Temporarily take control of transition.
+    // Prevent normal scrolling from fighting the animation during this short transition.
+    const preventScrollFight = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    // STEP 4: As the ivory layer rises, Granite Finder subtly blurs/dims
+    if (finderInner) {
+      finderInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
+      finderInner.style.opacity = '0';
+      finderInner.style.filter = 'blur(4px)';
+    }
+
+    // STEP 4: The full-screen warm ivory layer begins rising from the bottom
+    // translateY(100%) → translateY(0%) over 850ms, cubic-bezier(0.16, 1, 0.3, 1)
+    if (tileCurtain) {
+      tileCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      tileCurtain.style.transform = 'translate3d(0, 0%, 0)';
+    }
+
+    // STEP 5: Once ivory layer has covered ~70–80% (~550ms), reveal Tile section
+    setTimeout(() => {
+      if (tileSectionInner) {
+        tileSectionInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        tileSectionInner.style.opacity = '1';
+        tileSectionInner.style.transform = 'translate3d(0, 0, 0)';
+        tileSectionInner.style.filter = 'blur(0px)';
+      }
+    }, 550);
+
+    // STEP 6: Curtain reaches full coverage, release temporary scroll lock, normal scrolling resumes
+    setTimeout(() => {
+      isTileActive = true;
+      isTransitioning = false;
+      window.removeEventListener('wheel', preventScrollFight);
+      window.removeEventListener('touchmove', preventScrollFight);
+
+      if (tileSection) {
+        tileSection.style.pointerEvents = 'auto';
+      }
+      if (graniteFinder) {
+        graniteFinder.style.pointerEvents = 'none';
+      }
+    }, 850);
+  }
+
+  function transitionBackToFinder() {
+    if (!isTileActive || isTransitioning) return;
+    isTransitioning = true;
+
+    const preventScrollFight = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    if (tileSection) {
+      tileSection.style.pointerEvents = 'none';
+    }
+
+    if (tileSectionInner) {
+      tileSectionInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+      tileSectionInner.style.opacity = '0';
+      tileSectionInner.style.transform = 'translate3d(0, 20px, 0)';
+      tileSectionInner.style.filter = 'blur(4px)';
+    }
+
+    if (tileCurtain) {
+      tileCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      tileCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    setTimeout(() => {
+      if (finderInner) {
+        finderInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        finderInner.style.opacity = '1';
+        finderInner.style.filter = 'blur(0px)';
+      }
+    }, 350);
+
+    setTimeout(() => {
+      isTileActive = false;
+      isTransitioning = false;
+      window.removeEventListener('wheel', preventScrollFight);
+      window.removeEventListener('touchmove', preventScrollFight);
+
+      if (graniteFinder) {
+        graniteFinder.style.pointerEvents = 'auto';
+      }
+    }, 850);
+  }
+
   // Expose on window for verification
   window.transitionToFinder = transitionToFinder;
   window.transitionBackToCollection = transitionBackToCollection;
+  window.transitionToTiles = transitionToTiles;
+  window.transitionBackToFinder = transitionBackToFinder;
 
-  // Controlled Gesture Listeners for Granite Collection <-> Granite Finder
+  // Controlled Gesture Listeners for Granite Collection <-> Granite Finder <-> Tile Section
   window.addEventListener('touchstart', (e) => {
     if (e.touches && e.touches.length > 0) {
       finderTouchStartY = e.touches[0].clientY;
@@ -1101,21 +1308,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Safety: ignore if modal or lightbox is open, or if dragging
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
-    if (wasDragging || isPointerDown) return;
+    if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
 
-    // 1. One downward scroll gesture at end of Granite Collection
-    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+    // 1. One downward scroll gesture at end of Granite Collection -> Finder
+    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
       if (e.deltaY > 15) {
         e.preventDefault();
         transitionToFinder();
       }
     }
-    // 2. Upward scroll gesture at top of Granite Finder
-    else if (isFinderActive && !isTransitioning) {
+    // 2. Upward scroll gesture at top of Granite Finder -> Collection
+    else if (isFinderActive && !isTileActive && !isTransitioning) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && e.deltaY < -15) {
         e.preventDefault();
         transitionBackToCollection();
+      } else {
+        // 3. Downward scroll gesture at end of Granite Finder -> Tile Section
+        const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
+        if (isFinderAtEnd && e.deltaY > 15) {
+          e.preventDefault();
+          transitionToTiles();
+        }
+      }
+    }
+    // 4. Upward scroll gesture at top of Tile Section -> Finder
+    else if (isTileActive && !isTransitioning) {
+      const tileTop = tileSection ? tileSection.scrollTop : 0;
+      if (tileTop <= 2 && e.deltaY < -15) {
+        e.preventDefault();
+        transitionBackToFinder();
       }
     }
   }, { passive: false });
@@ -1123,22 +1345,34 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('touchmove', (e) => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
-    if (wasDragging || isPointerDown) return;
+    if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
     if (!e.touches || e.touches.length === 0) return;
 
     const currentY = e.touches[0].clientY;
     const diffY = finderTouchStartY - currentY; // positive = swipe up = scroll down
 
-    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
       if (diffY > 30) {
         e.preventDefault();
         transitionToFinder();
       }
-    } else if (isFinderActive && !isTransitioning) {
+    } else if (isFinderActive && !isTileActive && !isTransitioning) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && diffY < -30) {
         e.preventDefault();
         transitionBackToCollection();
+      } else {
+        const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
+        if (isFinderAtEnd && diffY > 30) {
+          e.preventDefault();
+          transitionToTiles();
+        }
+      }
+    } else if (isTileActive && !isTransitioning) {
+      const tileTop = tileSection ? tileSection.scrollTop : 0;
+      if (tileTop <= 2 && diffY < -30) {
+        e.preventDefault();
+        transitionBackToFinder();
       }
     }
   }, { passive: false });
@@ -1147,19 +1381,319 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
 
-    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         transitionToFinder();
       }
-    } else if (isFinderActive && !isTransitioning) {
+    } else if (isFinderActive && !isTileActive && !isTransitioning) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
         e.preventDefault();
         transitionBackToCollection();
+      } else {
+        const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
+        if (isFinderAtEnd && (e.key === 'ArrowDown' || e.key === 'PageDown')) {
+          e.preventDefault();
+          transitionToTiles();
+        }
+      }
+    } else if (isTileActive && !isTransitioning) {
+      const tileTop = tileSection ? tileSection.scrollTop : 0;
+      if (tileTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
+        e.preventDefault();
+        transitionBackToFinder();
+      } else if (e.key === 'ArrowLeft') {
+        goToTileSlide(currentTileIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        goToTileSlide(currentTileIndex + 1);
       }
     }
   });
+
+  /* ==========================================================================
+     Tile Collection Slider Showcase Engine & Drag Controls
+     ========================================================================== */
+
+  let isPillDragging = false;
+  let pillDragMoved = false;
+  let pillDragStartX = 0;
+
+  let isStageDragging = false;
+  let stageDragMoved = false;
+  let stageDragStartX = 0;
+
+  function renderTileSlider(activeIdx) {
+    currentTileIndex = Math.max(0, Math.min(TILE_COLLECTION.length - 1, activeIdx));
+    const slabs = tileSlabsTrack ? tileSlabsTrack.querySelectorAll('.tile-slab-item') : [];
+    const isMobile = window.innerWidth <= 640;
+    const isTablet = window.innerWidth > 640 && window.innerWidth <= 1024;
+
+    slabs.forEach((slab, idx) => {
+      const diff = idx - currentTileIndex;
+
+      let transform = '';
+      let opacity = 0;
+      let zIndex = 0;
+      let pointerEvents = 'none';
+      let boxShadow = 'none';
+
+      if (diff === 0) {
+        // Central Hero Slab
+        transform = isMobile 
+          ? 'translate3d(0, 0, 40px) scale(1)' 
+          : 'translate3d(0, 0, 80px) scale(1) rotateY(0deg)';
+        opacity = 1;
+        zIndex = 10;
+        pointerEvents = 'auto';
+        boxShadow = '0 28px 60px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.12)';
+      } else if (diff === -1) {
+        // Mid Left Slab
+        transform = isMobile 
+          ? 'translate3d(-65%, 0, 0px) scale(0.78)' 
+          : isTablet
+            ? 'translate3d(-55%, 0, 10px) scale(0.82) rotateY(6deg)'
+            : 'translate3d(-58%, 0, 20px) scale(0.84) rotateY(8deg)';
+        opacity = 0.92;
+        zIndex = 5;
+        pointerEvents = 'auto';
+        boxShadow = '0 16px 36px rgba(0, 0, 0, 0.14)';
+      } else if (diff === 1) {
+        // Mid Right Slab
+        transform = isMobile 
+          ? 'translate3d(65%, 0, 0px) scale(0.78)' 
+          : isTablet
+            ? 'translate3d(55%, 0, 10px) scale(0.82) rotateY(-6deg)'
+            : 'translate3d(58%, 0, 20px) scale(0.84) rotateY(-8deg)';
+        opacity = 0.92;
+        zIndex = 5;
+        pointerEvents = 'auto';
+        boxShadow = '0 16px 36px rgba(0, 0, 0, 0.14)';
+      } else if (diff === -2 && !isMobile) {
+        // Far Left Slab
+        transform = isTablet
+          ? 'translate3d(-96%, 0, -30px) scale(0.68) rotateY(10deg)'
+          : 'translate3d(-102%, 0, -40px) scale(0.72) rotateY(12deg)';
+        opacity = 0.72;
+        zIndex = 2;
+        pointerEvents = 'auto';
+        boxShadow = '0 10px 24px rgba(0, 0, 0, 0.1)';
+      } else if (diff === 2 && !isMobile) {
+        // Far Right Slab
+        transform = isTablet
+          ? 'translate3d(96%, 0, -30px) scale(0.68) rotateY(-10deg)'
+          : 'translate3d(102%, 0, -40px) scale(0.72) rotateY(-12deg)';
+        opacity = 0.72;
+        zIndex = 2;
+        pointerEvents = 'auto';
+        boxShadow = '0 10px 24px rgba(0, 0, 0, 0.1)';
+      } else if (diff < -2) {
+        // Offstage Left
+        transform = 'translate3d(-150%, 0, -100px) scale(0.6) rotateY(15deg)';
+        opacity = 0;
+        zIndex = 0;
+        pointerEvents = 'none';
+      } else if (diff > 2) {
+        // Offstage Right
+        transform = 'translate3d(150%, 0, -100px) scale(0.6) rotateY(-15deg)';
+        opacity = 0;
+        zIndex = 0;
+        pointerEvents = 'none';
+      }
+
+      slab.style.transform = transform;
+      slab.style.opacity = opacity;
+      slab.style.zIndex = zIndex;
+      slab.style.pointerEvents = pointerEvents;
+      slab.style.boxShadow = boxShadow;
+    });
+
+    // Update minimal pagination dots
+    if (tilePagination) {
+      const dots = tilePagination.querySelectorAll('.tile-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentTileIndex) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // Update next arrow button disabled state
+    if (dragArrowBtn) {
+      if (currentTileIndex >= TILE_COLLECTION.length - 1) {
+        dragArrowBtn.style.opacity = '0.45';
+        dragArrowBtn.style.cursor = 'default';
+      } else {
+        dragArrowBtn.style.opacity = '1';
+        dragArrowBtn.style.cursor = 'pointer';
+      }
+    }
+  }
+
+  function goToTileSlide(targetIdx) {
+    if (targetIdx < 0 || targetIdx >= TILE_COLLECTION.length) return;
+    renderTileSlider(targetIdx);
+  }
+
+  function renderTilePagination() {
+    if (!tilePagination) return;
+    tilePagination.innerHTML = '';
+    TILE_COLLECTION.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `tile-dot ${idx === currentTileIndex ? 'is-active' : ''}`;
+      dot.setAttribute('aria-label', `Go to tile ${idx + 1}`);
+      dot.addEventListener('click', () => {
+        goToTileSlide(idx);
+      });
+      tilePagination.appendChild(dot);
+    });
+  }
+
+  function initTileShowcase() {
+    if (!tileSlabsTrack) return;
+    tileSlabsTrack.innerHTML = '';
+
+    TILE_COLLECTION.forEach((tile, idx) => {
+      const slab = document.createElement('div');
+      slab.className = 'tile-slab-item';
+      slab.dataset.index = idx;
+      slab.setAttribute('role', 'button');
+      slab.setAttribute('tabindex', '0');
+      slab.setAttribute('aria-label', `${tile.name} Tile Slab`);
+
+      slab.innerHTML = `
+        <img class="tile-slab-img" src="${tile.image}" alt="${tile.name} Tile" loading="lazy">
+        <div class="tile-slab-sheen"></div>
+        <div class="tile-slab-shadow"></div>
+      `;
+
+      slab.addEventListener('click', () => {
+        if (idx !== currentTileIndex) {
+          goToTileSlide(idx);
+        } else {
+          if (tilePortalBtn) tilePortalBtn.focus();
+        }
+      });
+
+      slab.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goToTileSlide(idx);
+        }
+      });
+
+      tileSlabsTrack.appendChild(slab);
+    });
+
+    renderTilePagination();
+    renderTileSlider(currentTileIndex);
+
+    // Circular Next Arrow Button
+    if (dragArrowBtn) {
+      dragArrowBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentTileIndex < TILE_COLLECTION.length - 1) {
+          goToTileSlide(currentTileIndex + 1);
+        } else {
+          goToTileSlide(0); // Wrap around when clicked at end
+        }
+      });
+    }
+
+    // Interactive DRAG TO EXPLORE Pill
+    if (tileDragPill) {
+      tileDragPill.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('#drag-arrow-btn')) return;
+        isPillDragging = true;
+        pillDragMoved = false;
+        pillDragStartX = e.clientX;
+        try {
+          tileDragPill.setPointerCapture(e.pointerId);
+        } catch (err) {}
+        if (dragHandleWrap) {
+          dragHandleWrap.style.transition = 'none';
+        }
+      });
+
+      tileDragPill.addEventListener('pointermove', (e) => {
+        if (!isPillDragging) return;
+        const deltaX = e.clientX - pillDragStartX;
+        if (Math.abs(deltaX) > 6) {
+          pillDragMoved = true;
+        }
+        const clampedDelta = Math.max(-20, Math.min(180, deltaX));
+        if (dragHandleWrap) {
+          dragHandleWrap.style.transform = `translate3d(${clampedDelta}px, 0, 0)`;
+        }
+      });
+
+      const endPillDrag = (e) => {
+        if (!isPillDragging) return;
+        isPillDragging = false;
+        const deltaX = e.clientX - pillDragStartX;
+
+        if (dragHandleWrap) {
+          dragHandleWrap.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+          dragHandleWrap.style.transform = 'translate3d(0, 0, 0)';
+        }
+
+        if (pillDragMoved) {
+          if (deltaX > 30) {
+            goToTileSlide(currentTileIndex + 1);
+          } else if (deltaX < -30) {
+            goToTileSlide(currentTileIndex - 1);
+          }
+        }
+      };
+
+      tileDragPill.addEventListener('pointerup', endPillDrag);
+      tileDragPill.addEventListener('pointercancel', endPillDrag);
+    }
+
+    // Direct Track / Viewport Drag Support
+    if (tileStageViewport) {
+      tileStageViewport.addEventListener('pointerdown', (e) => {
+        isStageDragging = true;
+        stageDragMoved = false;
+        stageDragStartX = e.clientX;
+      });
+
+      tileStageViewport.addEventListener('pointermove', (e) => {
+        if (!isStageDragging) return;
+        if (Math.abs(e.clientX - stageDragStartX) > 8) {
+          stageDragMoved = true;
+        }
+      });
+
+      const endStageDrag = (e) => {
+        if (!isStageDragging) return;
+        isStageDragging = false;
+        if (stageDragMoved) {
+          const deltaX = e.clientX - stageDragStartX;
+          if (deltaX < -40) {
+            goToTileSlide(currentTileIndex + 1);
+          } else if (deltaX > 40) {
+            goToTileSlide(currentTileIndex - 1);
+          }
+        }
+      };
+
+      tileStageViewport.addEventListener('pointerup', endStageDrag);
+      tileStageViewport.addEventListener('pointercancel', endStageDrag);
+    }
+  }
+
+  // Initialize tile showcase immediately
+  initTileShowcase();
+
+  // Expose tile functions for verification
+  window.goToTileSlide = goToTileSlide;
+  window.renderTileSlider = renderTileSlider;
 
   function onScroll() {
     if (!scrollRafId) {
@@ -1168,7 +1702,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    onScroll();
+    renderTileSlider(currentTileIndex);
+  }, { passive: true });
 
   // Initial reset and transition state
   resetExperienceToTop();
@@ -1199,6 +1736,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navProductsLink) {
     navProductsLink.addEventListener('click', (e) => {
       e.preventDefault();
+      if (isTileActive) {
+        transitionBackToFinder();
+      }
       const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
       const targetScroll = trackH - window.innerHeight;
       window.scrollTo({
@@ -1212,6 +1752,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navHomeLink) {
     navHomeLink.addEventListener('click', (e) => {
       e.preventDefault();
+      if (isTileActive) {
+        transitionBackToFinder();
+      }
       if (isFinderActive) {
         transitionBackToCollection();
       }
