@@ -941,8 +941,9 @@ document.addEventListener('DOMContentLoaded', () => {
      Granite Product Detail Modal & High-Resolution Lightbox System
      ========================================================================== */
 
-  // Configurable WhatsApp Contact Number (Format: country code + number)
-  const BALAJI_WHATSAPP_NUMBER = "919876543210";
+  // Owner Contact & WhatsApp Number (9660222886)
+  const BALAJI_WHATSAPP_NUMBER = "919660222886";
+  const BALAJI_OWNER_PHONE = "9660222886";
 
   // Modal DOM Elements
   const modalBackdrop = document.getElementById('granite-modal-backdrop');
@@ -1074,7 +1075,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Dynamic Quote Request Mailto
     if (modalBtnQuote) {
       const quoteSubject = `Quote Request: ${item.name} Granite`;
-      const quoteBody = `Hello Balaji Granites Team,\n\nI would like to request a quotation for ${item.name} granite.\n\nFinish: ${item.finish}\nApplication: Countertops / Flooring / Wall Cladding\nEstimated Quantity:\nLocation:\n\nThank you!`;
+      const quoteBody = `Hello Balaji Granites Team,\n\nI would like to request a quotation for ${item.name} granite.\n\nFinish: ${item.finish}\nApplication: Countertops / Flooring / Wall Cladding\nEstimated Quantity:\nLocation:\n\nDirect Owner Contact: +91 ${BALAJI_OWNER_PHONE}\nThank you!`;
       modalBtnQuote.href = `mailto:sales@balajigranites.com?subject=${encodeURIComponent(quoteSubject)}&body=${encodeURIComponent(quoteBody)}`;
     }
 
