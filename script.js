@@ -209,6 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Golden Bronzite Specks",
       detailedDesc: "Black Galaxy is a world-renowned Indian granite celebrated for its deep obsidian bedrock infused with reflective copper-gold bronzite flecks. Highly impervious and sculpturally dramatic, it elevates luxury kitchen islands, executive foyers, bathroom vanities, and monolithic feature walls with unmatched brilliance.",
       features: ["Highly Durable", "Premium Appearance", "Ideal for Interiors & Exteriors"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg" },
@@ -227,6 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Wine Garnet Crystals on Alabaster",
       detailedDesc: "Kashmir White presents a tranquil ivory and dove-grey ground dusted with delicate wine-colored garnet deposits. Its gentle, luminous aesthetic creates an airy, sophisticated atmosphere in open-concept residences, bespoke kitchen countertops, and light-filled architectural bath retreats.",
       features: ["Heat & Scratch Resistant", "Refined Luminescence", "Interiors & Covered Cladding"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg" },
@@ -243,6 +249,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Sweeping Graphite Rivering",
       detailedDesc: "Viscount White combines the dramatic, fluid aesthetic of fine Calacatta marble with the superior density and stain-resistance of natural granite. Its sweeping ribbons of charcoal and slate across a frosted white canvas make it a showstopper for bookmatched waterfall counters and signature feature walls.",
       features: ["Marble Aesthetics, Granite Strength", "Bookmatch Ready", "Interiors & Facades"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg" },
@@ -259,6 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Cognac & Espresso Crystalline Matrix",
       detailedDesc: "Tan Brown showcases an intricate crystalline arrangement of warm burnt umber, chocolate, and copper-tinted feldspar grains embedded in a dark mineral base. Exceptionally durable and low-maintenance, it is favored for high-traffic luxury flooring, hospitality bars, and robust outdoor culinary spaces.",
       features: ["High Compressive Strength", "Deep Warm Tones", "Ideal for Heavy Traffic"],
+      applications: ["kitchen", "floor", "staircase"],
+      tone: "warm",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg" },
@@ -275,6 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Silver Pearlescence on Charcoal",
       detailedDesc: "Steel Grey delivers a poised, contemporary architectural foundation with uniform gunmetal and charcoal hues enriched by subtle silvery mica inclusions. Its restrained, understated color palette effortlessly harmonizes with minimalist cabinetry, brushed brass, and modern urban stone architecture.",
       features: ["Uniform Grain Structure", "Low Porosity", "Interiors & Exterior Paving"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg" },
@@ -291,6 +306,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Vibrant Jewel Crimson with Dark Minerals",
       detailedDesc: "Celebrated as one of the hardest natural granites quarried, Ruby Red boasts a vibrant ruby-crimson ground interwoven with charcoal and quartz flecks. Its commanding presence brings regal distinction to grand building portals, civic monuments, stately flooring, and executive counters.",
       features: ["Extreme Hardness & Density", "Color Stability", "High Traffic & Exteriors"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg" },
@@ -307,6 +325,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Forest Serpentine with Calcite Veins",
       detailedDesc: "Emerald Green evokes lush botanical depths with its deep jade and bottle-green body adorned with delicate white and mint mineral veining. An opulent choice for statement vanity tops, bespoke bar islands, and jewel-box powder rooms seeking dramatic biophilic luxury.",
       features: ["Rich Natural Luster", "Distinctive Mineral Veining", "Luxury Interior Living"],
+      applications: ["kitchen", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg" },
@@ -323,6 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Golden Dunes & Ivory Flowing Grain",
       detailedDesc: "Desert Gold captures the sun-drenched tranquility of rolling golden sand dunes, blending warm ocher, amber, and cream crystalline bands. Its welcoming, sun-kissed warmth enhances Mediterranean-style villas, warm modern kitchen islands, and luminous exterior poolside terraces.",
       features: ["Warm Natural Undertone", "Weather Resistant", "Interiors, Pools & Patios"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg" },
@@ -339,6 +363,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Banded Terracotta and Charcoal Waves",
       detailedDesc: "Featuring expressive ribbons of terracotta, rust red, and deep charcoal banding, Red Multicolor is an inherently dynamic natural stone. Each slab exhibits unique wavy metamorphic strata, making it an artistic focal point for large-format reception desks, stair treads, and fireplace surrounds.",
       features: ["Expressive Geological Flow", "Stain & Acid Resistant", "Architectural Statement Walls"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg" },
@@ -355,6 +382,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Silvery Fog on Snowy Feldspar Matrix",
       detailedDesc: "Moon White is celebrated for its finely distributed, serene composition of cool white quartz, delicate ivory feldspar, and tiny garnet flecks. Its clean, bright countenance makes spaces feel open and illuminated, serving as the gold standard for bright transitional and contemporary kitchens.",
       features: ["Luminous Ambient Light", "Uniform Micro-Structure", "Kitchens, Baths & Flooring"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg" },
@@ -371,6 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Uniform Vermilion & Deep Coral Grains",
       detailedDesc: "Quarried in Rajasthan, Lakha Red provides a rich, saturated red hue characterized by a dense micro-crystalline texture. Its exceptional structural resilience against UV exposure and weathering makes it a favored choice for landmark facades, commercial entrances, and resilient kitchen counters.",
       features: ["UV & Fade Resistant", "Heavy Duty Load Bearing", "Exteriors, Portals & Steps"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg" },
@@ -387,6 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Pale Coral Blush with Quartz Interlock",
       detailedDesc: "Rosy Pink offers a gentle pastel blush background delicately balanced with grey and white crystalline aggregates. Soft yet durable, this stone lends warmth and approachability to large residential flooring areas, garden stairways, and heritage architectural restorations.",
       features: ["Gentle Pastel Tone", "High Thermal Resistance", "Flooring, Patios & Facades"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg" },
@@ -403,6 +439,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Pearlescent Steel Blue Mica Luster",
       detailedDesc: "Renowned worldwide for its mesmerizing optical brilliance, Blue Pearl contains iridescent blue and silver feldspar schillers that dance with incoming light. An ultra-luxury stone that imparts undeniable glamor to high-end bathroom suites, bar countertops, and architectural focal elements.",
       features: ["Iridescent Optical Crystals", "Zero Water Absorption", "Ultra-Luxury Countertops"],
+      applications: ["kitchen", "other"],
+      tone: "dark",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg" },
@@ -419,6 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Auburn Geological Ribboning",
       detailedDesc: "Mahogany Wave is defined by sweeping fluid waves of deep espresso, walnut, and warm auburn. Its organic geological flow lends warmth and timeless earthy character, serving as an ideal medium for custom dining tables, executive conference surfaces, and grand fireplace hearths.",
       features: ["Rich Earthy Tone", "Natural Fluid Motion", "Dining Surfaces & Cladding"],
+      applications: ["kitchen", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg" },
@@ -435,6 +477,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Bold Crimson Feldspar Aggregates",
       detailedDesc: "Quarried from legendary geological formations in Central India, Jhansi Red has built an enduring legacy of strength. Featuring robust carmine-red feldspar aggregates laced with smoky quartz, it withstands decades of extreme climatic exposure without losing its majestic luster.",
       features: ["Century-Proven Strength", "Extreme Weather Proof", "Heritage Facades & Monoliths"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg" },
@@ -451,6 +496,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Monolithic Jet Black Density",
       detailedDesc: "Absolute Black represents the pinnacle of pure, unbroken dark stone luxury. Its dense basaltic composition yields a deep, void-like black surface that reflects mirror-sharp highlights. The quintessential stone for modern architectural minimalism, luxury worktops, and sleek monuments.",
       features: ["Near-Zero Porosity", "Mirror-Grade Reflection", "Kitchens, Spas & Modern Facades"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg" },
@@ -467,6 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Organic Alabaster Veining on Deep Dark",
       detailedDesc: "Black Forest presents an intense ebony background traversed by sweeping, organic veins of crystalline white and silver. Reminiscent of misty winter canopies, its high-contrast aesthetic makes it an extraordinary choice for dramatic bookmatched island slabs, bar fronts, and shower walls.",
       features: ["Dramatic High Contrast", "Marble-Style Swirls", "Statement Islands & Cladding"],
+      applications: ["kitchen", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg" },
@@ -483,6 +534,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Swirling Lavender & Charcoal Bands",
       detailedDesc: "A rare and poetic natural creation, Paradiso Classique exhibits a mesmerizing swirl of soft violet, lilac-grey, and misty charcoal. Its serene, chromatic sophistication lends tranquil beauty to master baths, sculptural stairways, and distinctive luxury living room floors.",
       features: ["Rare Violet-Grey Chromatics", "Smooth Flow Pattern", "Flooring, Vanities & Steps"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg" },
@@ -499,6 +553,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Orbicular Feldspar Rosettes in Charcoal",
       detailedDesc: "Baltic Brown is celebrated for its unique geological formation characterized by large circular 'rapakivi' rosettes of rich brown and tan feldspar ringed with green-black minerals. Its distinctive sculptural texture delivers bold, tactile richness to traditional and rustic-modern spaces.",
       features: ["Distinctive Rosette Grains", "High Resistance to Stains", "Kitchen Islands & Bar Tops"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "dark",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg" },
@@ -515,6 +572,9 @@ document.addEventListener('DOMContentLoaded', () => {
       character: "Soft Rose Quartz Granulation",
       detailedDesc: "Chima Pink features a uniform, soft coral-pink body composed of tightly interlocked quartz and microcline crystals. Renowned for its consistency across expansive areas, it provides gentle warmth and timeless durability to residential terraces, commercial corridors, and architectural facades.",
       features: ["Uniform Color Consistency", "Frost & Slip Resistant Options", "Large Format Flooring & Cladding"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
       image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg",
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg" },
@@ -762,7 +822,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const navHomeLink = document.getElementById('nav-home');
   const navProductsLink = document.getElementById('nav-products');
 
+  // Granite Finder DOM Elements
+  const finderCurtain = document.getElementById('finder-ivory-curtain');
+  const graniteFinder = document.getElementById('granite-finder');
+  const finderInner = document.getElementById('granite-finder-inner');
+  const finderCardWrapper = document.getElementById('finder-card-wrapper');
+  const finderCard = document.getElementById('finder-card');
+  const finderSubmitBtn = document.getElementById('finder-submit-btn');
+  const finderResultsView = document.getElementById('finder-results-view');
+  const finderResultsGrid = document.getElementById('finder-results-grid');
+  const finderResultsCount = document.getElementById('finder-results-count');
+  const finderResultsTitle = document.getElementById('finder-results-title');
+  const finderResultsSubtitle = document.getElementById('finder-results-subtitle');
+  const finderChangePrefBtn = document.getElementById('finder-change-pref-btn');
+
   let scrollRafId = null;
+  let currentScrollProgress = 0;
+  let isFinderActive = false;
+  let isTransitioning = false;
+  let finderTouchStartY = 0;
 
   function updateTransition() {
     scrollRafId = null;
@@ -773,6 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Normalized progress across the scroll track from 0 to 1
     const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+    currentScrollProgress = progress;
 
     // When the user scrolls all the way back to the very top (scrollY <= 2), ensure the Hero is in its clean initial visual state.
     if (scrollY <= 2) {
@@ -819,18 +898,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // from opacity: 0, translateY(20px), blur(6px) to opacity: 1, translateY(0), blur(0)
     const revealProgress = Math.max(0, Math.min(1, (progress - 0.85) / 0.15));
 
-    if (graniteInner) {
+    if (graniteInner && !isFinderActive && !isTransitioning) {
       graniteInner.style.opacity = revealProgress.toFixed(3);
       graniteInner.style.transform = `translate3d(0, ${(1 - revealProgress) * 20}px, 0)`;
       graniteInner.style.filter = `blur(${((1 - revealProgress) * 6).toFixed(1)}px)`;
     }
 
-    if (graniteSection) {
+    if (graniteSection && !isFinderActive) {
       graniteSection.style.pointerEvents = revealProgress > 0.7 ? 'auto' : 'none';
     }
   }
 
   function resetExperienceToTop() {
+    isFinderActive = false;
+    isTransitioning = false;
+
+    // Reset finder curtain
+    if (finderCurtain) {
+      finderCurtain.style.transition = 'none';
+      finderCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    // Reset finder inner
+    if (finderInner) {
+      finderInner.style.transition = 'none';
+      finderInner.style.opacity = '0';
+      finderInner.style.transform = 'translate3d(0, 20px, 0)';
+      finderInner.style.filter = 'blur(5px)';
+    }
+
+    if (graniteFinder) {
+      graniteFinder.style.pointerEvents = 'none';
+      graniteFinder.scrollTop = 0;
+    }
+
+    if (finderCardWrapper) {
+      finderCardWrapper.classList.remove('is-results-active');
+    }
+
     // 1. Force instantaneous reset of scroll offset without animation
     document.documentElement.style.scrollBehavior = 'auto';
     try {
@@ -878,6 +983,183 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.style.scrollBehavior = '';
     });
   }
+
+  /* ==========================================================================
+     Granite Collection → Granite Finder Cinematic Transition
+     ========================================================================== */
+
+  function transitionToFinder() {
+    if (isFinderActive || isTransitioning) return;
+    isTransitioning = true;
+
+    // STEP 3: Temporarily take control of transition.
+    // Prevent normal scrolling from fighting the animation during this short transition.
+    const preventScrollFight = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    // STEP 5: As the ivory layer rises, Granite Collection UI subtly disappears behind it
+    if (graniteInner) {
+      graniteInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
+      graniteInner.style.opacity = '0';
+      graniteInner.style.filter = 'blur(5px)';
+    }
+
+    // STEP 4: The warm ivory curtain begins rising from bottom: translateY(100%) → translateY(0%)
+    // Duration: 850ms, cubic-bezier(0.16, 1, 0.3, 1)
+    if (finderCurtain) {
+      finderCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      finderCurtain.style.transform = 'translate3d(0, 0%, 0)';
+    }
+
+    // STEP 6: Once ivory layer has covered ~70–80% (~550ms), reveal Granite Finder
+    setTimeout(() => {
+      if (finderInner) {
+        finderInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        finderInner.style.opacity = '1';
+        finderInner.style.transform = 'translate3d(0, 0, 0)';
+        finderInner.style.filter = 'blur(0px)';
+      }
+    }, 550);
+
+    // STEP 7 & 8: Curtain reaches full coverage, release temporary scroll lock, normal scrolling resumes
+    setTimeout(() => {
+      isFinderActive = true;
+      isTransitioning = false;
+      window.removeEventListener('wheel', preventScrollFight);
+      window.removeEventListener('touchmove', preventScrollFight);
+
+      if (graniteFinder) {
+        graniteFinder.style.pointerEvents = 'auto';
+      }
+      if (graniteSection) {
+        graniteSection.style.pointerEvents = 'none';
+      }
+    }, 850);
+  }
+
+  function transitionBackToCollection() {
+    if (!isFinderActive || isTransitioning) return;
+    isTransitioning = true;
+
+    const preventScrollFight = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    if (graniteFinder) {
+      graniteFinder.style.pointerEvents = 'none';
+    }
+
+    if (finderInner) {
+      finderInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+      finderInner.style.opacity = '0';
+      finderInner.style.transform = 'translate3d(0, 20px, 0)';
+      finderInner.style.filter = 'blur(5px)';
+    }
+
+    if (finderCurtain) {
+      finderCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      finderCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    setTimeout(() => {
+      if (graniteInner) {
+        graniteInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        graniteInner.style.opacity = '1';
+        graniteInner.style.filter = 'blur(0px)';
+      }
+    }, 350);
+
+    setTimeout(() => {
+      isFinderActive = false;
+      isTransitioning = false;
+      window.removeEventListener('wheel', preventScrollFight);
+      window.removeEventListener('touchmove', preventScrollFight);
+
+      if (graniteSection) {
+        graniteSection.style.pointerEvents = 'auto';
+      }
+    }, 850);
+  }
+
+  // Expose on window for verification
+  window.transitionToFinder = transitionToFinder;
+  window.transitionBackToCollection = transitionBackToCollection;
+
+  // Controlled Gesture Listeners for Granite Collection <-> Granite Finder
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length > 0) {
+      finderTouchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('wheel', (e) => {
+    // Safety: ignore if modal or lightbox is open, or if dragging
+    if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
+    if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
+    if (wasDragging || isPointerDown) return;
+
+    // 1. One downward scroll gesture at end of Granite Collection
+    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+      if (e.deltaY > 15) {
+        e.preventDefault();
+        transitionToFinder();
+      }
+    }
+    // 2. Upward scroll gesture at top of Granite Finder
+    else if (isFinderActive && !isTransitioning) {
+      const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
+      if (finderTop <= 2 && e.deltaY < -15) {
+        e.preventDefault();
+        transitionBackToCollection();
+      }
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchmove', (e) => {
+    if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
+    if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
+    if (wasDragging || isPointerDown) return;
+    if (!e.touches || e.touches.length === 0) return;
+
+    const currentY = e.touches[0].clientY;
+    const diffY = finderTouchStartY - currentY; // positive = swipe up = scroll down
+
+    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+      if (diffY > 30) {
+        e.preventDefault();
+        transitionToFinder();
+      }
+    } else if (isFinderActive && !isTransitioning) {
+      const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
+      if (finderTop <= 2 && diffY < -30) {
+        e.preventDefault();
+        transitionBackToCollection();
+      }
+    }
+  }, { passive: false });
+
+  window.addEventListener('keydown', (e) => {
+    if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
+    if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
+
+    if (!isFinderActive && !isTransitioning && currentScrollProgress >= 0.95) {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        transitionToFinder();
+      }
+    } else if (isFinderActive && !isTransitioning) {
+      const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
+      if (finderTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
+        e.preventDefault();
+        transitionBackToCollection();
+      }
+    }
+  });
 
   function onScroll() {
     if (!scrollRafId) {
@@ -930,10 +1212,195 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navHomeLink) {
     navHomeLink.addEventListener('click', (e) => {
       e.preventDefault();
+      if (isFinderActive) {
+        transitionBackToCollection();
+      }
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
+    });
+  }
+
+  /* ==========================================================================
+     Granite Finder: Selection, Tolerant Filtering & Results Experience
+     ========================================================================== */
+
+  const finderTiles = document.querySelectorAll('.finder-tile');
+  let selectedPreferences = {
+    app: 'kitchen',
+    tone: 'dark',
+    finish: 'polished'
+  };
+
+  finderTiles.forEach(tile => {
+    tile.addEventListener('click', () => {
+      const group = tile.dataset.group;
+      const value = tile.dataset.value;
+      if (!group || !value) return;
+
+      selectedPreferences[group] = value;
+
+      document.querySelectorAll(`.finder-tile[data-group="${group}"]`).forEach(t => {
+        t.classList.remove('is-selected');
+        t.setAttribute('aria-checked', 'false');
+      });
+      tile.classList.add('is-selected');
+      tile.setAttribute('aria-checked', 'true');
+    });
+  });
+
+  function filterGranites(prefs) {
+    const app = prefs.app;
+    const tone = prefs.tone;
+    const finish = prefs.finish;
+
+    // Level 1: Strict exact match (application + tone + finish)
+    let matches = GRANITE_COLLECTION.map((item, idx) => ({ ...item, originalIndex: idx }))
+      .filter(item => {
+        const matchApp = !app || (item.applications && item.applications.includes(app));
+        const matchTone = !tone || (item.tone === tone);
+        const matchFinish = !finish || (item.finishes && item.finishes.includes(finish));
+        return matchApp && matchTone && matchFinish;
+      });
+
+    let matchQuality = 'exact';
+
+    // Level 2: Progressive Relaxation (Application + Tone)
+    if (matches.length === 0) {
+      matches = GRANITE_COLLECTION.map((item, idx) => ({ ...item, originalIndex: idx }))
+        .filter(item => {
+          const matchApp = !app || (item.applications && item.applications.includes(app));
+          const matchTone = !tone || (item.tone === tone);
+          return matchApp && matchTone;
+        });
+      matchQuality = 'relaxed';
+    }
+
+    // Level 3: Tone + Finish
+    if (matches.length === 0) {
+      matches = GRANITE_COLLECTION.map((item, idx) => ({ ...item, originalIndex: idx }))
+        .filter(item => {
+          const matchTone = !tone || (item.tone === tone);
+          const matchFinish = !finish || (item.finishes && item.finishes.includes(finish));
+          return matchTone && matchFinish;
+        });
+      matchQuality = 'relaxed';
+    }
+
+    // Level 4: Tone only
+    if (matches.length === 0) {
+      matches = GRANITE_COLLECTION.map((item, idx) => ({ ...item, originalIndex: idx }))
+        .filter(item => item.tone === tone);
+      matchQuality = 'relaxed';
+    }
+
+    // Level 5: Safe fallback - never show broken or blank state
+    if (matches.length === 0) {
+      matches = GRANITE_COLLECTION.slice(0, 4).map((item, idx) => ({ ...item, originalIndex: idx }));
+      matchQuality = 'fallback';
+    }
+
+    return { matches, matchQuality };
+  }
+
+  function showFinderResults() {
+    const { matches, matchQuality } = filterGranites(selectedPreferences);
+
+    if (finderResultsCount) {
+      finderResultsCount.textContent = `${matches.length} GRANITES MATCHED`;
+    }
+
+    if (finderResultsTitle) {
+      finderResultsTitle.textContent = "Granites for You";
+    }
+
+    if (finderResultsSubtitle) {
+      if (matchQuality === 'exact') {
+        const appName = selectedPreferences.app.charAt(0).toUpperCase() + selectedPreferences.app.slice(1);
+        const toneName = selectedPreferences.tone.charAt(0).toUpperCase() + selectedPreferences.tone.slice(1);
+        const finishName = selectedPreferences.finish.charAt(0).toUpperCase() + selectedPreferences.finish.slice(1);
+        finderResultsSubtitle.textContent = `Based on your preferences (${appName} · ${toneName} · ${finishName}), here are the stones that match.`;
+      } else {
+        finderResultsSubtitle.textContent = "Here are some close matches based on your preferences.";
+      }
+    }
+
+    if (finderResultsGrid) {
+      finderResultsGrid.innerHTML = '';
+      matches.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'finder-result-card';
+        card.dataset.index = item.originalIndex;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `View details for ${item.name} Granite`);
+
+        const toneLabel = item.tone ? item.tone.charAt(0).toUpperCase() + item.tone.slice(1) : 'Natural';
+
+        card.innerHTML = `
+          <div class="result-card-media">
+            <img src="${item.image}" alt="${item.name} Granite Slab" loading="lazy">
+            <span class="result-card-badge">${item.category || 'INDIAN GRANITE'}</span>
+          </div>
+          <div class="result-card-body">
+            <h4 class="result-card-title">${item.name}</h4>
+            <p class="result-card-desc">${item.desc || item.character || ''}</p>
+            <div class="result-card-specs">
+              <span class="result-spec-pill">${item.finish || 'Polished'}</span>
+              <span class="result-spec-pill">${toneLabel} Tone</span>
+            </div>
+            <div class="result-card-footer">
+              <span class="result-view-details">
+                <span>VIEW DETAILS</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          openGraniteModal(item.originalIndex);
+        });
+
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openGraniteModal(item.originalIndex);
+          }
+        });
+
+        finderResultsGrid.appendChild(card);
+
+        // Staggered reveal (~50-60ms delay)
+        setTimeout(() => {
+          card.classList.add('is-visible');
+        }, idx * 60);
+      });
+    }
+
+    if (finderCardWrapper) {
+      finderCardWrapper.classList.add('is-results-active');
+    }
+  }
+
+  if (finderSubmitBtn) {
+    finderSubmitBtn.addEventListener('click', () => {
+      showFinderResults();
+    });
+  }
+
+  if (finderChangePrefBtn) {
+    finderChangePrefBtn.addEventListener('click', () => {
+      if (finderCardWrapper) {
+        finderCardWrapper.classList.remove('is-results-active');
+      }
+      if (graniteFinder) {
+        graniteFinder.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
