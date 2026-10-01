@@ -13,11 +13,19 @@
 <body>
   <!-- Floating Pill Navbar (Persistent across all sections) -->
   <header class="navbar-wrapper" id="navbar">
-    <nav class="pill-navbar" aria-label="Main Navigation">
+    <nav class="pill-navbar" id="pill-navbar" aria-label="Main Navigation">
       <div class="brand-badge">
         <span class="brand-text">BALAJI GRANITES</span>
       </div>
-      <ul class="nav-links">
+      <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="mobile-nav-toggle-text">MENU</span>
+        <svg class="mobile-nav-toggle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <ul class="nav-links" id="nav-links-menu">
         <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
         <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
         <li><a href="#products" class="nav-link" id="nav-products">Products</a></li>

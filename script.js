@@ -1936,6 +1936,36 @@ document.addEventListener('DOMContentLoaded', () => {
     brandBadge.addEventListener('click', navigateToHome);
   }
 
+  // Mobile Navigation Menu Toggle & Auto-Close
+  const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+  const pillNavbar = document.getElementById('pill-navbar');
+
+  if (mobileNavToggle && pillNavbar) {
+    mobileNavToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = pillNavbar.classList.toggle('menu-open');
+      mobileNavToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (pillNavbar.classList.contains('menu-open') && !pillNavbar.contains(e.target)) {
+        pillNavbar.classList.remove('menu-open');
+        mobileNavToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close mobile menu when clicking any nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (pillNavbar.classList.contains('menu-open')) {
+          pillNavbar.classList.remove('menu-open');
+          mobileNavToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
   /* ==========================================================================
      Granite Finder: Selection, Tolerant Filtering & Results Experience
      ========================================================================== */
