@@ -11,6 +11,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Floating Pill Navbar (Persistent across all sections) -->
+  <header class="navbar-wrapper" id="navbar">
+    <nav class="pill-navbar" aria-label="Main Navigation">
+      <div class="brand-badge">
+        <span class="brand-text">BALAJI GRANITES</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
+        <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+        <li><a href="#products" class="nav-link" id="nav-products">Products</a></li>
+        <li><a href="https://wa.me/919660222886" class="nav-link" id="nav-contact" target="_blank" rel="noopener">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <!-- Scroll Experience Track: Powers the full-screen curtain reveal & granite fade-in -->
   <div class="scroll-experience-wrapper" id="experience-track">
     <!-- Pinned 100vh Viewport Stage -->
@@ -34,21 +49,6 @@
 
         <!-- UI Overlay Layer (Revealed during final ~35% of video playback) -->
         <div class="hero-ui-layer" id="hero-ui">
-          <!-- Floating Pill Navbar -->
-          <header class="navbar-wrapper" id="navbar">
-            <nav class="pill-navbar" aria-label="Main Navigation">
-              <div class="brand-badge">
-                <span class="brand-text">BALAJI GRANITES</span>
-              </div>
-              <ul class="nav-links">
-                <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
-                <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
-                <li><a href="#products" class="nav-link" id="nav-products">Products</a></li>
-                <li><a href="https://wa.me/919660222886" class="nav-link" id="nav-contact" target="_blank" rel="noopener">Contact</a></li>
-              </ul>
-            </nav>
-          </header>
-
           <!-- Bottom Call To Action Buttons -->
           <div class="cta-actions-wrapper" id="cta-actions">
             <!-- Button 1: Left Dark Charcoal Stone (matching reference mockup & video) -->
@@ -361,20 +361,13 @@
               </div>
             </div>
 
-            <!-- Right: Side Editorial Label & Portal CTA -->
+            <!-- Right: Side Editorial Label -->
             <div class="tile-side-cta-wrap">
               <div class="tile-side-label">
                 <span class="side-label-top">EXPLORE OUR</span>
                 <span class="side-label-sub">TILE COLLECTION</span>
                 <span class="side-label-line"></span>
               </div>
-              <a href="https://balajitiles.com" target="_blank" rel="noopener" class="tile-portal-btn" id="tile-portal-btn" aria-label="Explore Balaji Tiles website">
-                <span>EXPLORE BALAJI TILES</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
             </div>
 
           </div>

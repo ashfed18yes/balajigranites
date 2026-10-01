@@ -47,6 +47,7 @@ window.addEventListener('beforeunload', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('cinematic-video');
   const heroUi = document.getElementById('hero-ui');
+  const navbarWrapper = document.getElementById('navbar');
 
   if (!video || !heroUi) return;
 
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch (e) {}
 
   heroUi.classList.remove('is-revealed');
+  if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
 
   // Ensure mandatory autoplay attributes
   video.muted = true;
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (forcedRevealed === '1') {
       isRevealed = true;
       heroUi.classList.add('is-revealed');
+      if (navbarWrapper) navbarWrapper.classList.add('is-revealed');
     }
   }
 
@@ -100,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isRevealed) return;
     isRevealed = true;
     heroUi.classList.add('is-revealed');
+    if (navbarWrapper) navbarWrapper.classList.add('is-revealed');
   }
 
   /**
@@ -955,6 +959,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
     currentScrollProgress = progress;
 
+    // If user starts scrolling before timed reveal, smoothly materialize UI
+    if (progress > 0.05 && !isRevealed) {
+      triggerUiReveal();
+    }
+
     // When the user scrolls all the way back to the very top (scrollY <= 2), ensure the Hero is in its clean initial visual state.
     if (scrollY <= 2) {
       if (warmCurtain) {
@@ -1031,6 +1040,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tileSection) {
       tileSection.style.pointerEvents = 'none';
+      tileSection.style.visibility = 'hidden';
       tileSection.scrollTop = 0;
     }
 
@@ -1056,6 +1066,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (graniteFinder) {
       graniteFinder.style.pointerEvents = 'none';
+      graniteFinder.style.visibility = 'hidden';
       graniteFinder.scrollTop = 0;
     }
 
@@ -1143,6 +1154,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // STEP 6: Once ivory layer has covered ~70–80% (~550ms), reveal Granite Finder
     setTimeout(() => {
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'visible';
+      }
       if (finderInner) {
         finderInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
         finderInner.style.opacity = '1';
@@ -1159,6 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('touchmove', preventScrollFight);
 
       if (graniteFinder) {
+        graniteFinder.style.visibility = 'visible';
         graniteFinder.style.pointerEvents = 'auto';
       }
       if (graniteSection) {
@@ -1207,6 +1222,9 @@ document.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'hidden';
+      }
       if (graniteSection) {
         graniteSection.style.pointerEvents = 'auto';
       }
@@ -1245,6 +1263,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // STEP 5: Once ivory layer has covered ~70–80% (~550ms), reveal Tile section
     setTimeout(() => {
+      if (tileSection) {
+        tileSection.style.visibility = 'visible';
+      }
       if (tileSectionInner) {
         tileSectionInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
         tileSectionInner.style.opacity = '1';
@@ -1261,10 +1282,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('touchmove', preventScrollFight);
 
       if (tileSection) {
+        tileSection.style.visibility = 'visible';
         tileSection.style.pointerEvents = 'auto';
       }
       if (graniteFinder) {
         graniteFinder.style.pointerEvents = 'none';
+        graniteFinder.style.visibility = 'hidden';
       }
     }, 850);
   }
@@ -1296,6 +1319,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setTimeout(() => {
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'visible';
+      }
       if (finderInner) {
         finderInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
         finderInner.style.opacity = '1';
@@ -1309,8 +1335,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
+      if (tileSection) {
+        tileSection.style.visibility = 'hidden';
+      }
       if (graniteFinder) {
         graniteFinder.style.pointerEvents = 'auto';
+        graniteFinder.style.visibility = 'visible';
       }
     }, 850);
   }
@@ -1449,10 +1479,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let stageDragStartX = 0;
 
   function getMaxPillSlide() {
-    if (!tileDragPill || !dragHandleWrap) return 260;
-    const pillWidth = tileDragPill.clientWidth;
-    const handleWidth = dragHandleWrap.offsetWidth || 44;
-    return Math.max(100, pillWidth - handleWidth - 14);
+    if (!tileDragPill || !dragHandleWrap) return 240;
+    const pillWidth = tileDragPill.clientWidth || 320;
+    const handleWidth = dragHandleWrap.offsetWidth || 42;
+    return Math.max(100, pillWidth - handleWidth - 23);
   }
 
   function completePillSlide() {
@@ -1467,6 +1497,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (dragTrackFill) {
+      dragTrackFill.style.transition = 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
       dragTrackFill.style.width = '100%';
     }
 
@@ -1504,7 +1535,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (dragTrackFill) {
+      dragTrackFill.style.transition = 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
       dragTrackFill.style.width = '0%';
+      setTimeout(() => {
+        if (dragTrackFill && !isPillDragging) dragTrackFill.style.transition = '';
+      }, 350);
     }
 
     if (dragPillLabel) {
@@ -1518,6 +1553,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tileDragPill) {
       tileDragPill.classList.remove('is-unlocked');
+      tileDragPill.classList.remove('is-dragging');
     }
   }
 
@@ -1525,13 +1561,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.resetPillHandle = resetPillHandle;
 
   function renderTileSlider(activeIdx) {
-    currentTileIndex = Math.max(0, Math.min(TILE_COLLECTION.length - 1, activeIdx));
+    const totalTiles = TILE_COLLECTION.length;
+    currentTileIndex = ((activeIdx % totalTiles) + totalTiles) % totalTiles;
     const slabs = tileSlabsTrack ? tileSlabsTrack.querySelectorAll('.tile-slab-item') : [];
     const isMobile = window.innerWidth <= 640;
     const isTablet = window.innerWidth > 640 && window.innerWidth <= 1024;
 
     slabs.forEach((slab, idx) => {
-      const diff = idx - currentTileIndex;
+      let diff = (idx - currentTileIndex) % totalTiles;
+      if (diff < -Math.floor(totalTiles / 2)) diff += totalTiles;
+      if (diff > Math.floor(totalTiles / 2)) diff -= totalTiles;
 
       let transform = '';
       let opacity = 0;
@@ -1602,6 +1641,12 @@ document.addEventListener('DOMContentLoaded', () => {
         pointerEvents = 'none';
       }
 
+      if (Math.abs(diff) >= 3) {
+        slab.style.transition = 'none';
+      } else {
+        slab.style.transition = '';
+      }
+
       slab.style.transform = transform;
       slab.style.opacity = opacity;
       slab.style.zIndex = zIndex;
@@ -1623,21 +1668,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Update next arrow button disabled state
+    // Next arrow button is always interactive (continuous infinite carousel)
     if (dragArrowBtn) {
-      if (currentTileIndex >= TILE_COLLECTION.length - 1) {
-        dragArrowBtn.style.opacity = '0.45';
-        dragArrowBtn.style.cursor = 'default';
-      } else {
-        dragArrowBtn.style.opacity = '1';
-        dragArrowBtn.style.cursor = 'pointer';
-      }
+      dragArrowBtn.style.opacity = '1';
+      dragArrowBtn.style.cursor = 'pointer';
     }
   }
 
   function goToTileSlide(targetIdx) {
-    if (targetIdx < 0 || targetIdx >= TILE_COLLECTION.length) return;
-    renderTileSlider(targetIdx);
+    const totalTiles = TILE_COLLECTION.length;
+    const nextIdx = ((targetIdx % totalTiles) + totalTiles) % totalTiles;
+    renderTileSlider(nextIdx);
   }
 
   function renderTilePagination() {
@@ -1676,8 +1717,6 @@ document.addEventListener('DOMContentLoaded', () => {
       slab.addEventListener('click', () => {
         if (idx !== currentTileIndex) {
           goToTileSlide(idx);
-        } else {
-          window.open('https://balajitiles.com', '_blank');
         }
       });
 
@@ -1694,16 +1733,20 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTilePagination();
     renderTileSlider(currentTileIndex);
 
-    // Interactive DRAG TO EXPLORE Pill (Dragging left/right switches tiles)
+    // Interactive Minimal DRAG TO EXPLORE Control (Dragging left/right switches tiles infinitely)
     if (tileDragPill) {
       let isPillDragging = false;
       let pillDragStartX = 0;
       let pillDeltaX = 0;
+      let pillStartTime = 0;
 
       tileDragPill.addEventListener('pointerdown', (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
         isPillDragging = true;
         pillDragStartX = e.clientX;
         pillDeltaX = 0;
+        pillStartTime = performance.now();
+        tileDragPill.classList.add('is-dragging');
         try {
           tileDragPill.setPointerCapture(e.pointerId);
         } catch (err) {}
@@ -1713,53 +1756,45 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       tileDragPill.addEventListener('pointermove', (e) => {
-        if (!isPillDragging) return;
+        if (!isPillDragging || isPillUnlocked) return;
         pillDeltaX = e.clientX - pillDragStartX;
-        const visualDelta = Math.max(-50, Math.min(50, pillDeltaX));
+        const maxSlide = getMaxPillSlide();
+        const clampedX = Math.max(0, Math.min(maxSlide, pillDeltaX));
         if (dragHandleWrap) {
-          dragHandleWrap.style.transform = `translate3d(${visualDelta}px, 0, 0)`;
+          dragHandleWrap.style.transform = `translate3d(${clampedX}px, 0, 0)`;
+        }
+        if (dragTrackFill) {
+          const pct = Math.min(100, (clampedX / maxSlide) * 100);
+          dragTrackFill.style.width = `${pct}%`;
         }
       });
 
       const onPillEnd = (e) => {
         if (!isPillDragging) return;
         isPillDragging = false;
-        if (dragHandleWrap) {
-          dragHandleWrap.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-          dragHandleWrap.style.transform = 'translate3d(0, 0, 0)';
-        }
-        if (pillDeltaX < -25) {
-          // Dragged left -> next tile
-          goToTileSlide(currentTileIndex + 1);
-        } else if (pillDeltaX > 25) {
-          // Dragged right -> previous tile
-          goToTileSlide(currentTileIndex - 1);
+        tileDragPill.classList.remove('is-dragging');
+        try {
+          tileDragPill.releasePointerCapture(e.pointerId);
+        } catch (err) {}
+
+        if (isPillUnlocked) return;
+
+        const maxSlide = getMaxPillSlide();
+        const elapsed = performance.now() - pillStartTime;
+        const velocity = pillDeltaX / Math.max(1, elapsed);
+
+        // Completion threshold: dragged >= 60% of total distance, or swift forward drag (>= 35% with velocity > 0.35)
+        const threshold = maxSlide * 0.60;
+        if (pillDeltaX >= threshold || (pillDeltaX >= maxSlide * 0.35 && velocity > 0.35)) {
+          completePillSlide();
+        } else {
+          // If released early or just clicked -> reset smoothly without navigating
+          resetPillHandle();
         }
       };
 
       tileDragPill.addEventListener('pointerup', onPillEnd);
       tileDragPill.addEventListener('pointercancel', onPillEnd);
-
-      // Direct click on circular arrow button -> advance to next tile
-      if (dragArrowBtn) {
-        dragArrowBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (currentTileIndex < TILE_COLLECTION.length - 1) {
-            goToTileSlide(currentTileIndex + 1);
-          }
-        });
-      }
-
-      const pillRightArrow = document.getElementById('drag-pill-arrow-right');
-      if (pillRightArrow) {
-        pillRightArrow.style.cursor = 'pointer';
-        pillRightArrow.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (currentTileIndex < TILE_COLLECTION.length - 1) {
-            goToTileSlide(currentTileIndex + 1);
-          }
-        });
-      }
     }
 
     // Direct Track / Viewport Drag Support
@@ -1801,6 +1836,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Expose tile functions for verification
   window.goToTileSlide = goToTileSlide;
   window.renderTileSlider = renderTileSlider;
+  window.getCurrentTileIndex = () => currentTileIndex;
 
   function onScroll() {
     if (!scrollRafId) {
@@ -1846,6 +1882,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isTileActive) {
         transitionBackToFinder();
       }
+      if (isFinderActive) {
+        transitionBackToCollection();
+      }
       const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
       const targetScroll = trackH - window.innerHeight;
       window.scrollTo({
@@ -1862,6 +1901,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isTileActive) {
         transitionBackToFinder();
       }
+      if (isFinderActive) {
+        transitionBackToCollection();
+      }
       const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
       const targetScroll = trackH - window.innerHeight;
       window.scrollTo({
@@ -1871,21 +1913,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Connect Navbar "Home" link to smooth scroll back to hero
-  if (navHomeLink) {
-    navHomeLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isTileActive) {
-        transitionBackToFinder();
-      }
-      if (isFinderActive) {
-        transitionBackToCollection();
-      }
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+  // Connect Navbar "Home" link & Brand Badge to smooth scroll back to hero
+  const brandBadge = document.querySelector('.brand-badge');
+  const navigateToHome = (e) => {
+    e.preventDefault();
+    if (isTileActive) {
+      transitionBackToFinder();
+    }
+    if (isFinderActive) {
+      transitionBackToCollection();
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
+  };
+
+  if (navHomeLink) {
+    navHomeLink.addEventListener('click', navigateToHome);
+  }
+  if (brandBadge) {
+    brandBadge.addEventListener('click', navigateToHome);
   }
 
   /* ==========================================================================
