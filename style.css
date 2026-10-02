@@ -2970,3 +2970,269 @@ html, body {
   }
 }
 
+/* ==========================================================================
+   Page Transition Curtain (Vertical White/Ivory Screen Wipe)
+   ========================================================================== */
+.page-transition-curtain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #dedcd8;
+  z-index: 99999;
+  box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.22);
+  transform: translate3d(0, 100%, 0);
+  will-change: transform;
+  pointer-events: none;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-transition-curtain.is-active {
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Final Architectural Footer — Balaji Granites
+   Natural stone permanence, deep charcoal & warm ivory elegance
+   ========================================================================== */
+
+.site-architectural-footer {
+  width: 100%;
+  background-color: #171614;
+  color: #f7f6f2;
+  position: relative;
+  z-index: 70;
+  border-top: 1px solid rgba(247, 246, 242, 0.08);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 84px 40px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   Top of Footer — Large Editorial Statement
+   -------------------------------------------------------------------------- */
+.footer-top-editorial {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 860px;
+  margin-bottom: 52px;
+}
+
+.footer-editorial-statement {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4.4vw, 54px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0.03em;
+  color: #f7f6f2;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.footer-editorial-subtext {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: #a8a49c;
+  max-width: 620px;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* Subtle Low-Contrast Stone Divider */
+.footer-statement-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(247, 246, 242, 0.08);
+  margin-bottom: 58px;
+}
+
+/* --------------------------------------------------------------------------
+   Main Footer Columns Grid (4 Columns)
+   -------------------------------------------------------------------------- */
+.footer-columns-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px 36px;
+  margin-bottom: 64px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Column 1: Brand & Origin */
+.footer-brand-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #f7f6f2;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
+.footer-brand-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #a8a49c;
+  max-width: 290px;
+  margin: 0 0 18px;
+  font-weight: 400;
+}
+
+.footer-brand-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #8c8880;
+  text-transform: uppercase;
+}
+
+.footer-location-icon {
+  width: 12px;
+  height: 12px;
+  stroke: #8c8880;
+  flex-shrink: 0;
+}
+
+/* Columns 2, 3, 4: Headings & Navigation */
+.footer-col-heading {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #8c8880;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.footer-nav-link {
+  color: #cdc9c1;
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.22s var(--ease-hover), transform 0.22s var(--ease-hover);
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-nav-link:hover,
+.footer-nav-link:focus-visible {
+  color: #f7f6f2;
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Footer Bar
+   -------------------------------------------------------------------------- */
+.footer-bottom-bar {
+  width: 100%;
+  border-top: 1px solid rgba(247, 246, 242, 0.08);
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #7d7972;
+}
+
+.footer-copyright {
+  color: #7d7972;
+}
+
+.footer-signature {
+  color: #7d7972;
+  letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layout Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 980px) {
+  .footer-container {
+    padding: 68px 32px 32px;
+  }
+
+  .footer-top-editorial {
+    margin-bottom: 44px;
+  }
+
+  .footer-statement-divider {
+    margin-bottom: 48px;
+  }
+
+  .footer-columns-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 28px;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    padding: 52px 20px 28px;
+  }
+
+  .footer-top-editorial {
+    margin-bottom: 34px;
+  }
+
+  .footer-editorial-statement {
+    margin-bottom: 12px;
+  }
+
+  .footer-statement-divider {
+    margin-bottom: 36px;
+  }
+
+  .footer-columns-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand-desc {
+    max-width: 100%;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 24px;
+  }
+}
+
+

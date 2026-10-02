@@ -15,7 +15,7 @@ document.documentElement.style.scrollBehavior = 'auto';
 if (window.location.hash && window.location.hash !== '#home') {
   try {
     history.replaceState(null, '', window.location.pathname + window.location.search);
-  } catch (e) {}
+  } catch (e) { }
 }
 
 // 4. Force scroll position to top instantly before anything renders or restores
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   video.pause();
   try {
     video.currentTime = 0;
-  } catch (e) {}
+  } catch (e) { }
 
   heroUi.classList.remove('is-revealed');
   if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
@@ -1113,7 +1113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.pause();
       try {
         video.currentTime = 0;
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // Restore smooth scroll behavior for in-page anchors after reset
@@ -1519,7 +1519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 320);
   }
 
-  window.openBalajiTilesWebsite = function() {
+  window.openBalajiTilesWebsite = function () {
     window.location.href = 'https://balajitiles.com';
   };
 
@@ -1580,8 +1580,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (diff === 0) {
         // Central Hero Slab
-        transform = isMobile 
-          ? 'translate3d(0, 0, 40px) scale(1)' 
+        transform = isMobile
+          ? 'translate3d(0, 0, 40px) scale(1)'
           : 'translate3d(0, 0, 80px) scale(1) rotateY(0deg)';
         opacity = 1;
         zIndex = 10;
@@ -1589,8 +1589,8 @@ document.addEventListener('DOMContentLoaded', () => {
         boxShadow = '0 28px 60px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.12)';
       } else if (diff === -1) {
         // Mid Left Slab
-        transform = isMobile 
-          ? 'translate3d(-65%, 0, 0px) scale(0.78)' 
+        transform = isMobile
+          ? 'translate3d(-65%, 0, 0px) scale(0.78)'
           : isTablet
             ? 'translate3d(-55%, 0, 10px) scale(0.82) rotateY(6deg)'
             : 'translate3d(-58%, 0, 20px) scale(0.84) rotateY(8deg)';
@@ -1600,8 +1600,8 @@ document.addEventListener('DOMContentLoaded', () => {
         boxShadow = '0 16px 36px rgba(0, 0, 0, 0.14)';
       } else if (diff === 1) {
         // Mid Right Slab
-        transform = isMobile 
-          ? 'translate3d(65%, 0, 0px) scale(0.78)' 
+        transform = isMobile
+          ? 'translate3d(65%, 0, 0px) scale(0.78)'
           : isTablet
             ? 'translate3d(55%, 0, 10px) scale(0.82) rotateY(-6deg)'
             : 'translate3d(58%, 0, 20px) scale(0.84) rotateY(-8deg)';
@@ -1749,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tileDragPill.classList.add('is-dragging');
         try {
           tileDragPill.setPointerCapture(e.pointerId);
-        } catch (err) {}
+        } catch (err) { }
         if (dragHandleWrap) {
           dragHandleWrap.style.transition = 'none';
         }
@@ -1775,7 +1775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tileDragPill.classList.remove('is-dragging');
         try {
           tileDragPill.releasePointerCapture(e.pointerId);
-        } catch (err) {}
+        } catch (err) { }
 
         if (isPillUnlocked) return;
 
@@ -1875,9 +1875,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Connect Navbar "About" link to smooth scroll to collection
+  // Connect Navbar "About" link (navigate to /about if linked to dedicated page)
   if (navAboutLink) {
     navAboutLink.addEventListener('click', (e) => {
+      const href = navAboutLink.getAttribute('href');
+      if (href && (href === '/about' || href.startsWith('/about') || href.includes('about.html'))) {
+        return; // Allow native navigation to dedicated About page
+      }
       e.preventDefault();
       if (isTileActive) {
         transitionBackToFinder();
@@ -1896,6 +1900,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Connect Navbar "Products" link to smooth scroll as well
   if (navProductsLink) {
+
     navProductsLink.addEventListener('click', (e) => {
       e.preventDefault();
       if (isTileActive) {
@@ -2258,7 +2263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalThumbnailsRow) {
       modalThumbnailsRow.innerHTML = '';
       const thumbs = item.thumbnails || [{ label: 'Full Slab', src: item.image }];
-      
+
       thumbs.forEach((th, tIdx) => {
         const thumbBtn = document.createElement('button');
         thumbBtn.type = 'button';
@@ -2268,7 +2273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const thumbImg = document.createElement('img');
         thumbImg.src = th.src;
         thumbImg.alt = `${item.name} - ${th.label || 'Thumbnail'}`;
-        
+
         if (th.isMacro) {
           thumbImg.style.transform = 'scale(2.2)';
           thumbImg.style.transformOrigin = 'center';

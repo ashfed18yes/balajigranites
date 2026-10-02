@@ -1,0 +1,1488 @@
+/* ==========================================================================
+   Balaji Granites — Dedicated About Us Experience
+   Architectural Material Monograph & Editorial Visual Language
+   ========================================================================== */
+
+:root {
+  --color-stone-dark: #1f1e1b;
+  --color-stone-charcoal: #22211e;
+  --color-stone-light-bg: #e1dfda;
+  --color-stone-light-border: #1f1e1b;
+  --color-bg-canvas: #dedcd8;
+  --color-bg-ivory: #e6e4de;
+  --color-bg-card: #f2f0ea;
+  --color-bg-paper: #f9f8f4;
+  --color-text-main: #1f1e1b;
+  --color-text-body: #47433c;
+  --color-text-muted: #6e6960;
+  --color-text-subtle: #8a857b;
+  --color-stone-rule: rgba(31, 30, 27, 0.12);
+  --color-stone-rule-light: rgba(31, 30, 27, 0.06);
+
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hover: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.about-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Persistent Floating Pill Navbar
+   Always visible, identical in visual language to the homepage
+   ========================================================================== */
+.about-page .navbar-wrapper {
+  position: fixed;
+  top: 34px;
+  left: 50%;
+  transform: translate(-50%, 0) !important;
+  width: calc(100% - 140px);
+  max-width: 1140px;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: top 0.4s var(--ease-cinematic), box-shadow 0.4s ease;
+}
+
+.about-page .pill-navbar {
+  width: 100%;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 46px 0 10px;
+  background: rgba(235, 233, 228, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 9999px;
+  box-shadow: 
+    0 12px 34px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.03),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-page .pill-navbar.is-scrolled {
+  background: rgba(235, 233, 228, 0.97);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.12),
+    0 4px 10px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.about-page .brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 28px;
+  background: #ffffff;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-hover), box-shadow 0.25s ease;
+}
+
+.about-page .brand-badge:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.about-page .brand-text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.about-page .nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.about-page .nav-link {
+  position: relative;
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+  transition: color 0.25s ease;
+  padding: 6px 2px;
+}
+
+.about-page .nav-link:hover {
+  color: var(--color-stone-dark);
+}
+
+.about-page .nav-link.active {
+  color: var(--color-stone-dark);
+  font-weight: 600;
+}
+
+.about-page .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-stone-dark);
+  border-radius: 2px;
+}
+
+/* Mobile Toggle */
+.about-page .mobile-nav-toggle {
+  display: none;
+}
+
+/* ==========================================================================
+   Shared Editorial Typography & Components
+   ========================================================================== */
+.about-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 22px;
+}
+
+.eyebrow-tag::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background-color: var(--color-stone-dark);
+  opacity: 0.6;
+}
+
+.editorial-serif-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-stone-charcoal);
+}
+
+.editorial-body-p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-text-body);
+  font-weight: 400;
+}
+
+/* Base Pill Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 62px;
+  padding: 0 38px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  transition: 
+    transform 0.35s var(--ease-hover),
+    box-shadow 0.35s var(--ease-hover),
+    background-color 0.35s var(--ease-hover),
+    border-color 0.35s var(--ease-hover);
+  user-select: none;
+}
+
+.btn-dark-stone {
+  background: var(--color-stone-charcoal);
+  color: #f7f6f2;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-dark-stone:hover {
+  background: #2e2d29;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.3),
+    0 4px 10px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.btn-light-stone {
+  background: var(--color-stone-light-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: var(--color-text-main);
+  border: 1.5px solid var(--color-stone-light-border);
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.btn-light-stone:hover {
+  background: #eae8e3;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 
+    0 10px 26px rgba(0, 0, 0, 0.09),
+    0 3px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   Vertical White/Ivory Page Transition Curtain
+   ========================================================================== */
+.about-curtain-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #dedcd8;
+  z-index: 99999;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  pointer-events: none;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-curtain-overlay.is-dismissed {
+  transform: translate3d(0, -100%, 0);
+}
+
+.about-page-content-wrap {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  filter: blur(4px);
+  will-change: opacity, transform, filter;
+  transition: 
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    filter 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.about-page-content-wrap.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0px);
+}
+
+/* ==========================================================================
+   SECTION 1 — ABOUT BALAJI GRANITES (EDITORIAL COLLAGE MATCHING SCREENSHOT)
+   ========================================================================== */
+.story-collage-section {
+  position: relative;
+  padding: 160px 0 110px;
+  background-color: #f3f1ec;
+  background-image: 
+    radial-gradient(circle at 12% 28%, rgba(225, 220, 210, 0.5) 0%, transparent 45%),
+    radial-gradient(circle at 88% 68%, rgba(218, 212, 200, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(238, 235, 228, 0.7) 100%);
+  overflow: hidden;
+}
+
+.story-top-divider {
+  position: absolute;
+  top: 0;
+  left: 69%;
+  width: 1px;
+  height: 140px;
+  background: var(--color-stone-rule);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.story-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.story-collage-grid {
+  display: grid;
+  grid-template-columns: 0.98fr 1.02fr;
+  gap: 50px;
+  align-items: center;
+  position: relative;
+}
+
+/* Left Stack: Quarry blocks + Overlapping "Our Story" card */
+.story-left-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+.story-img-block {
+  position: relative;
+  width: 255px;
+}
+
+.story-top-img-wrap {
+  margin-left: 20px;
+  margin-bottom: -54px;
+  z-index: 1;
+}
+
+.story-bottom-img-wrap {
+  margin-left: 20px;
+  margin-top: -54px;
+  z-index: 1;
+}
+
+.story-beige-offset {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: #d6d0c2;
+  border-radius: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.story-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 4px;
+  z-index: 2;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  background: #cfccc6;
+}
+
+.story-quarry-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s var(--ease-cinematic);
+}
+
+.story-img-frame:hover .story-quarry-img {
+  transform: scale(1.05);
+}
+
+/* Floating Overlapping Story Card */
+.story-card-overlap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  margin-left: 56px;
+  background: #ffffff;
+  padding: 42px 38px 44px;
+  border-radius: 4px;
+  box-shadow: 
+    0 24px 60px rgba(26, 25, 23, 0.09),
+    0 4px 14px rgba(26, 25, 23, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+}
+
+.story-card-eyebrow {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.story-card-title {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 3.6vw, 46px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-stone-charcoal);
+  margin-bottom: 20px;
+}
+
+.story-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.story-card-body p {
+  font-size: 14.5px;
+  line-height: 1.76;
+  color: #4a4740;
+}
+
+/* Right Column: Luxury Kitchen with Granite Island Countertop */
+.story-right-feature {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-right-backdrop {
+  position: absolute;
+  top: -24px;
+  right: -20px;
+  width: 86%;
+  height: 92%;
+  background: rgba(220, 215, 204, 0.55);
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.story-main-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+  background: #cfccc6;
+  box-shadow: 
+    0 28px 70px rgba(26, 25, 23, 0.12),
+    0 6px 20px rgba(26, 25, 23, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.story-kitchen-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s var(--ease-cinematic);
+}
+
+.story-main-image-frame:hover .story-kitchen-img {
+  transform: scale(1.03);
+}
+
+.story-feature-badge {
+  position: absolute;
+  bottom: -16px;
+  right: 24px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(246, 244, 240, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.story-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-stone-charcoal);
+}
+
+.story-badge-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-stone-charcoal);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   SECTION 2 — OUR APPROACH
+   Split layout: Slab macro texture on one side, editorial text beside it
+   ========================================================================== */
+.about-approach-section {
+  position: relative;
+  padding: 120px 0;
+  border-top: 1px solid var(--color-stone-rule);
+  background: #d8d6d1;
+}
+
+.about-approach-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1.05fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-approach-media {
+  position: relative;
+}
+
+.approach-image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #cfccc6;
+  box-shadow: 
+    0 24px 60px rgba(26, 25, 23, 0.1),
+    0 6px 18px rgba(26, 25, 23, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.approach-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s var(--ease-cinematic);
+}
+
+.approach-image-frame:hover .approach-img {
+  transform: scale(1.035);
+}
+
+.approach-corner-accent {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(31, 30, 27, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.about-approach-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-approach-title {
+  font-size: clamp(34px, 4vw, 52px);
+  margin-bottom: 28px;
+  white-space: pre-line;
+}
+
+.approach-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.approach-text-group p {
+  font-size: 16.5px;
+  line-height: 1.78;
+  color: var(--color-text-body);
+}
+
+.approach-characteristics-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+  margin-top: 36px;
+  padding-top: 30px;
+  border-top: 1px solid var(--color-stone-rule);
+}
+
+.approach-char-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.approach-char-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-stone-dark);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.approach-char-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-stone-charcoal);
+  letter-spacing: 0.02em;
+}
+
+.approach-char-desc {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   SECTION 3 — WHAT WE STAND FOR
+   Three horizontal editorial blocks (NOT generic cards)
+   ========================================================================== */
+.about-principles-section {
+  position: relative;
+  padding: 130px 0;
+  border-top: 1px solid var(--color-stone-rule);
+  background-color: var(--color-bg-canvas);
+}
+
+.principles-header {
+  margin-bottom: 56px;
+  max-width: 780px;
+}
+
+.principles-title {
+  font-size: clamp(32px, 3.6vw, 46px);
+  margin-bottom: 14px;
+}
+
+.principles-subtitle {
+  font-size: 16.5px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.editorial-principles-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-stone-rule);
+}
+
+.editorial-principle-row {
+  display: grid;
+  grid-template-columns: 100px 320px 1fr;
+  align-items: baseline;
+  gap: 40px;
+  padding: 44px 20px;
+  border-bottom: 1px solid var(--color-stone-rule);
+  transition: background-color 0.3s ease, padding 0.3s ease;
+  border-radius: 12px;
+}
+
+.editorial-principle-row:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.principle-numeral {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--color-text-subtle);
+}
+
+.principle-title {
+  font-family: var(--font-serif);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-stone-charcoal);
+  text-transform: uppercase;
+}
+
+.principle-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 680px;
+}
+
+.principle-core-statement {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-stone-dark);
+}
+
+.principle-elaboration {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   SECTION 4 — GRANITE IN ARCHITECTURE
+   Cinematic image-led section: "FROM SLAB TO SPACE"
+   ========================================================================== */
+.about-architecture-section {
+  position: relative;
+  padding: 130px 0 110px;
+  border-top: 1px solid var(--color-stone-rule);
+  background: #d6d3cd;
+}
+
+.architecture-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 50px;
+}
+
+.architecture-title {
+  font-size: clamp(34px, 4.4vw, 54px);
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.architecture-lead {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.65;
+  color: var(--color-text-body);
+}
+
+.architecture-cinematic-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 640px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 
+    0 30px 75px rgba(26, 25, 23, 0.16),
+    0 8px 24px rgba(26, 25, 23, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: #2a2926;
+}
+
+.architecture-cinematic-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.6s var(--ease-cinematic);
+}
+
+.architecture-cinematic-stage:hover .architecture-cinematic-img {
+  transform: scale(1.025);
+}
+
+.architecture-stage-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.02) 60%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+.architecture-stage-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(31, 30, 27, 0.76);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 10px 20px;
+  border-radius: 9999px;
+  color: #ffffff;
+}
+
+.architecture-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #eae8e3;
+}
+
+.architecture-badge-text {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BALAJI TILES SECTION — SISTER BRAND SHOWCASE
+   ========================================================================== */
+.about-tiles-section {
+  position: relative;
+  padding: 130px 0;
+  border-top: 1px solid var(--color-stone-rule);
+  background: #d8d5ce;
+}
+
+.about-tiles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+}
+
+.about-tiles-header-left {
+  max-width: 720px;
+}
+
+.about-tiles-title {
+  font-size: clamp(34px, 4vw, 52px);
+  margin-bottom: 16px;
+}
+
+.about-tiles-desc {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--color-text-body);
+}
+
+.about-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.about-tile-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f7f6f2;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 16px 36px rgba(26, 25, 23, 0.08);
+  transition: transform 0.4s var(--ease-hover), box-shadow 0.4s var(--ease-hover);
+  display: flex;
+  flex-direction: column;
+}
+
+.about-tile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(26, 25, 23, 0.14);
+}
+
+.about-tile-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #cfccc6;
+}
+
+.about-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s var(--ease-cinematic);
+}
+
+.about-tile-card:hover .about-tile-media img {
+  transform: scale(1.08);
+}
+
+.about-tile-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(31, 30, 27, 0.76);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.about-tile-info {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.about-tile-name {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-stone-charcoal);
+}
+
+.about-tile-sub {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   SECTION 5 — CLOSING STATEMENT
+   Centered, large typography, restrained CTA returning to collection
+   ========================================================================== */
+.about-closing-section {
+  position: relative;
+  padding: 150px 0 130px;
+  border-top: 1px solid var(--color-stone-rule);
+  background: #e2e0da;
+  text-align: center;
+}
+
+.closing-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closing-title {
+  font-size: clamp(42px, 6.2vw, 76px);
+  letter-spacing: 0.14em;
+  line-height: 1.1;
+  color: var(--color-stone-charcoal);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.closing-copy {
+  font-size: clamp(16.5px, 1.35vw, 19px);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 580px;
+  margin-bottom: 44px;
+}
+
+.closing-cta-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.about-explore-cta {
+  width: auto;
+  min-width: 250px;
+}
+
+.cta-arrow-icon {
+  transition: transform 0.3s var(--ease-hover);
+}
+
+.about-explore-cta:hover .cta-arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Architectural Footer
+   ========================================================================== */
+.about-site-footer {
+  padding: 60px 0 50px;
+  border-top: 1px solid var(--color-stone-rule);
+  background-color: var(--color-bg-canvas);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-brand-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.footer-brand-subtitle {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  letter-spacing: 0.05em;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.footer-link {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-stone-dark);
+}
+
+.footer-legal {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .about-hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+  }
+
+  .about-approach-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+  }
+
+  .editorial-principle-row {
+    grid-template-columns: 70px 240px 1fr;
+    gap: 28px;
+    padding: 36px 12px;
+  }
+
+  .principle-title {
+    font-size: 20px;
+  }
+}
+
+/* Intermediate Tablet & Mobile (max-width: 900px) */
+@media (max-width: 900px) {
+  .about-page .navbar-wrapper {
+    top: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .about-page .pill-navbar {
+    height: 58px;
+    padding: 0 24px 0 6px;
+  }
+
+  .about-page .nav-links {
+    gap: 22px;
+  }
+
+  .about-page .brand-badge {
+    height: 44px;
+    padding: 0 18px;
+  }
+
+  .about-page .brand-text {
+    font-size: 13.5px;
+  }
+
+  .about-container {
+    padding: 0 32px;
+  }
+
+  .about-hero-section {
+    padding: 130px 0 80px;
+  }
+
+  .about-approach-section {
+    padding: 90px 0;
+  }
+
+  .about-principles-section {
+    padding: 100px 0;
+  }
+
+  .about-architecture-section {
+    padding: 100px 0 80px;
+  }
+
+  .about-closing-section {
+    padding: 110px 0 90px;
+  }
+
+  .story-collage-section {
+    padding: 120px 0 80px;
+  }
+
+  .story-collage-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .story-left-stack {
+    align-items: center;
+    width: 100%;
+  }
+
+  .story-top-img-wrap,
+  .story-bottom-img-wrap {
+    margin-left: 0;
+    width: min(100%, 280px);
+  }
+
+  .story-card-overlap {
+    margin-left: 0;
+    max-width: 100%;
+    margin-top: -24px;
+    margin-bottom: -24px;
+    padding: 32px 24px 36px;
+  }
+
+  .story-right-backdrop {
+    display: none;
+  }
+
+  /* Stack split layouts on tablet/mobile */
+  .about-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-hero-content {
+    padding-right: 0;
+  }
+
+  .about-approach-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-approach-media {
+    order: 2;
+  }
+
+  .about-approach-content {
+    order: 1;
+  }
+
+  .editorial-principle-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 30px 10px;
+  }
+
+  .principle-numeral {
+    font-size: 16px;
+  }
+
+  .architecture-cinematic-stage {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .about-page .navbar-wrapper {
+    top: max(14px, env(safe-area-inset-top, 14px));
+    width: min(calc(100% - 24px), 430px);
+    max-width: 430px;
+  }
+
+  .about-page .pill-navbar {
+    height: 50px;
+    padding: 0 6px;
+    position: relative;
+  }
+
+  .about-page .brand-badge {
+    height: 38px;
+    padding: 0 16px;
+  }
+
+  .about-page .brand-text {
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+  }
+
+  .about-page .mobile-nav-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 9999px;
+    box-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.04),
+      0 1px 2px rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .about-page .mobile-nav-toggle:active {
+    transform: scale(0.97);
+  }
+
+  .about-page .pill-navbar.menu-open .mobile-nav-toggle {
+    background: #f0eeea;
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .about-page .mobile-nav-toggle-text {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-stone-dark);
+    text-transform: uppercase;
+  }
+
+  .about-page .mobile-nav-toggle-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 13px;
+    height: 13px;
+    color: var(--color-stone-dark);
+  }
+
+  .about-page .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 8px;
+    gap: 3px;
+    list-style: none;
+    background: rgba(246, 244, 240, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    border-radius: 18px;
+    box-shadow: 
+      0 16px 36px rgba(0, 0, 0, 0.14),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top center;
+    transition: 
+      opacity 0.25s var(--ease-cinematic),
+      transform 0.25s var(--ease-cinematic),
+      visibility 0.25s;
+    z-index: 1005;
+  }
+
+  .about-page .pill-navbar.menu-open .nav-links {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .about-page .nav-links li {
+    width: 100%;
+  }
+
+  .about-page .nav-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 13.5px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .about-page .nav-link:hover,
+  .about-page .nav-link:active {
+    background: rgba(31, 30, 27, 0.05);
+  }
+
+  .about-page .nav-link.active {
+    background: rgba(31, 30, 27, 0.08);
+  }
+
+  .about-page .nav-link.active::after {
+    display: none;
+  }
+
+  .about-container {
+    padding: 0 20px;
+  }
+
+  .about-hero-section {
+    padding: 100px 0 60px;
+  }
+
+  .about-hero-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .about-hero-lead {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+
+  .about-hero-meta-row {
+    flex-wrap: wrap;
+    gap: 20px 32px;
+  }
+
+  .about-approach-section {
+    padding: 70px 0;
+  }
+
+  .about-approach-title {
+    font-size: 30px;
+  }
+
+  .approach-characteristics-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-principles-section {
+    padding: 70px 0;
+  }
+
+  .principles-title {
+    font-size: 28px;
+  }
+
+  .about-architecture-section {
+    padding: 70px 0 60px;
+  }
+
+  .architecture-title {
+    font-size: 28px;
+  }
+
+  .architecture-cinematic-stage {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+
+  .architecture-stage-badge {
+    bottom: 14px;
+    left: 14px;
+    padding: 6px 14px;
+  }
+
+  .about-closing-section {
+    padding: 80px 0 70px;
+  }
+
+  .closing-title {
+    font-size: 34px;
+    letter-spacing: 0.1em;
+  }
+
+  .closing-copy {
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 320px;
+    height: 54px;
+    font-size: 12.5px;
+  }
+
+  .about-tiles-section {
+    padding: 70px 0;
+  }
+
+  .about-tiles-title {
+    font-size: 28px;
+  }
+
+  .about-tiles-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .closing-cta-wrap {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .closing-cta-wrap .btn {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+

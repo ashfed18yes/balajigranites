@@ -47,9 +47,13 @@ const server = http.createServer((req, res) => {
   let filePath = path.join(__dirname, urlPath === '/' ? 'index.html' : urlPath);
 
   if (!fs.existsSync(filePath)) {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-    return;
+    if (fs.existsSync(filePath + '.html')) {
+      filePath = filePath + '.html';
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not Found');
+      return;
+    }
   }
 
   const stat = fs.statSync(filePath);
