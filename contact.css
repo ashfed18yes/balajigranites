@@ -1,0 +1,964 @@
+/* ==========================================================================
+   Balaji Granites — Dedicated Contact Page
+   Architectural Natural Stone Inquiry & Spatial Consultation Experience
+   Primary Visual Reference: gemini_generated_video_3755181a.mp4
+   ========================================================================== */
+
+:root {
+  --color-stone-dark: #1f1e1b;
+  --color-stone-charcoal: #22211e;
+  --color-stone-light-bg: #e1dfda;
+  --color-stone-light-border: #1f1e1b;
+  --color-bg-canvas: #f6f4f0;
+  --color-bg-page: #faf9f6;
+  --color-bg-card: #ffffff;
+  --color-text-main: #1f1e1b;
+  --color-text-body: #4a463e;
+  --color-text-muted: #6e695f;
+  --color-text-subtle: #8c877d;
+  --color-stone-rule: rgba(31, 30, 27, 0.12);
+  --color-stone-rule-light: rgba(31, 30, 27, 0.06);
+
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hover: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.contact-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Subtle architectural marble veining background atmosphere (inspired by reference video) */
+body.contact-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.85) 0%, transparent 60%),
+    radial-gradient(circle at 82% 65%, rgba(235, 231, 223, 0.6) 0%, transparent 65%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(240, 237, 230, 0.2) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   Vertical White/Ivory Page Transition Curtain
+   ========================================================================== */
+.contact-curtain-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #dedcd8;
+  z-index: 99999;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  transition: transform 0.65s var(--ease-cinematic);
+}
+
+.contact-curtain-overlay.is-dismissed {
+  transform: translate3d(0, -100%, 0);
+}
+
+/* Page wrapper */
+.contact-page-content-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-cinematic);
+}
+
+.contact-page-content-wrap.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.contact-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 36px;
+}
+
+/* Common Eyebrow Pill Tag */
+.contact-eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.contact-eyebrow-line {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background-color: var(--color-stone-rule);
+}
+
+.contact-eyebrow-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   SECTION 1 — CINEMATIC CONTACT HERO (Inspired by Reference Video)
+   ========================================================================== */
+.contact-hero-section {
+  position: relative;
+  width: 100%;
+  padding: 140px 0 64px;
+  text-align: center;
+}
+
+.contact-hero-header {
+  max-width: 820px;
+  margin: 0 auto 36px;
+  padding: 0 16px;
+}
+
+.contact-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 5.4vw, 68px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin: 10px 0 18px;
+}
+
+.contact-hero-subtitle {
+  font-size: clamp(14.5px, 1.2vw, 17px);
+  line-height: 1.65;
+  color: var(--color-text-body);
+  max-width: 600px;
+  margin: 0 auto 28px;
+  font-weight: 400;
+}
+
+/* Subtle Hero Action Button */
+.hero-start-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--color-stone-dark);
+  color: #f7f6f2;
+  height: 52px;
+  padding: 0 32px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-hover);
+  box-shadow: 0 6px 20px rgba(31, 30, 27, 0.14);
+}
+
+.hero-start-cta:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(31, 30, 27, 0.22);
+}
+
+.hero-start-cta svg {
+  transition: transform 0.3s var(--ease-hover);
+}
+
+.hero-start-cta:hover svg {
+  transform: translateY(3px);
+}
+
+/* --------------------------------------------------------------------------
+   Floating Architectural Stone Preview Pill (Frames 00:00 - 00:02 of video)
+   -------------------------------------------------------------------------- */
+.contact-hero-preview-wrap {
+  max-width: 920px;
+  margin: 36px auto 0;
+  padding: 0 20px;
+}
+
+.contact-hero-tablet {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 
+    0 24px 60px rgba(31, 30, 27, 0.06),
+    0 4px 14px rgba(31, 30, 27, 0.03);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  transition: transform 0.4s var(--ease-cinematic), box-shadow 0.4s var(--ease-cinematic);
+}
+
+.contact-hero-tablet:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 30px 70px rgba(31, 30, 27, 0.08),
+    0 6px 18px rgba(31, 30, 27, 0.04);
+}
+
+.tablet-prompt-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+
+.tablet-prompt-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-stone-light-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-stone-dark);
+  flex-shrink: 0;
+}
+
+.tablet-prompt-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-stone-dark);
+  letter-spacing: 0.02em;
+}
+
+.tablet-prompt-sub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.tablet-quick-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tablet-option-pill {
+  background: rgba(240, 238, 232, 0.7);
+  border: 1px solid rgba(31, 30, 27, 0.08);
+  border-radius: 9999px;
+  padding: 7px 16px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--color-stone-dark);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-hover);
+}
+
+.tablet-option-pill:hover {
+  background: var(--color-stone-dark);
+  color: #f7f6f2;
+  border-color: var(--color-stone-dark);
+}
+
+/* ==========================================================================
+   SECTION 2 & 3 — MAIN CONTACT AREA (Two-Column Architectural Layout)
+   Matching Frames 00:04 - 00:09 of Reference Video
+   ========================================================================== */
+.contact-main-section {
+  position: relative;
+  width: 100%;
+  padding: 40px 0 100px;
+}
+
+.contact-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   Left Column: Spatial Pavilion & Minimal Editorial Contact Details
+   -------------------------------------------------------------------------- */
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Showroom Spatial Card */
+.spatial-pavilion-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(31, 30, 27, 0.08);
+  box-shadow: 
+    0 20px 48px rgba(31, 30, 27, 0.05),
+    0 2px 10px rgba(31, 30, 27, 0.02);
+}
+
+.spatial-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #dfdbd3;
+}
+
+.spatial-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s var(--ease-cinematic);
+}
+
+.spatial-pavilion-card:hover .spatial-image {
+  transform: scale(1.04);
+}
+
+/* Architectural Location Pin Badge */
+.spatial-pin-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(31, 30, 27, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #f7f6f2;
+  text-transform: uppercase;
+}
+
+.pin-pulsing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #f7f6f2;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  animation: pinPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pinPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* Spatial Details Footer */
+.spatial-details {
+  padding: 24px 28px;
+  background: #ffffff;
+}
+
+.spatial-title-group {
+  margin-bottom: 12px;
+}
+
+.spatial-brand-name {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.spatial-location-line {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.spatial-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  margin-bottom: 20px;
+}
+
+/* Quick Action Buttons */
+.spatial-actions-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.spatial-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-hover);
+  flex: 1 1 auto;
+}
+
+.spatial-btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+}
+
+.spatial-btn-whatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
+}
+
+.spatial-btn-call {
+  background: var(--color-stone-dark);
+  color: #f7f6f2;
+}
+
+.spatial-btn-call:hover {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+/* Minimal Editorial Contact Rows */
+.editorial-contact-card {
+  background: #ffffff;
+  border: 1px solid rgba(31, 30, 27, 0.08);
+  border-radius: 20px;
+  padding: 32px 30px;
+  box-shadow: 
+    0 16px 36px rgba(31, 30, 27, 0.04),
+    0 2px 8px rgba(31, 30, 27, 0.02);
+}
+
+.contact-rows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-row-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-stone-rule-light);
+}
+
+.contact-row-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.contact-row-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-bg-canvas);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-stone-dark);
+  flex-shrink: 0;
+}
+
+.contact-row-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-row-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.contact-row-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-stone-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-row-value:hover {
+  color: #000000;
+}
+
+.contact-row-subtext {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column: Premium Minimal Contact Form Card
+   -------------------------------------------------------------------------- */
+.contact-form-card {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(31, 30, 27, 0.09);
+  border-radius: 20px;
+  padding: 48px 44px;
+  box-shadow: 
+    0 24px 60px rgba(31, 30, 27, 0.06),
+    0 4px 14px rgba(31, 30, 27, 0.03);
+}
+
+.form-header {
+  margin-bottom: 34px;
+}
+
+.form-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--color-stone-dark);
+  margin: 6px 0 8px;
+}
+
+.form-subtitle {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* Form Groups & Inputs */
+.contact-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(31, 30, 27, 0.14);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-stone-dark);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  outline: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #a8a49c;
+  font-size: 13.5px;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--color-stone-dark);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(31, 30, 27, 0.08);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* Project Type Radio Pill Selector */
+.project-type-pills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.type-pill-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  background: #f7f6f2;
+  border: 1px solid rgba(31, 30, 27, 0.12);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-stone-dark);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-hover);
+  text-align: center;
+}
+
+.type-pill-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.type-pill-input:checked + .type-pill-label {
+  background: var(--color-stone-dark);
+  color: #f7f6f2;
+  border-color: var(--color-stone-dark);
+  box-shadow: 0 4px 12px rgba(31, 30, 27, 0.16);
+}
+
+.type-pill-label:hover {
+  border-color: var(--color-stone-dark);
+}
+
+/* Submit Action Button */
+.contact-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 54px;
+  background: var(--color-stone-dark);
+  color: #f7f6f2;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-hover);
+  margin-top: 10px;
+  box-shadow: 0 8px 24px rgba(31, 30, 27, 0.15);
+}
+
+.contact-submit-btn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(31, 30, 27, 0.22);
+}
+
+.contact-submit-btn svg {
+  transition: transform 0.25s var(--ease-hover);
+}
+
+.contact-submit-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* In-Card Graceful Confirmation Message State */
+.form-success-state {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  animation: fadeInState 0.5s var(--ease-cinematic) forwards;
+}
+
+.form-success-state.is-active {
+  display: block;
+}
+
+@keyframes fadeInState {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #1f1e1b;
+  color: #f7f6f2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 28px rgba(31, 30, 27, 0.18);
+}
+
+.success-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.success-copy {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-text-body);
+  max-width: 440px;
+  margin: 0 auto 28px;
+}
+
+.success-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.success-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 9999px;
+  background: #25d366;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-hover);
+}
+
+.success-whatsapp-btn:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.3);
+}
+
+.success-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 9999px;
+  background: #f0eee8;
+  color: var(--color-stone-dark);
+  border: 1px solid rgba(31, 30, 27, 0.1);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-hover);
+}
+
+.success-reset-btn:hover {
+  background: var(--color-stone-dark);
+  color: #f7f6f2;
+}
+
+/* ==========================================================================
+   SECTION 4 — PROJECT CTA (Near bottom of page)
+   ========================================================================== */
+.contact-closing-cta-section {
+  position: relative;
+  width: 100%;
+  padding: 90px 0 100px;
+  background: #ece9e2;
+  border-top: 1px solid var(--color-stone-rule);
+  text-align: center;
+}
+
+.closing-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.closing-title {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  margin: 12px 0 14px;
+}
+
+.closing-copy {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  margin-bottom: 32px;
+}
+
+.closing-cta-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-dark-stone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 34px;
+  border-radius: 9999px;
+  background-color: var(--color-stone-dark);
+  color: #f7f6f2;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-hover);
+  box-shadow: 0 6px 20px rgba(31, 30, 27, 0.15);
+}
+
+.btn-dark-stone:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(31, 30, 27, 0.22);
+}
+
+.btn-dark-stone svg {
+  transition: transform 0.25s var(--ease-hover);
+}
+
+.btn-dark-stone:hover svg {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT ADAPTATIONS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .contact-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-info-col {
+    order: 2;
+  }
+
+  .contact-form-card {
+    order: 1;
+    padding: 38px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 0 20px;
+  }
+
+  .contact-hero-section {
+    padding: 120px 0 48px;
+  }
+
+  .contact-hero-tablet {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 22px;
+  }
+
+  .tablet-quick-options {
+    width: 100%;
+  }
+
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .project-type-pills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero-title {
+    font-size: 32px;
+  }
+
+  .contact-form-card {
+    padding: 30px 20px;
+  }
+
+  .hero-start-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .spatial-actions-row {
+    flex-direction: column;
+  }
+
+  .closing-title {
+    font-size: 30px;
+  }
+
+  .btn-dark-stone {
+    width: 100%;
+  }
+}

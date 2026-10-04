@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Smooth vertical curtain transition when navigating back to homepage or products
-  document.querySelectorAll('a[href^="/index.html"], a[href^="index.html"], a[href^="/products"], a[href^="products"]').forEach(link => {
+  // 2. Smooth vertical curtain transition when navigating back to homepage, products or contact
+  document.querySelectorAll('a[href^="/index.html"], a[href^="index.html"], a[href^="/products"], a[href^="products"], a[href^="/contact"], a[href^="contact"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const targetHref = link.getAttribute('href');
       if (!targetHref) return;
