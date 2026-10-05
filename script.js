@@ -46,6 +46,7 @@ window.addEventListener('beforeunload', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('cinematic-video');
+  const videoBg = document.getElementById('cinematic-video-bg');
   const heroUi = document.getElementById('hero-ui');
   const navbarWrapper = document.getElementById('navbar');
 
@@ -56,6 +57,31 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     video.currentTime = 0;
   } catch (e) { }
+
+  if (videoBg) {
+    videoBg.muted = true;
+    videoBg.defaultMuted = true;
+    videoBg.setAttribute('playsinline', '');
+    videoBg.setAttribute('webkit-playsinline', '');
+    videoBg.pause();
+    try {
+      videoBg.currentTime = 0;
+    } catch (e) { }
+  }
+
+  function syncVideoBg() {
+    if (!videoBg) return;
+    try {
+      if (Math.abs(videoBg.currentTime - video.currentTime) > 0.12) {
+        videoBg.currentTime = video.currentTime;
+      }
+      if (video.paused && !videoBg.paused) {
+        videoBg.pause();
+      } else if (!video.paused && videoBg.paused) {
+        videoBg.play().catch(() => {});
+      }
+    } catch (e) {}
+  }
 
   heroUi.classList.remove('is-revealed');
   if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
@@ -113,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function monitorPlayback() {
     if (hasEnded) return;
 
+    syncVideoBg();
+
     const currentTime = video.currentTime;
     const duration = video.duration || 10;
     const revealTime = getRevealTime();
@@ -127,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hasEnded = true;
       video.pause();
       video.currentTime = duration - 0.15;
+      syncVideoBg();
       triggerUiReveal();
       if (rafId) cancelAnimationFrame(rafId);
       return;
@@ -137,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Backup handlers for standard video events
   video.addEventListener('timeupdate', () => {
+    syncVideoBg();
     const currentTime = video.currentTime;
     const duration = video.duration || 10;
     const revealTime = getRevealTime();
@@ -147,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hasEnded = true;
       video.pause();
       video.currentTime = duration - 0.15;
+      syncVideoBg();
     }
   });
 
@@ -155,11 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
     hasEnded = true;
     video.pause();
     video.currentTime = Math.max(0, (video.duration || 10) - 0.15);
+    syncVideoBg();
     triggerUiReveal();
     if (rafId) cancelAnimationFrame(rafId);
   });
 
   video.addEventListener('play', () => {
+    syncVideoBg();
     if (!hasEnded) {
       rafId = requestAnimationFrame(monitorPlayback);
     }
@@ -167,10 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Safe Autoplay Initiation
   const startAutoplay = () => {
+    if (videoBg) videoBg.play().catch(() => {});
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
+          syncVideoBg();
           rafId = requestAnimationFrame(monitorPlayback);
         })
         .catch(err => {
