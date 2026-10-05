@@ -591,11 +591,392 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg" },
         { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg", isMacro: true }
       ]
+    },
+    {
+      id: "21",
+      name: "TITANIUM BLACK",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Dramatic dark obsidian base highlighted with flowing silver and gold quartz veins.",
+      finish: "Mirror Polished",
+      character: "Luminous Silver & Gold Waves",
+      detailedDesc: "Titanium Black features a rich dark charcoal bedrock laced with expressive silver-white and golden quartz movement. Its high-contrast crystalline pattern makes it a stunning choice for luxury kitchen counters, statement waterfall islands, and modern feature walls.",
+      features: ["High Durability", "Dramatic Veining", "Ideal for Kitchens & Walls"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "22",
+      name: "ALASKA WHITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Frosty white background interspersed with cool grey quartz and dark mineral accents.",
+      finish: "Diamond Polished",
+      character: "Crystalline Frost Matrix",
+      detailedDesc: "Alaska White blends icy ivory tones with rich graphite and feldspar deposits. Loved for its bright and versatile aesthetic, it enhances natural lighting in residential kitchens, bathroom vanities, and expansive floor layouts.",
+      features: ["Luminous Finish", "Stain Resistant", "Interiors & Countertops"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "23",
+      name: "COLONIAL GOLD",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Warm honey cream canvas enriched with subtle amber and burgundy mineral flecks.",
+      finish: "High Gloss Polished",
+      character: "Warm Golden Amber Texture",
+      detailedDesc: "Colonial Gold offers a welcoming palette of creamy gold, pale taupe, and deep garnet specks. Perfect for bringing understated warmth to traditional or transitional spaces, island countertops, and grand foyer flooring.",
+      features: ["Warm Color Palette", "Consistent Grains", "Kitchen & Flooring"],
+      applications: ["kitchen", "floor", "staircase"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "24",
+      name: "ASTORIA WHITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Soft alabaster stone featuring fine charcoal veining and pearlescent mica.",
+      finish: "Mirror Polished",
+      character: "Fine Slate Veining on Ivory",
+      detailedDesc: "Astoria White displays delicate streams of slate grey and chocolate across a serene off-white backdrop. Its smooth aesthetic and high density make it ideal for sleek contemporary surfaces and low-maintenance kitchen worktops.",
+      features: ["Refined Appearance", "Scratch Resistant", "Countertops & Flooring"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "25",
+      name: "HIMALAYAN BLUE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Deep steel blue matrix accented by rust-orange and grey metamorphic waves.",
+      finish: "High Gloss Polished",
+      character: "Swirling Mineral Waves",
+      detailedDesc: "Himalayan Blue exhibits a captivating blend of cool blue-grey bedrock and warm reddish mineral bands. Known for extreme weather resistance and dynamic movement, it shines in exterior cladding, stair treads, and main foyers.",
+      features: ["Weather Resistant", "Dynamic Flow Pattern", "Flooring & Facades"],
+      applications: ["floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "26",
+      name: "CRYSTAL YELLOW",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Vibrant golden-yellow granite studded with reflective quartz crystals.",
+      finish: "Diamond Polished",
+      character: "Golden Crystalline Sparkle",
+      detailedDesc: "Crystal Yellow brings cheerful energy and rich golden texture to both residential and commercial spaces. Its dense, crystalline composition resists fading and scratching, making it a reliable option for high-traffic walkways and steps.",
+      features: ["Vibrant Tone", "Heavy Duty Load Bearing", "Patios & Staircases"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "27",
+      name: "BLACK PEARL",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Midnight black bedrock dotted with subtle silver, gold, and green micro-specks.",
+      finish: "Mirror Polished",
+      character: "Iridescent Metallic Specks",
+      detailedDesc: "Black Pearl provides a dense, sophisticated black ground enriched with subtle mineral shimmer. Highly versatile and low-maintenance, it is an enduring favorite for polished kitchen counters, sleek vanity surfaces, and modern floor tiles.",
+      features: ["Low Maintenance", "Refined Metallic Shimmer", "Kitchens & Bathrooms"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "28",
+      name: "PATAGONIA GOLD",
+      category: "PREMIUM GRANITE",
+      origin: "Premium Granite",
+      desc: "Exotic stone featuring translucent quartz clusters and warm earthy banding.",
+      finish: "Mirror Polished",
+      character: "Translucent Quartz Breccia",
+      detailedDesc: "Patagonia Gold is an extraordinary natural stone combining translucent quartz fragments, warm amber feldspar, and dark basalt pockets. A statement masterpiece for feature walls, illuminated bar tops, and luxury island counters.",
+      features: ["Exotic Aesthetic", "High Specular Luster", "Luxury Statement Walls"],
+      applications: ["kitchen", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "29",
+      name: "SILVER WAVE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Dramatic black stone defined by sweeping horizontal bands of silver and white.",
+      finish: "High Gloss Polished",
+      character: "Parallel Silver Flow",
+      detailedDesc: "Silver Wave offers a striking monochrome palette with sweeping linear movement. Its architectural contrast makes it a popular choice for bookmatched feature walls, reception desks, and modern bathroom enclosures.",
+      features: ["Striking Monochrome", "Linear Movement", "Walls & Waterfall Slabs"],
+      applications: ["kitchen", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "30",
+      name: "COSMIC BLACK",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Deep obsidian canvas swirling with streaks of gold, copper, and silver quartz.",
+      finish: "Mirror Polished",
+      character: "Celestial Metallic Currents",
+      detailedDesc: "Cosmic Black captures celestial grandeur with its dark background and dramatic ribbons of warm gold and white crystals. Exceptionally hard and stain-resistant, it elevates island countertops and luxury dining surfaces.",
+      features: ["Celestial Aesthetics", "Thermal Stability", "Kitchen Slabs & Bar Tops"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "dark",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "31",
+      name: "BIANCO ANTICO",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Luminous white feldspar background studded with brown taupe deposits and quartz.",
+      finish: "Diamond Polished",
+      character: "Taupe & Quartz Clusters on White",
+      detailedDesc: "Bianco Antico is a classic light granite featuring warm taupe and burgundy mineral inclusions floating within a soft white quartz field. It offers timeless elegance for light-filled kitchens and spacious residential interiors.",
+      features: ["Luminous & Warm", "Scratch Resistant", "Kitchens & Bathrooms"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "32",
+      name: "COPPER SILK",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Rich espresso and copper-bronze ribbons flowing smoothly across dense granite matrix.",
+      finish: "High Gloss Polished",
+      character: "Silken Auburn Waves",
+      detailedDesc: "Copper Silk presents an organic blend of deep chocolate, bronze, and copper-toned strata. Its warm, flowing character creates a cozy yet opulent mood in dining rooms, fireplace surrounds, and commercial lobbies.",
+      features: ["Rich Earth Tones", "Smooth Vein Flow", "Flooring & Dining Tops"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "33",
+      name: "VERDE UNIK",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Deep emerald green body woven with sage and crystalline white mineral veins.",
+      finish: "Mirror Polished",
+      character: "Botanical Forest Veining",
+      detailedDesc: "Verde Unik captures organic biophilic beauty with its deep forest green shade and subtle mint veining. Ideal for creating memorable vanity tops, custom bar counters, and decorative interior focal points.",
+      features: ["Biophilic Elegance", "High Luster", "Luxury Countertops & Features"],
+      applications: ["kitchen", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "34",
+      name: "MUSHROOM BROWN",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Subtle taupe-brown stone featuring uniform micro-crystalline feldspar grains.",
+      finish: "Honed & Polished",
+      character: "Uniform Warm Taupe Texture",
+      detailedDesc: "Mushroom Brown provides a balanced neutral background with soft brown and warm grey tones. Its consistent pattern and easy maintenance suit large floorings, corridor steps, and modern kitchen countertops.",
+      features: ["Consistent Grain", "Neutral Tone", "Flooring & Steps"],
+      applications: ["kitchen", "floor", "staircase"],
+      tone: "warm",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "35",
+      name: "ICE BLUE",
+      category: "PREMIUM GRANITE",
+      origin: "Premium Granite",
+      desc: "Cool translucent icy blue quartz interspersed with charcoal metamorphic bands.",
+      finish: "Mirror Polished",
+      character: "Glacial Quartz Formations",
+      detailedDesc: "Ice Blue is a rare gem among natural granites, displaying translucent icy quartz layers interwoven with dark slate veining. Highly prized for executive boardrooms, island waterfalls, and spa retreats.",
+      features: ["Rare Glacial Hues", "High Specular Luster", "Executive Slabs & Vanities"],
+      applications: ["kitchen", "other"],
+      tone: "light",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "36",
+      name: "NEBULA BLACK",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Dark void bedrock illuminated by fine golden mica dust and silver crystalline flecks.",
+      finish: "Diamond Polished",
+      character: "Fine Golden Mica Dust",
+      detailedDesc: "Nebula Black features a jet-black surface dusted with fine metallic mica particles that catch light like distant stars. Ideal for sleek contemporary kitchens, bathroom vanity tops, and luxury floor accents.",
+      features: ["Refined Metallic Flecks", "High Hardness", "Kitchen & Floor Slabs"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "37",
+      name: "SOLARIS GOLD",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Radiant golden ocher matrix with rich chocolate and rust-colored mineral veins.",
+      finish: "High Gloss Polished",
+      character: "Radiant Golden Quartz Flow",
+      detailedDesc: "Solaris Gold brings sunlit brightness with dynamic waves of amber, honey, and dark garnet. Highly durable and stain resistant, it shines on kitchen waterfall countertops and villa flooring.",
+      features: ["Sunlit Warmth", "Stain & Heat Resistant", "Kitchen Islands & Flooring"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "38",
+      name: "MONTE CARLO",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Elegant silver-grey background interlaced with charcoal rivers and white quartz.",
+      finish: "Mirror Polished",
+      character: "Charcoal Rivers on Silver",
+      detailedDesc: "Monte Carlo delivers modern sophistication with fluid charcoal and platinum grey veining on a bright quartz canvas. An excellent choice for bookmatched accent walls and contemporary kitchen islands.",
+      features: ["Architectural Contrast", "Smooth Texture", "Countertops & Facades"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "39",
+      name: "IMPERIAL RED",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Deep regal crimson granite with dense dark mineral interlocking matrix.",
+      finish: "Diamond Polished",
+      character: "Rich Regal Vermilion Matrix",
+      detailedDesc: "Imperial Red is prized for its intense crimson hue and structural resilience. Popular for grand building entrances, staircases, civic monuments, and durable kitchen work surfaces.",
+      features: ["Regal Color Stability", "Extreme Density", "Portals, Steps & Counters"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg", isMacro: true }
+      ]
+    },
+    {
+      id: "40",
+      name: "AMAZONITE LUX",
+      category: "PREMIUM GRANITE",
+      origin: "Premium Granite",
+      desc: "Exotic turquoise-green granite with golden amber fissures and white quartz.",
+      finish: "Mirror Polished",
+      character: "Turquoise Jade & Amber Fissures",
+      detailedDesc: "Amazonite Lux presents a breathtaking turquoise and mint green ground woven with warm golden veins. A rare, ultra-luxury stone that creates unforgettable powder room vanities, statement bar tops, and artwork slabs.",
+      features: ["Rare Turquoise Tone", "Mirror Reflection", "Luxury Feature Slabs"],
+      applications: ["kitchen", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg" },
+        { label: "Macro Grain", src: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg", isMacro: true }
+      ]
     }
   ];
 
   const slabsStage = document.getElementById('slabs-stage');
   const counterCurrent = document.getElementById('counter-current');
+  const counterTotal = document.getElementById('counter-total');
   const graniteTitle = document.getElementById('granite-title');
   const graniteOrigin = document.getElementById('granite-origin');
   const graniteDesc = document.getElementById('granite-desc');
@@ -696,6 +1077,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update Counter
     if (counterCurrent) {
       counterCurrent.textContent = String(activeIdx + 1).padStart(2, '0');
+    }
+    if (counterTotal) {
+      counterTotal.textContent = String(totalGranites).padStart(2, '0');
     }
 
     // Update Progress Dashes
