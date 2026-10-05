@@ -880,6 +880,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let isTransitioning = false;
   let finderTouchStartY = 0;
   let currentTileIndex = 0; // Starts at initial valid state (index 0)
+  let isTransitionCooldown = false;
+  let mobileTouchStartX = 0;
+  let mobileTouchStartY = 0;
+  let mobileTouchSection = 'HERO';
+  let mobileGestureHandled = false;
 
   // Premium Architectural Tile Collection Data
   const TILE_COLLECTION = [
@@ -1042,6 +1047,9 @@ document.addEventListener('DOMContentLoaded', () => {
     isFinderActive = false;
     isTileActive = false;
     isTransitioning = false;
+    isTransitionCooldown = false;
+    mobileGestureHandled = false;
+    mobileTouchSection = 'HERO';
 
     // Reset tile curtain & inner
     if (tileCurtain) {
@@ -1191,6 +1199,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       isFinderActive = true;
       isTransitioning = false;
+      isTransitionCooldown = true;
+      setTimeout(() => {
+        isTransitionCooldown = false;
+      }, 350);
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
@@ -1246,6 +1258,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       isFinderActive = false;
       isTransitioning = false;
+      isTransitionCooldown = true;
+      setTimeout(() => {
+        isTransitionCooldown = false;
+      }, 350);
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
@@ -1310,6 +1326,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       isTileActive = true;
       isTransitioning = false;
+      isTransitionCooldown = true;
+      setTimeout(() => {
+        isTransitionCooldown = false;
+      }, 350);
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
@@ -1364,6 +1384,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       isTileActive = false;
       isTransitioning = false;
+      isTransitionCooldown = true;
+      setTimeout(() => {
+        isTransitionCooldown = false;
+      }, 350);
       window.removeEventListener('wheel', preventScrollFight);
       window.removeEventListener('touchmove', preventScrollFight);
 
@@ -1383,28 +1407,43 @@ document.addEventListener('DOMContentLoaded', () => {
   window.transitionToTiles = transitionToTiles;
   window.transitionBackToFinder = transitionBackToFinder;
 
-  // Controlled Gesture Listeners for Granite Collection <-> Granite Finder <-> Tile Section
+  // Controlled Gesture Listeners for Mobile & Desktop Section Progression
+  // Guarantees ONE intentional mobile swipe = ONE section transition (never skips sections)
   window.addEventListener('touchstart', (e) => {
-    if (e.touches && e.touches.length > 0) {
-      finderTouchStartY = e.touches[0].clientY;
+    if (!e.touches || e.touches.length === 0) return;
+    mobileTouchStartX = e.touches[0].clientX;
+    mobileTouchStartY = e.touches[0].clientY;
+    finderTouchStartY = e.touches[0].clientY;
+    mobileGestureHandled = false;
+
+    // Detect section at the exact moment touch begins
+    if (isTileActive) {
+      mobileTouchSection = 'TILES';
+    } else if (isFinderActive) {
+      mobileTouchSection = 'FINDER';
+    } else if (currentScrollProgress >= 0.88) {
+      mobileTouchSection = 'GRANITE';
+    } else {
+      mobileTouchSection = 'HERO';
     }
   }, { passive: true });
 
   window.addEventListener('wheel', (e) => {
-    // Safety: ignore if modal or lightbox is open, or if dragging
+    // Safety: ignore if modal or lightbox is open, or during other drags/transitions
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
+    if (isTransitioning || isTransitionCooldown) return;
 
     // 1. One downward scroll gesture at end of Granite Collection -> Finder
-    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
+    if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.deltaY > 15) {
         e.preventDefault();
         transitionToFinder();
       }
     }
     // 2. Upward scroll gesture at top of Granite Finder -> Collection
-    else if (isFinderActive && !isTileActive && !isTransitioning) {
+    else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && e.deltaY < -15) {
         e.preventDefault();
@@ -1419,7 +1458,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     // 4. Upward scroll gesture at top of Tile Section -> Finder
-    else if (isTileActive && !isTransitioning) {
+    else if (isTileActive) {
       const tileTop = tileSection ? tileSection.scrollTop : 0;
       if (tileTop <= 2 && e.deltaY < -15) {
         e.preventDefault();
@@ -1429,45 +1468,103 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: false });
 
   window.addEventListener('touchmove', (e) => {
+    // Safety: do not intercept if modal/lightbox is open, during transitions or drags
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
+    if (isTransitioning || isTransitionCooldown) return;
+    if (mobileGestureHandled) return;
     if (!e.touches || e.touches.length === 0) return;
 
+    const currentX = e.touches[0].clientX;
     const currentY = e.touches[0].clientY;
-    const diffY = finderTouchStartY - currentY; // positive = swipe up = scroll down
+    const diffX = mobileTouchStartX - currentX;
+    const diffY = mobileTouchStartY - currentY; // positive = swipe up (advance), negative = swipe down (back)
+    const absX = Math.abs(diffX);
+    const absY = Math.abs(diffY);
 
-    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
-      if (diffY > 30) {
+    // Filter out horizontal swipes (e.g., granite slabs or tile cards)
+    if (absX >= absY || absY < 45) return;
+
+    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+    const maxScroll = Math.max(1, trackH - window.innerHeight);
+
+    // Strictly enforce: ONE intentional swipe = ONE adjacent section transition
+    if (mobileTouchSection === 'HERO') {
+      if (diffY > 0) {
+        // Swipe UP on Hero -> Smoothly transition to Granite Collection ONLY (cannot skip into Finder)
+        mobileGestureHandled = true;
+        e.preventDefault();
+        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+      }
+    } else if (mobileTouchSection === 'GRANITE') {
+      if (diffY > 0) {
+        // Swipe UP on Granite Collection -> Transition to Granite Finder ONLY (cannot skip into Tiles)
+        mobileGestureHandled = true;
         e.preventDefault();
         transitionToFinder();
+      } else if (diffY < 0) {
+        // Swipe DOWN on Granite Collection -> Smoothly transition back to Hero ONLY
+        mobileGestureHandled = true;
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    } else if (isFinderActive && !isTileActive && !isTransitioning) {
+    } else if (mobileTouchSection === 'FINDER') {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
-      if (finderTop <= 2 && diffY < -30) {
+      const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
+
+      if (diffY < 0 && finderTop <= 4) {
+        // Swipe DOWN at top of Finder -> Transition back to Granite Collection ONLY (cannot skip into Hero)
+        mobileGestureHandled = true;
         e.preventDefault();
         transitionBackToCollection();
-      } else {
-        const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
-        if (isFinderAtEnd && diffY > 30) {
-          e.preventDefault();
-          transitionToTiles();
-        }
+      } else if (diffY > 0 && isFinderAtEnd) {
+        // Swipe UP at bottom of Finder -> Transition to Tile Collection ONLY
+        mobileGestureHandled = true;
+        e.preventDefault();
+        transitionToTiles();
       }
-    } else if (isTileActive && !isTransitioning) {
+      // If within scrollable body of Finder, native smooth scrolling is untouched
+    } else if (mobileTouchSection === 'TILES') {
       const tileTop = tileSection ? tileSection.scrollTop : 0;
-      if (tileTop <= 2 && diffY < -30) {
+      if (diffY < 0 && tileTop <= 4) {
+        // Swipe DOWN at top of Tile Section -> Transition back to Granite Finder ONLY
+        mobileGestureHandled = true;
         e.preventDefault();
         transitionBackToFinder();
       }
     }
   }, { passive: false });
 
+  window.addEventListener('touchend', () => {
+    // If user released halfway between Hero and Granite without triggering threshold, snap to nearest clean state
+    if (!mobileGestureHandled && !isFinderActive && !isTileActive && !isTransitioning && !isTransitionCooldown) {
+      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+      const maxScroll = Math.max(1, trackH - window.innerHeight);
+
+      if (mobileTouchSection === 'HERO' && currentScrollProgress > 0.35) {
+        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+      } else if (mobileTouchSection === 'HERO' && currentScrollProgress <= 0.35 && currentScrollProgress > 0.02) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (mobileTouchSection === 'GRANITE' && currentScrollProgress < 0.65) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (mobileTouchSection === 'GRANITE' && currentScrollProgress >= 0.65 && currentScrollProgress < 0.98) {
+        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+      }
+    }
+    mobileGestureHandled = false;
+  }, { passive: true });
+
+  window.addEventListener('touchcancel', () => {
+    mobileGestureHandled = false;
+  }, { passive: true });
+
   window.addEventListener('keydown', (e) => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
+    if (isTransitioning || isTransitionCooldown) return;
 
-    if (!isFinderActive && !isTileActive && !isTransitioning && currentScrollProgress >= 0.95) {
+    if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         transitionToFinder();
