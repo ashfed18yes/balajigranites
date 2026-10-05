@@ -967,14 +967,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // When the user scrolls all the way back to the very top (scrollY <= 2), ensure the Hero is in its clean initial visual state.
     if (scrollY <= 2) {
       if (warmCurtain) {
+        warmCurtain.style.transition = 'none';
         warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
       }
       if (graniteInner) {
+        graniteInner.style.transition = 'none';
         graniteInner.style.opacity = '0';
         graniteInner.style.transform = 'translate3d(0, 20px, 0)';
         graniteInner.style.filter = 'blur(6px)';
+        graniteInner.style.visibility = 'hidden';
       }
       if (graniteSection) {
+        graniteSection.style.visibility = 'hidden';
         graniteSection.style.pointerEvents = 'none';
       }
       if (heroContainer) {
@@ -984,17 +988,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Phase A: Warm Ivory Curtain Cover (0% to 88% of scroll)
+    // Phase A: Warm Ivory Curtain Cover (0% to 70% of scroll)
     // Curtains moves from translateY(100%) to translateY(0%)
     // At progress 0% -> translateY(100%) [Hero 100% visible]
-    // At progress 25% -> translateY(71.6%) [Hero bottom 28.4% covered, top 71.6% stationary]
-    // At progress 50% -> translateY(43.2%) [Hero bottom 56.8% covered, top 43.2% stationary]
-    // At progress 75% -> translateY(14.8%) [Hero bottom 85.2% covered, top 14.8% stationary]
-    // At progress 88% -> translateY(0%) [Screen is 100% covered in warm ivory]
-    const curtainProgress = Math.min(1, progress / 0.88);
+    // At progress 70% -> translateY(0%) [Screen is 100% covered in warm ivory]
+    const curtainProgress = Math.min(1, progress / 0.70);
     const curtainY = (1 - curtainProgress) * 100;
 
     if (warmCurtain) {
+      warmCurtain.style.transition = 'none';
       warmCurtain.style.transform = `translate3d(0, ${curtainY}%, 0)`;
     }
 
@@ -1004,19 +1006,35 @@ document.addEventListener('DOMContentLoaded', () => {
       heroContainer.style.opacity = '1';
     }
 
-    // Phase B: Granite Collection Emergence / Dissolve (85% to 100% of scroll)
-    // Once the white curtain has covered the hero, the granite slider softly emerges
-    // from opacity: 0, translateY(20px), blur(6px) to opacity: 1, translateY(0), blur(0)
-    const revealProgress = Math.max(0, Math.min(1, (progress - 0.85) / 0.15));
+    // Phase B: Granite Collection Emergence / Dissolve (78% to 100% of scroll)
+    // Buffer zone (70% to 78%): Screen is 100% solid warm ivory curtain covering the hero.
+    // Above 78%, Granite softly emerges. In reverse, Granite dissolves completely by 78%,
+    // before curtain starts dropping at 70%, guaranteeing Granite is 100% hidden before Hero appears.
+    const revealProgress = Math.max(0, Math.min(1, (progress - 0.78) / 0.22));
 
     if (graniteInner && !isFinderActive && !isTileActive && !isTransitioning) {
-      graniteInner.style.opacity = revealProgress.toFixed(3);
-      graniteInner.style.transform = `translate3d(0, ${(1 - revealProgress) * 20}px, 0)`;
-      graniteInner.style.filter = `blur(${((1 - revealProgress) * 6).toFixed(1)}px)`;
+      graniteInner.style.transition = 'none';
+      if (revealProgress > 0) {
+        graniteInner.style.visibility = 'visible';
+        graniteInner.style.opacity = revealProgress.toFixed(3);
+        graniteInner.style.transform = `translate3d(0, ${(1 - revealProgress) * 20}px, 0)`;
+        graniteInner.style.filter = `blur(${((1 - revealProgress) * 6).toFixed(1)}px)`;
+      } else {
+        graniteInner.style.visibility = 'hidden';
+        graniteInner.style.opacity = '0';
+        graniteInner.style.transform = 'translate3d(0, 20px, 0)';
+        graniteInner.style.filter = 'blur(6px)';
+      }
     }
 
     if (graniteSection && !isFinderActive && !isTileActive) {
-      graniteSection.style.pointerEvents = revealProgress > 0.7 ? 'auto' : 'none';
+      if (revealProgress > 0) {
+        graniteSection.style.visibility = 'visible';
+        graniteSection.style.pointerEvents = revealProgress > 0.7 ? 'auto' : 'none';
+      } else {
+        graniteSection.style.visibility = 'hidden';
+        graniteSection.style.pointerEvents = 'none';
+      }
     }
   }
 
@@ -1088,18 +1106,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Reset curtain to completely below viewport
     if (warmCurtain) {
+      warmCurtain.style.transition = 'none';
       warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
     }
 
     // 4. Reset granite collection reveal
     if (graniteInner) {
+      graniteInner.style.transition = 'none';
       graniteInner.style.opacity = '0';
       graniteInner.style.transform = 'translate3d(0, 20px, 0)';
       graniteInner.style.filter = 'blur(6px)';
+      graniteInner.style.visibility = 'hidden';
     }
 
     if (graniteSection) {
       graniteSection.style.pointerEvents = 'none';
+      graniteSection.style.visibility = 'hidden';
     }
 
     // 5. Hero stays visible and stationary
@@ -1178,6 +1200,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (graniteSection) {
         graniteSection.style.pointerEvents = 'none';
+        graniteSection.style.visibility = 'hidden';
+      }
+      if (graniteInner) {
+        graniteInner.style.transition = 'none';
+        graniteInner.style.visibility = 'hidden';
       }
     }, 850);
   }
@@ -1227,6 +1254,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (graniteSection) {
         graniteSection.style.pointerEvents = 'auto';
+        graniteSection.style.visibility = 'visible';
+      }
+      if (graniteInner) {
+        graniteInner.style.transition = 'none';
+        graniteInner.style.visibility = 'visible';
       }
     }, 850);
   }
