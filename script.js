@@ -258,10 +258,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg",
+      image: "Granite Images/optimized/01_black_galaxy.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg", isMacro: true },
+        { label: "Full Slab", src: "Granite Images/optimized/01_black_galaxy.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/01_black_galaxy.webp", isMacro: true },
         { label: "Kitchen Island", src: "assets/applications/black_galaxy_countertop.jpg" },
         { label: "Villa Flooring", src: "assets/applications/black_galaxy_flooring.jpg" }
       ]
@@ -279,10 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg",
+      image: "Granite Images/optimized/02_kashmir_white.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/02_kashmir_white.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/02_kashmir_white.webp", isMacro: true }
       ]
     },
     {
@@ -298,10 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg",
+      image: "Granite Images/optimized/03_viscount_white.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/03_viscount_white.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/03_viscount_white.webp", isMacro: true }
       ]
     },
     {
@@ -317,10 +317,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase"],
       tone: "warm",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg",
+      image: "Granite Images/optimized/04_tan_brown.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/04_tan_brown.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/04_tan_brown.webp", isMacro: true }
       ]
     },
     {
@@ -336,10 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg",
+      image: "Granite Images/optimized/05_steel_grey.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/05_steel_grey.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/05_steel_grey.webp", isMacro: true }
       ]
     },
     {
@@ -355,10 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg",
+      image: "Granite Images/optimized/06_ruby_red.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/06_ruby_red.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/06_ruby_red.webp", isMacro: true }
       ]
     },
     {
@@ -374,10 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg",
+      image: "Granite Images/optimized/07_emerald_green.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/07_emerald_green.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/07_emerald_green.webp", isMacro: true }
       ]
     },
     {
@@ -393,10 +393,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg",
+      image: "Granite Images/optimized/08_desert_gold.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/08_desert_gold.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/08_desert_gold.webp", isMacro: true }
       ]
     },
     {
@@ -412,10 +412,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg",
+      image: "Granite Images/optimized/09_red_multicolor.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/09_red_multicolor.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/09_red_multicolor.webp", isMacro: true }
       ]
     },
     {
@@ -431,10 +431,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg",
+      image: "Granite Images/optimized/10_moon_white.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/10_moon_white.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/10_moon_white.webp", isMacro: true }
       ]
     },
     {
@@ -450,10 +450,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg",
+      image: "Granite Images/optimized/11_lakha_red.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/11_lakha_red.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/11_lakha_red.webp", isMacro: true }
       ]
     },
     {
@@ -469,10 +469,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg",
+      image: "Granite Images/optimized/12_rosy_pink.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/12_rosy_pink.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/12_rosy_pink.webp", isMacro: true }
       ]
     },
     {
@@ -488,10 +488,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "dark",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg",
+      image: "Granite Images/optimized/13_blue_pearl.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/13_blue_pearl.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/13_blue_pearl.webp", isMacro: true }
       ]
     },
     {
@@ -507,10 +507,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg",
+      image: "Granite Images/optimized/14_mahogany_wave.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/14_mahogany_wave.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/14_mahogany_wave.webp", isMacro: true }
       ]
     },
     {
@@ -526,10 +526,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg",
+      image: "Granite Images/optimized/15_jhansi_red.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/15_jhansi_red.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/15_jhansi_red.webp", isMacro: true }
       ]
     },
     {
@@ -545,10 +545,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg",
+      image: "Granite Images/optimized/16_absolute_black.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/16_absolute_black.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/16_absolute_black.webp", isMacro: true }
       ]
     },
     {
@@ -564,10 +564,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg",
+      image: "Granite Images/optimized/17_black_forest.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/17_black_forest.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/17_black_forest.webp", isMacro: true }
       ]
     },
     {
@@ -583,10 +583,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg",
+      image: "Granite Images/optimized/18_paradiso_classique.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/18_paradiso_classique.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/18_paradiso_classique.webp", isMacro: true }
       ]
     },
     {
@@ -602,10 +602,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "dark",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg",
+      image: "Granite Images/optimized/19_baltic_brown.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/19_baltic_brown.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/19_baltic_brown.webp", isMacro: true }
       ]
     },
     {
@@ -621,10 +621,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg",
+      image: "Granite Images/optimized/20_chima_pink.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg" },
-        { label: "Macro Grain", src: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/20_chima_pink.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/20_chima_pink.webp", isMacro: true }
       ]
     },
     {
@@ -640,10 +640,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg",
+      image: "Granite Images/optimized/21_titanium_black.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/21_titanium_black.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/21_titanium_black.webp", isMacro: true }
       ]
     },
     {
@@ -659,10 +659,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg",
+      image: "Granite Images/optimized/22_alaska_white.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/22_alaska_white.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/22_alaska_white.webp", isMacro: true }
       ]
     },
     {
@@ -678,10 +678,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg",
+      image: "Granite Images/optimized/23_colonial_gold.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/23_colonial_gold.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/23_colonial_gold.webp", isMacro: true }
       ]
     },
     {
@@ -697,10 +697,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg",
+      image: "Granite Images/optimized/24_astoria_white.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/24_astoria_white.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/24_astoria_white.webp", isMacro: true }
       ]
     },
     {
@@ -716,10 +716,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg",
+      image: "Granite Images/optimized/25_himalayan_blue.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/25_himalayan_blue.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/25_himalayan_blue.webp", isMacro: true }
       ]
     },
     {
@@ -735,10 +735,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg",
+      image: "Granite Images/optimized/26_crystal_yellow.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/26_crystal_yellow.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/26_crystal_yellow.webp", isMacro: true }
       ]
     },
     {
@@ -754,10 +754,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg",
+      image: "Granite Images/optimized/27_black_pearl.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/27_black_pearl.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/27_black_pearl.webp", isMacro: true }
       ]
     },
     {
@@ -773,10 +773,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg",
+      image: "Granite Images/optimized/28_patagonia_gold.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/28_patagonia_gold.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/28_patagonia_gold.webp", isMacro: true }
       ]
     },
     {
@@ -792,10 +792,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "staircase", "other"],
       tone: "dark",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg",
+      image: "Granite Images/optimized/29_silver_wave.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/29_silver_wave.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/29_silver_wave.webp", isMacro: true }
       ]
     },
     {
@@ -811,10 +811,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "dark",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg",
+      image: "Granite Images/optimized/30_cosmic_black.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/30_cosmic_black.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/30_cosmic_black.webp", isMacro: true }
       ]
     },
     {
@@ -830,10 +830,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg",
+      image: "Granite Images/optimized/31_bianco_antico.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/31_bianco_antico.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/31_bianco_antico.webp", isMacro: true }
       ]
     },
     {
@@ -849,10 +849,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg",
+      image: "Granite Images/optimized/32_copper_silk.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/32_copper_silk.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/32_copper_silk.webp", isMacro: true }
       ]
     },
     {
@@ -868,10 +868,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg",
+      image: "Granite Images/optimized/33_verde_unik.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/33_verde_unik.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/33_verde_unik.webp", isMacro: true }
       ]
     },
     {
@@ -887,10 +887,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase"],
       tone: "warm",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg",
+      image: "Granite Images/optimized/34_mushroom_brown.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/34_mushroom_brown.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/34_mushroom_brown.webp", isMacro: true }
       ]
     },
     {
@@ -906,10 +906,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "light",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg",
+      image: "Granite Images/optimized/35_ice_blue.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/35_ice_blue.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/35_ice_blue.webp", isMacro: true }
       ]
     },
     {
@@ -925,10 +925,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "staircase", "other"],
       tone: "dark",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg",
+      image: "Granite Images/optimized/36_nebula_black.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/36_nebula_black.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/36_nebula_black.webp", isMacro: true }
       ]
     },
     {
@@ -944,10 +944,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg",
+      image: "Granite Images/optimized/37_solaris_gold.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/37_solaris_gold.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/37_solaris_gold.webp", isMacro: true }
       ]
     },
     {
@@ -963,10 +963,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "floor", "other"],
       tone: "light",
       finishes: ["polished", "honed"],
-      image: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg",
+      image: "Granite Images/optimized/38_monte_carlo.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/38_monte_carlo.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/38_monte_carlo.webp", isMacro: true }
       ]
     },
     {
@@ -982,10 +982,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["floor", "staircase", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg",
+      image: "Granite Images/optimized/39_imperial_red.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/39_imperial_red.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/39_imperial_red.webp", isMacro: true }
       ]
     },
     {
@@ -1001,10 +1001,10 @@ document.addEventListener('DOMContentLoaded', () => {
       applications: ["kitchen", "other"],
       tone: "warm",
       finishes: ["polished"],
-      image: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg",
+      image: "Granite Images/optimized/40_amazonite_lux.webp",
       thumbnails: [
-        { label: "Full Slab", src: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg" },
-        { label: "Macro Grain", src: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg", isMacro: true }
+        { label: "Full Slab", src: "Granite Images/optimized/40_amazonite_lux.webp" },
+        { label: "Macro Grain", src: "Granite Images/optimized/40_amazonite_lux.webp", isMacro: true }
       ]
     }
   ];
@@ -2746,7 +2746,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalDetailedDesc = document.getElementById('modal-granite-detailed-desc');
   const modalFeaturesRow = document.getElementById('modal-features-row');
   const modalBtnWhatsapp = document.getElementById('modal-btn-whatsapp');
-  const modalBtnQuote = document.getElementById('modal-btn-quote');
+  const modalBtnCall = document.getElementById('modal-btn-call') || document.getElementById('modal-btn-quote');
   const graniteInfoPanel = document.getElementById('granite-info');
 
   // Lightbox DOM Elements
@@ -2858,11 +2858,9 @@ document.addEventListener('DOMContentLoaded', () => {
       modalBtnWhatsapp.href = `https://wa.me/${BALAJI_WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
     }
 
-    // 6. Dynamic Quote Request Mailto
-    if (modalBtnQuote) {
-      const quoteSubject = `Quote Request: ${item.name} Granite`;
-      const quoteBody = `Hello Balaji Granites Team,\n\nI would like to request a quotation for ${item.name} granite.\n\nFinish: ${item.finish}\nApplication: Countertops / Flooring / Wall Cladding\nEstimated Quantity:\nLocation:\n\nDirect Owner Contact: +91 ${BALAJI_OWNER_PHONE}\nThank you!`;
-      modalBtnQuote.href = `mailto:sales@balajigranites.com?subject=${encodeURIComponent(quoteSubject)}&body=${encodeURIComponent(quoteBody)}`;
+    // 6. Dynamic Phone Call Link
+    if (modalBtnCall) {
+      modalBtnCall.href = `tel:+91${BALAJI_OWNER_PHONE}`;
     }
 
     // 7. Reveal Modal Backdrop & Float In Card

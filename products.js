@@ -16,8 +16,8 @@ const GRANITE_PRODUCTS = [
     character: "Golden Bronzite Specks on Obsidian",
     application: "Countertops, Flooring, Feature Walls",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.24 PM.jpeg",
+    image: "Granite Images/optimized/01_black_galaxy.webp",
+    macroImage: "Granite Images/optimized/01_black_galaxy.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -31,8 +31,8 @@ const GRANITE_PRODUCTS = [
     character: "Wine Garnet Crystals on Alabaster",
     application: "Kitchen Counters, Island Tops, Bathrooms",
     tone: "light",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (2).jpeg",
+    image: "Granite Images/optimized/02_kashmir_white.webp",
+    macroImage: "Granite Images/optimized/02_kashmir_white.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -46,8 +46,8 @@ const GRANITE_PRODUCTS = [
     character: "Sweeping Graphite Rivering",
     application: "Waterfall Counters, Bookmatched Walls, Flooring",
     tone: "light",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM.jpeg",
+    image: "Granite Images/optimized/03_viscount_white.webp",
+    macroImage: "Granite Images/optimized/03_viscount_white.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -61,8 +61,8 @@ const GRANITE_PRODUCTS = [
     character: "Cognac & Espresso Crystalline Matrix",
     application: "Flooring, Commercial Lobbies, Kitchens",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (1).jpeg",
+    image: "Granite Images/optimized/04_tan_brown.webp",
+    macroImage: "Granite Images/optimized/04_tan_brown.webp",
     archImage: "assets/applications/other_vanity.jpg"
   },
   {
@@ -76,8 +76,8 @@ const GRANITE_PRODUCTS = [
     character: "Silver Pearlescence on Charcoal",
     application: "Kitchens, Exterior Paving, Minimalist Interiors",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM (2).jpeg",
+    image: "Granite Images/optimized/05_steel_grey.webp",
+    macroImage: "Granite Images/optimized/05_steel_grey.webp",
     archImage: "assets/about/granite_in_architecture.jpg"
   },
   {
@@ -91,8 +91,8 @@ const GRANITE_PRODUCTS = [
     character: "Vibrant Jewel Crimson with Dark Minerals",
     application: "Grand Portals, Staircases, Monumental Flooring",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (1).jpeg",
+    image: "Granite Images/optimized/06_ruby_red.webp",
+    macroImage: "Granite Images/optimized/06_ruby_red.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -106,8 +106,8 @@ const GRANITE_PRODUCTS = [
     character: "Forest Serpentine with Calcite Veins",
     application: "Luxury Bar Tops, Vanities, Feature Walls",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM (2).jpeg",
+    image: "Granite Images/optimized/07_emerald_green.webp",
+    macroImage: "Granite Images/optimized/07_emerald_green.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -121,8 +121,8 @@ const GRANITE_PRODUCTS = [
     character: "Golden Dunes & Ivory Flowing Grain",
     application: "Villa Flooring, Kitchen Islands, Terraces",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM.jpeg",
+    image: "Granite Images/optimized/08_desert_gold.webp",
+    macroImage: "Granite Images/optimized/08_desert_gold.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -136,8 +136,8 @@ const GRANITE_PRODUCTS = [
     character: "Banded Terracotta & Charcoal Waves",
     application: "Feature Fireplaces, Staircases, Accent Flooring",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.16 PM (1).jpeg",
+    image: "Granite Images/optimized/09_red_multicolor.webp",
+    macroImage: "Granite Images/optimized/09_red_multicolor.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -151,8 +151,8 @@ const GRANITE_PRODUCTS = [
     character: "Silvery Fog on Snowy Feldspar Matrix",
     application: "Bright Kitchens, Spa Bathrooms, Open Flooring",
     tone: "light",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.18 PM.jpeg",
+    image: "Granite Images/optimized/10_moon_white.webp",
+    macroImage: "Granite Images/optimized/10_moon_white.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -166,8 +166,8 @@ const GRANITE_PRODUCTS = [
     character: "Uniform Vermilion & Deep Coral Grains",
     application: "Exteriors, Portals, Heavy Duty Steps",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.19 PM.jpeg",
+    image: "Granite Images/optimized/11_lakha_red.webp",
+    macroImage: "Granite Images/optimized/11_lakha_red.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -181,8 +181,8 @@ const GRANITE_PRODUCTS = [
     character: "Pale Coral Blush with Quartz Interlock",
     application: "Residential Patios, Flooring, Steps",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.17 PM (1).jpeg",
+    image: "Granite Images/optimized/12_rosy_pink.webp",
+    macroImage: "Granite Images/optimized/12_rosy_pink.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -196,8 +196,8 @@ const GRANITE_PRODUCTS = [
     character: "Pearlescent Steel Blue Mica Luster",
     application: "Ultra-Luxury Countertops, Executive Suites, Vanities",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM.jpeg",
+    image: "Granite Images/optimized/13_blue_pearl.webp",
+    macroImage: "Granite Images/optimized/13_blue_pearl.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -211,8 +211,8 @@ const GRANITE_PRODUCTS = [
     character: "Auburn Geological Ribboning",
     application: "Dining Tables, Conference Surfaces, Fireplaces",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.20 PM (1).jpeg",
+    image: "Granite Images/optimized/14_mahogany_wave.webp",
+    macroImage: "Granite Images/optimized/14_mahogany_wave.webp",
     archImage: "assets/applications/other_vanity.jpg"
   },
   {
@@ -226,8 +226,8 @@ const GRANITE_PRODUCTS = [
     character: "Bold Crimson Feldspar Aggregates",
     application: "Heritage Monuments, Cladding, Heavy Traffic Flooring",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM (1).jpeg",
+    image: "Granite Images/optimized/15_jhansi_red.webp",
+    macroImage: "Granite Images/optimized/15_jhansi_red.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -241,8 +241,8 @@ const GRANITE_PRODUCTS = [
     character: "Monolithic Jet Black Density",
     application: "Kitchens, Minimalist Spas, Signature Facades",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.21 PM.jpeg",
+    image: "Granite Images/optimized/16_absolute_black.webp",
+    macroImage: "Granite Images/optimized/16_absolute_black.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -256,8 +256,8 @@ const GRANITE_PRODUCTS = [
     character: "Organic Alabaster Veining on Ebony",
     application: "Bookmatched Islands, Bar Fronts, Feature Bathrooms",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM (1).jpeg",
+    image: "Granite Images/optimized/17_black_forest.webp",
+    macroImage: "Granite Images/optimized/17_black_forest.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -271,8 +271,8 @@ const GRANITE_PRODUCTS = [
     character: "Swirling Lavender & Charcoal Bands",
     application: "Sculptural Stairs, Master Baths, Living Area Floors",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.22 PM.jpeg",
+    image: "Granite Images/optimized/18_paradiso_classique.webp",
+    macroImage: "Granite Images/optimized/18_paradiso_classique.webp",
     archImage: "assets/applications/other_vanity.jpg"
   },
   {
@@ -286,8 +286,8 @@ const GRANITE_PRODUCTS = [
     character: "Orbicular Feldspar Rosettes in Charcoal",
     application: "Kitchen Islands, Bar Counters, Architectural Paving",
     tone: "dark",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (1).jpeg",
+    image: "Granite Images/optimized/19_baltic_brown.webp",
+    macroImage: "Granite Images/optimized/19_baltic_brown.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -301,8 +301,8 @@ const GRANITE_PRODUCTS = [
     character: "Soft Rose Quartz Granulation",
     application: "Residential Terraces, Commercial Corridors, Facades",
     tone: "warm",
-    image: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg",
-    macroImage: "Granite Images/WhatsApp Image 2026-09-29 at 1.42.23 PM (2).jpeg",
+    image: "Granite Images/optimized/20_chima_pink.webp",
+    macroImage: "Granite Images/optimized/20_chima_pink.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -316,8 +316,8 @@ const GRANITE_PRODUCTS = [
     character: "Luminous Silver & Gold Waves",
     application: "Countertops, Flooring, Feature Walls",
     tone: "dark",
-    image: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg",
-    macroImage: "Granite Images/new granite images/11184401-13b0-455d-827a-25ec11280813.jpg",
+    image: "Granite Images/optimized/21_titanium_black.webp",
+    macroImage: "Granite Images/optimized/21_titanium_black.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -331,8 +331,8 @@ const GRANITE_PRODUCTS = [
     character: "Crystalline Frost Matrix",
     application: "Kitchen Counters, Island Tops, Bathrooms",
     tone: "light",
-    image: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg",
-    macroImage: "Granite Images/new granite images/20f680fd-d983-4a71-a2e6-6b5edc3cb12c.jpg",
+    image: "Granite Images/optimized/22_alaska_white.webp",
+    macroImage: "Granite Images/optimized/22_alaska_white.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -346,8 +346,8 @@ const GRANITE_PRODUCTS = [
     character: "Warm Golden Amber Texture",
     application: "Flooring, Commercial Lobbies, Kitchens",
     tone: "warm",
-    image: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg",
-    macroImage: "Granite Images/new granite images/2283f8d4-ffa9-4a58-a73c-2238852b7c35.jpg",
+    image: "Granite Images/optimized/23_colonial_gold.webp",
+    macroImage: "Granite Images/optimized/23_colonial_gold.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -361,8 +361,8 @@ const GRANITE_PRODUCTS = [
     character: "Fine Slate Veining on Ivory",
     application: "Kitchens, Exterior Paving, Minimalist Interiors",
     tone: "light",
-    image: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg",
-    macroImage: "Granite Images/new granite images/24b83827-17a1-4d9c-aaaf-bf882c77611e.jpg",
+    image: "Granite Images/optimized/24_astoria_white.webp",
+    macroImage: "Granite Images/optimized/24_astoria_white.webp",
     archImage: "assets/about/granite_in_architecture.jpg"
   },
   {
@@ -376,8 +376,8 @@ const GRANITE_PRODUCTS = [
     character: "Swirling Mineral Waves",
     application: "Grand Portals, Staircases, Monumental Flooring",
     tone: "dark",
-    image: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg",
-    macroImage: "Granite Images/new granite images/394ca5b1-6819-44cb-84e7-aff7486acd87.jpg",
+    image: "Granite Images/optimized/25_himalayan_blue.webp",
+    macroImage: "Granite Images/optimized/25_himalayan_blue.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -391,8 +391,8 @@ const GRANITE_PRODUCTS = [
     character: "Golden Crystalline Sparkle",
     application: "Villa Flooring, Kitchen Islands, Terraces",
     tone: "warm",
-    image: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg",
-    macroImage: "Granite Images/new granite images/3fad6ce4-9b51-4517-a3c8-835ed8f787b0.jpg",
+    image: "Granite Images/optimized/26_crystal_yellow.webp",
+    macroImage: "Granite Images/optimized/26_crystal_yellow.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -406,8 +406,8 @@ const GRANITE_PRODUCTS = [
     character: "Iridescent Metallic Specks",
     application: "Kitchens, Minimalist Spas, Signature Facades",
     tone: "dark",
-    image: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg",
-    macroImage: "Granite Images/new granite images/51eeaa9c-62d5-4287-8da2-350998d1be15.jpg",
+    image: "Granite Images/optimized/27_black_pearl.webp",
+    macroImage: "Granite Images/optimized/27_black_pearl.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -421,8 +421,8 @@ const GRANITE_PRODUCTS = [
     character: "Translucent Quartz Breccia",
     application: "Luxury Bar Tops, Vanities, Feature Walls",
     tone: "warm",
-    image: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg",
-    macroImage: "Granite Images/new granite images/53143084-62e0-458a-86d7-00cabdd7b33b.jpg",
+    image: "Granite Images/optimized/28_patagonia_gold.webp",
+    macroImage: "Granite Images/optimized/28_patagonia_gold.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -436,8 +436,8 @@ const GRANITE_PRODUCTS = [
     character: "Parallel Silver Flow",
     application: "Bookmatched Walls, Waterfall Slabs",
     tone: "dark",
-    image: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg",
-    macroImage: "Granite Images/new granite images/56fc91f1-de8d-49ce-ab40-0037848188d3.jpg",
+    image: "Granite Images/optimized/29_silver_wave.webp",
+    macroImage: "Granite Images/optimized/29_silver_wave.webp",
     archImage: "assets/applications/other_vanity.jpg"
   },
   {
@@ -451,8 +451,8 @@ const GRANITE_PRODUCTS = [
     character: "Celestial Metallic Currents",
     application: "Kitchen Slabs, Bar Countertops",
     tone: "dark",
-    image: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg",
-    macroImage: "Granite Images/new granite images/669fe13e-0b3b-4428-96f8-a9ccc33dc99e.jpg",
+    image: "Granite Images/optimized/30_cosmic_black.webp",
+    macroImage: "Granite Images/optimized/30_cosmic_black.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -466,8 +466,8 @@ const GRANITE_PRODUCTS = [
     character: "Taupe & Quartz Clusters on White",
     application: "Bright Kitchens, Spa Bathrooms",
     tone: "light",
-    image: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg",
-    macroImage: "Granite Images/new granite images/7b037bc1-312d-47d7-97fb-b775c7f2d2ec.jpg",
+    image: "Granite Images/optimized/31_bianco_antico.webp",
+    macroImage: "Granite Images/optimized/31_bianco_antico.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -481,8 +481,8 @@ const GRANITE_PRODUCTS = [
     character: "Silken Auburn Waves",
     application: "Flooring, Dining Surfaces",
     tone: "warm",
-    image: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg",
-    macroImage: "Granite Images/new granite images/8e2bd52f-8831-45f3-bb78-c41f263f5e33.jpg",
+    image: "Granite Images/optimized/32_copper_silk.webp",
+    macroImage: "Granite Images/optimized/32_copper_silk.webp",
     archImage: "assets/applications/other_vanity.jpg"
   },
   {
@@ -496,8 +496,8 @@ const GRANITE_PRODUCTS = [
     character: "Botanical Forest Veining",
     application: "Vanities, Feature Tops",
     tone: "warm",
-    image: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg",
-    macroImage: "Granite Images/new granite images/9e01b390-9d4b-4d95-8110-71e81150d2a0.jpg",
+    image: "Granite Images/optimized/33_verde_unik.webp",
+    macroImage: "Granite Images/optimized/33_verde_unik.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   },
   {
@@ -511,8 +511,8 @@ const GRANITE_PRODUCTS = [
     character: "Uniform Warm Taupe Texture",
     application: "Flooring, Staircases, Kitchens",
     tone: "warm",
-    image: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg",
-    macroImage: "Granite Images/new granite images/b1e786d4-d447-4fa4-99f5-04a5fdfbebdb.jpg",
+    image: "Granite Images/optimized/34_mushroom_brown.webp",
+    macroImage: "Granite Images/optimized/34_mushroom_brown.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -526,8 +526,8 @@ const GRANITE_PRODUCTS = [
     character: "Glacial Quartz Formations",
     application: "Executive Boardrooms, Spa Retreats",
     tone: "light",
-    image: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg",
-    macroImage: "Granite Images/new granite images/b715623e-5728-4582-af3a-e05d7d5faac1.jpg",
+    image: "Granite Images/optimized/35_ice_blue.webp",
+    macroImage: "Granite Images/optimized/35_ice_blue.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -541,8 +541,8 @@ const GRANITE_PRODUCTS = [
     character: "Fine Golden Mica Dust",
     application: "Contemporary Kitchens, Vanity Tops",
     tone: "dark",
-    image: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg",
-    macroImage: "Granite Images/new granite images/c83126bd-077a-4658-ae0c-102eed8cd723.jpg",
+    image: "Granite Images/optimized/36_nebula_black.webp",
+    macroImage: "Granite Images/optimized/36_nebula_black.webp",
     archImage: "assets/applications/black_galaxy_countertop.jpg"
   },
   {
@@ -556,8 +556,8 @@ const GRANITE_PRODUCTS = [
     character: "Radiant Golden Quartz Flow",
     application: "Kitchen Waterfall Countertops, Flooring",
     tone: "warm",
-    image: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg",
-    macroImage: "Granite Images/new granite images/cc40ba81-7f62-4ef7-b2a0-cbb4c8eb4350.jpg",
+    image: "Granite Images/optimized/37_solaris_gold.webp",
+    macroImage: "Granite Images/optimized/37_solaris_gold.webp",
     archImage: "assets/about/about_hero_granite.jpg"
   },
   {
@@ -571,8 +571,8 @@ const GRANITE_PRODUCTS = [
     character: "Charcoal Rivers on Silver",
     application: "Bookmatched Accent Walls, Kitchen Islands",
     tone: "light",
-    image: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg",
-    macroImage: "Granite Images/new granite images/d6fbba9d-f629-4204-babe-06aad7bd3950.jpg",
+    image: "Granite Images/optimized/38_monte_carlo.webp",
+    macroImage: "Granite Images/optimized/38_monte_carlo.webp",
     archImage: "assets/about/granite_in_architecture.jpg"
   },
   {
@@ -586,8 +586,8 @@ const GRANITE_PRODUCTS = [
     character: "Rich Regal Vermilion Matrix",
     application: "Building Entrances, Staircases, Monuments",
     tone: "warm",
-    image: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg",
-    macroImage: "Granite Images/new granite images/dc94342c-2a1e-440d-a60a-5e044764e859.jpg",
+    image: "Granite Images/optimized/39_imperial_red.webp",
+    macroImage: "Granite Images/optimized/39_imperial_red.webp",
     archImage: "assets/applications/staircase.jpg"
   },
   {
@@ -601,8 +601,8 @@ const GRANITE_PRODUCTS = [
     character: "Turquoise Jade & Amber Fissures",
     application: "Powder Room Vanities, Bar Tops, Artwork Slabs",
     tone: "warm",
-    image: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg",
-    macroImage: "Granite Images/new granite images/dd88a3e5-1fec-4286-9558-55f7203c0bd7.jpg",
+    image: "Granite Images/optimized/40_amazonite_lux.webp",
+    macroImage: "Granite Images/optimized/40_amazonite_lux.webp",
     archImage: "assets/about/luxury_kitchen_granite.jpg"
   }
 ];
