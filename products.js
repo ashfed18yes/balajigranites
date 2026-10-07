@@ -660,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Smooth vertical curtain transition when navigating back to home, about or contact
-  document.querySelectorAll('a[href^="/index.html"], a[href^="index.html"], a[href^="/about"], a[href^="about"], a[href^="/contact"], a[href^="contact"]').forEach(link => {
+  document.querySelectorAll('a[href="/"], a[href^="/#"], a[href^="/index.html"], a[href^="index.html"], a[href^="/about"], a[href^="about"], a[href^="/contact"], a[href^="contact"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const targetHref = link.getAttribute('href');
       if (!targetHref) return;

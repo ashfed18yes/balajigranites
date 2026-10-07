@@ -44,6 +44,30 @@ const server = http.createServer((req, res) => {
 
   const rawPath = req.url.split('?')[0];
   const urlPath = decodeURIComponent(rawPath);
+
+  // Canonical Clean URL Redirects matching Vercel production:
+  // 1. /index.html -> /
+  if (urlPath === '/index.html' || urlPath === '/index') {
+    res.writeHead(301, { 'Location': '/' });
+    res.end();
+    return;
+  }
+
+  // 2. Trailing slash normalization (e.g., /about/ -> /about)
+  if (urlPath !== '/' && urlPath.endsWith('/')) {
+    res.writeHead(301, { 'Location': urlPath.slice(0, -1) });
+    res.end();
+    return;
+  }
+
+  // 3. Strip .html extensions (e.g., /about.html -> /about)
+  if (urlPath.endsWith('.html')) {
+    const clean = urlPath.slice(0, -5);
+    res.writeHead(301, { 'Location': clean });
+    res.end();
+    return;
+  }
+
   let filePath = path.join(__dirname, urlPath === '/' ? 'index.html' : urlPath);
 
   if (!fs.existsSync(filePath)) {

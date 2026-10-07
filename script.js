@@ -2446,10 +2446,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Connect Navbar "Products" link to smooth scroll as well
+  // Connect Navbar "Products" link (navigate to /products if linked to dedicated page)
   if (navProductsLink) {
-
     navProductsLink.addEventListener('click', (e) => {
+      const href = navProductsLink.getAttribute('href');
+      if (href && (href === '/products' || href.startsWith('/products') || href.includes('products.html'))) {
+        return; // Allow native navigation to dedicated Products page
+      }
       e.preventDefault();
       if (isTileActive) {
         transitionBackToFinder();

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Smooth vertical curtain transition when navigating to other internal pages
-  document.querySelectorAll('a[href^="/index.html"], a[href^="index.html"], a[href^="/about"], a[href^="about"], a[href^="/products"], a[href^="products"]').forEach(link => {
+  document.querySelectorAll('a[href="/"], a[href^="/#"], a[href^="/index.html"], a[href^="index.html"], a[href^="/about"], a[href^="about"], a[href^="/products"], a[href^="products"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const targetHref = link.getAttribute('href');
       if (!targetHref || targetHref.startsWith('#') || targetHref.includes('wa.me')) return;
