@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Architectural Charcoal Granite Gradient -->
+    <linearGradient id="graniteBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1c19"/>
+      <stop offset="100%" stop-color="#0e0d0c"/>
+    </linearGradient>
+
+    <!-- Outer Champagne Gold Bezel -->
+    <linearGradient id="goldBezel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfc19c"/>
+      <stop offset="50%" stop-color="#c6a678"/>
+      <stop offset="100%" stop-color="#9a7c50"/>
+    </linearGradient>
+
+    <!-- Warm Ivory Monogram Gradient -->
+    <linearGradient id="ivoryMonogram" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffdf8"/>
+      <stop offset="100%" stop-color="#eee8de"/>
+    </linearGradient>
+
+    <!-- Bronzite Crystal Gold Gradient -->
+    <linearGradient id="crystalGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffeed4"/>
+      <stop offset="45%" stop-color="#f5d28a"/>
+      <stop offset="100%" stop-color="#c8984e"/>
+    </linearGradient>
+
+    <!-- Subtle Radial Specular Sheen -->
+    <radialGradient id="specularGlow" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base Rounded Stone Tablet -->
+  <rect x="12" y="12" width="488" height="488" rx="96" ry="96" fill="url(#graniteBg)" stroke="url(#goldBezel)" stroke-width="8"/>
+
+  <!-- Radial Stone Sheen -->
+  <rect x="12" y="12" width="488" height="488" rx="96" ry="96" fill="url(#specularGlow)"/>
+
+  <!-- Inner Fine Chamfer Inlay -->
+  <rect x="26" y="26" width="460" height="460" rx="80" ry="80" fill="none" stroke="#dab98c" stroke-opacity="0.25" stroke-width="1.5"/>
+
+  <!-- Balaji Monogram "B" Group -->
+  <!-- Outer Letter Silhouette -->
+  <path d="M 124 118
+           L 261 118
+           C 341 118, 341 250, 256 250
+           C 361 250, 361 394, 271 394
+           L 124 394
+           L 124 372
+           C 124 372, 148 372, 148 359
+           C 148 349, 148 163, 148 153
+           C 148 140, 124 140, 124 140
+           Z"
+        fill="url(#ivoryMonogram)"/>
+
+  <!-- Upper Counter Cutout (matching granite background with subtle gold edge) -->
+  <path d="M 192 150
+           L 246 150
+           C 288 150, 288 228, 246 228
+           L 192 228
+           Z"
+        fill="#181614"
+        stroke="#dab98c"
+        stroke-opacity="0.45"
+        stroke-width="1.5"/>
+
+  <!-- Lower Counter Cutout (matching granite background with subtle gold edge) -->
+  <path d="M 192 270
+           L 254 270
+           C 302 270, 302 362, 254 362
+           L 192 362
+           Z"
+        fill="#141311"
+        stroke="#dab98c"
+        stroke-opacity="0.45"
+        stroke-width="1.5"/>
+
+  <!-- Signature 4-Point Bronzite Crystal Star (✦) -->
+  <polygon points="388,94 395.5,118.5 420,126 395.5,133.5 388,158 380.5,133.5 356,126 380.5,118.5"
+           fill="url(#crystalGold)"/>
+  <circle cx="388" cy="126" r="4.5" fill="#ffffff"/>
+</svg>
