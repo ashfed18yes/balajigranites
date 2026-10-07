@@ -18,7 +18,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/01_black_galaxy.webp",
     macroImage: "Granite Images/optimized/01_black_galaxy.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/01-black-galaxy-application.jpg"
   },
   {
     id: "02",
@@ -33,7 +33,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/02_kashmir_white.webp",
     macroImage: "Granite Images/optimized/02_kashmir_white.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/02-kashmir-white-application.jpg"
   },
   {
     id: "03",
@@ -48,7 +48,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/03_viscount_white.webp",
     macroImage: "Granite Images/optimized/03_viscount_white.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/03-viscount-white-application.jpg"
   },
   {
     id: "04",
@@ -63,7 +63,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/04_tan_brown.webp",
     macroImage: "Granite Images/optimized/04_tan_brown.webp",
-    archImage: "assets/applications/other_vanity.jpg"
+    archImage: "assets/applications/04-tan-brown-application.jpg"
   },
   {
     id: "05",
@@ -78,7 +78,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/05_steel_grey.webp",
     macroImage: "Granite Images/optimized/05_steel_grey.webp",
-    archImage: "assets/about/granite_in_architecture.jpg"
+    archImage: "assets/applications/05-steel-grey-application.jpg"
   },
   {
     id: "06",
@@ -93,7 +93,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/06_ruby_red.webp",
     macroImage: "Granite Images/optimized/06_ruby_red.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/06-ruby-red-application.jpg"
   },
   {
     id: "07",
@@ -108,7 +108,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/07_emerald_green.webp",
     macroImage: "Granite Images/optimized/07_emerald_green.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/07-emerald-green-application.jpg"
   },
   {
     id: "08",
@@ -123,7 +123,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/08_desert_gold.webp",
     macroImage: "Granite Images/optimized/08_desert_gold.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/08-desert-gold-application.jpg"
   },
   {
     id: "09",
@@ -138,7 +138,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/09_red_multicolor.webp",
     macroImage: "Granite Images/optimized/09_red_multicolor.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/09-red-multicolor-application.jpg"
   },
   {
     id: "10",
@@ -153,7 +153,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/10_moon_white.webp",
     macroImage: "Granite Images/optimized/10_moon_white.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/10-moon-white-application.jpg"
   },
   {
     id: "11",
@@ -168,7 +168,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/11_lakha_red.webp",
     macroImage: "Granite Images/optimized/11_lakha_red.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/11-lakha-red-application.jpg"
   },
   {
     id: "12",
@@ -183,7 +183,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/12_rosy_pink.webp",
     macroImage: "Granite Images/optimized/12_rosy_pink.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/12-rosy-pink-application.jpg"
   },
   {
     id: "13",
@@ -198,7 +198,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/13_blue_pearl.webp",
     macroImage: "Granite Images/optimized/13_blue_pearl.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/13-blue-pearl-application.jpg"
   },
   {
     id: "14",
@@ -213,7 +213,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/14_mahogany_wave.webp",
     macroImage: "Granite Images/optimized/14_mahogany_wave.webp",
-    archImage: "assets/applications/other_vanity.jpg"
+    archImage: "assets/applications/14-mahogany-wave-application.jpg"
   },
   {
     id: "15",
@@ -228,7 +228,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/15_jhansi_red.webp",
     macroImage: "Granite Images/optimized/15_jhansi_red.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/15-jhansi-red-application.jpg"
   },
   {
     id: "16",
@@ -243,7 +243,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/16_absolute_black.webp",
     macroImage: "Granite Images/optimized/16_absolute_black.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/16-absolute-black-application.jpg"
   },
   {
     id: "17",
@@ -258,7 +258,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/17_black_forest.webp",
     macroImage: "Granite Images/optimized/17_black_forest.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/17-black-forest-application.jpg"
   },
   {
     id: "18",
@@ -273,7 +273,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/18_paradiso_classique.webp",
     macroImage: "Granite Images/optimized/18_paradiso_classique.webp",
-    archImage: "assets/applications/other_vanity.jpg"
+    archImage: "assets/applications/18-paradiso-classique-application.jpg"
   },
   {
     id: "19",
@@ -288,7 +288,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/19_baltic_brown.webp",
     macroImage: "Granite Images/optimized/19_baltic_brown.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/19-baltic-brown-application.jpg"
   },
   {
     id: "20",
@@ -303,7 +303,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/20_chima_pink.webp",
     macroImage: "Granite Images/optimized/20_chima_pink.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/20-chima-pink-application.jpg"
   },
   {
     id: "21",
@@ -318,7 +318,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/21_titanium_black.webp",
     macroImage: "Granite Images/optimized/21_titanium_black.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/21-titanium-black-application.jpg"
   },
   {
     id: "22",
@@ -333,7 +333,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/22_alaska_white.webp",
     macroImage: "Granite Images/optimized/22_alaska_white.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/22-alaska-white-application.jpg"
   },
   {
     id: "23",
@@ -348,7 +348,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/23_colonial_gold.webp",
     macroImage: "Granite Images/optimized/23_colonial_gold.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/23-colonial-gold-application.jpg"
   },
   {
     id: "24",
@@ -363,7 +363,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/24_astoria_white.webp",
     macroImage: "Granite Images/optimized/24_astoria_white.webp",
-    archImage: "assets/about/granite_in_architecture.jpg"
+    archImage: "assets/applications/24-astoria-white-application.jpg"
   },
   {
     id: "25",
@@ -378,7 +378,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/25_himalayan_blue.webp",
     macroImage: "Granite Images/optimized/25_himalayan_blue.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/25-himalayan-blue-application.jpg"
   },
   {
     id: "26",
@@ -393,7 +393,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/26_crystal_yellow.webp",
     macroImage: "Granite Images/optimized/26_crystal_yellow.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/26-crystal-yellow-application.jpg"
   },
   {
     id: "27",
@@ -408,7 +408,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/27_black_pearl.webp",
     macroImage: "Granite Images/optimized/27_black_pearl.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/27-black-pearl-application.jpg"
   },
   {
     id: "28",
@@ -423,7 +423,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/28_patagonia_gold.webp",
     macroImage: "Granite Images/optimized/28_patagonia_gold.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/28-patagonia-gold-application.jpg"
   },
   {
     id: "29",
@@ -438,7 +438,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/29_silver_wave.webp",
     macroImage: "Granite Images/optimized/29_silver_wave.webp",
-    archImage: "assets/applications/other_vanity.jpg"
+    archImage: "assets/applications/29-silver-wave-application.jpg"
   },
   {
     id: "30",
@@ -453,7 +453,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/30_cosmic_black.webp",
     macroImage: "Granite Images/optimized/30_cosmic_black.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/30-cosmic-black-application.jpg"
   },
   {
     id: "31",
@@ -468,7 +468,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/31_bianco_antico.webp",
     macroImage: "Granite Images/optimized/31_bianco_antico.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/31-bianco-antico-application.jpg"
   },
   {
     id: "32",
@@ -483,7 +483,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/32_copper_silk.webp",
     macroImage: "Granite Images/optimized/32_copper_silk.webp",
-    archImage: "assets/applications/other_vanity.jpg"
+    archImage: "assets/applications/32-copper-silk-application.jpg"
   },
   {
     id: "33",
@@ -498,7 +498,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/33_verde_unik.webp",
     macroImage: "Granite Images/optimized/33_verde_unik.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/33-verde-unik-application.jpg"
   },
   {
     id: "34",
@@ -513,7 +513,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/34_mushroom_brown.webp",
     macroImage: "Granite Images/optimized/34_mushroom_brown.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/34-mushroom-brown-application.jpg"
   },
   {
     id: "35",
@@ -528,7 +528,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/35_ice_blue.webp",
     macroImage: "Granite Images/optimized/35_ice_blue.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/35-ice-blue-application.jpg"
   },
   {
     id: "36",
@@ -543,7 +543,7 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/36_nebula_black.webp",
     macroImage: "Granite Images/optimized/36_nebula_black.webp",
-    archImage: "assets/applications/black_galaxy_countertop.jpg"
+    archImage: "assets/applications/36-nebula-black-application.jpg"
   },
   {
     id: "37",
@@ -558,7 +558,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/37_solaris_gold.webp",
     macroImage: "Granite Images/optimized/37_solaris_gold.webp",
-    archImage: "assets/about/about_hero_granite.jpg"
+    archImage: "assets/applications/37-solaris-gold-application.jpg"
   },
   {
     id: "38",
@@ -573,7 +573,7 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/38_monte_carlo.webp",
     macroImage: "Granite Images/optimized/38_monte_carlo.webp",
-    archImage: "assets/about/granite_in_architecture.jpg"
+    archImage: "assets/applications/38-monte-carlo-application.jpg"
   },
   {
     id: "39",
@@ -588,7 +588,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/39_imperial_red.webp",
     macroImage: "Granite Images/optimized/39_imperial_red.webp",
-    archImage: "assets/applications/staircase.jpg"
+    archImage: "assets/applications/39-imperial-red-application.jpg"
   },
   {
     id: "40",
@@ -603,7 +603,7 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/40_amazonite_lux.webp",
     macroImage: "Granite Images/optimized/40_amazonite_lux.webp",
-    archImage: "assets/about/luxury_kitchen_granite.jpg"
+    archImage: "assets/applications/40-amazonite-lux-application.jpg"
   }
 ];
 
@@ -749,6 +749,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update Gallery Image
     if (galleryStageImg) {
+      galleryStageImg.onerror = () => {
+        galleryStageImg.onerror = null;
+        galleryStageImg.src = item.image;
+      };
       galleryStageImg.src = item.archImage;
       galleryStageImg.alt = `${item.name} Architectural Installation`;
     }
@@ -801,6 +805,10 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (viewIdx === 1) {
         productSlabImg.src = item.macroImage;
       } else {
+        productSlabImg.onerror = () => {
+          productSlabImg.onerror = null;
+          productSlabImg.src = item.image;
+        };
         productSlabImg.src = item.archImage;
       }
       productSlabImg.style.opacity = '1';

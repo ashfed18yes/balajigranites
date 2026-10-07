@@ -262,8 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbnails: [
         { label: "Full Slab", src: "Granite Images/optimized/01_black_galaxy.webp" },
         { label: "Macro Grain", src: "Granite Images/optimized/01_black_galaxy.webp", isMacro: true },
-        { label: "Kitchen Island", src: "assets/applications/black_galaxy_countertop.jpg" },
-        { label: "Villa Flooring", src: "assets/applications/black_galaxy_flooring.jpg" }
+        { label: "Kitchen Island", src: "assets/applications/01-black-galaxy-application.jpg" },
+        { label: "Villa Flooring", src: "assets/applications/05-steel-grey-application.jpg" }
       ]
     },
     {
