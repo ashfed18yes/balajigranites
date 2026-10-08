@@ -233,7 +233,7 @@ html, body {
    -------------------------------------------------------------------------- */
 .cta-actions-wrapper {
   position: absolute;
-  bottom: 54px;
+  bottom: 58px;
   left: 50%;
   transform: translate(-50%, 20px) scale(0.98);
   display: flex;
@@ -256,6 +256,73 @@ html, body {
   transform: translate(-50%, 0) scale(1);
   filter: blur(0px);
   pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Downward Scroll Indicator (Signals to scroll down to collection)
+   -------------------------------------------------------------------------- */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translate(-50%, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #1a1916;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  transition: 
+    opacity 1.6s var(--ease-cinematic) 0.35s,
+    transform 1.6s var(--ease-cinematic) 0.35s,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-scroll-indicator svg {
+  display: block;
+  stroke: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.hero-ui-layer.is-revealed .hero-scroll-indicator {
+  opacity: 0.88;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  animation: heroScrollBounce 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.hero-scroll-indicator:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.24);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  animation-play-state: paused;
+}
+
+.hero-scroll-indicator:hover svg {
+  transform: translateY(2px);
+}
+
+@keyframes heroScrollBounce {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 4px);
+  }
 }
 
 /* Base Pill Button */
@@ -353,7 +420,7 @@ html, body {
   }
 
   .cta-actions-wrapper {
-    bottom: 36px;
+    bottom: 58px;
     gap: 14px;
   }
 
@@ -592,6 +659,17 @@ html, body {
     white-space: nowrap;
     border-radius: 9999px;
   }
+
+  .hero-scroll-indicator {
+    bottom: max(calc(env(safe-area-inset-bottom, 8px) + 8px), 14px);
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero-scroll-indicator svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 @media (max-width: 380px) {
@@ -624,6 +702,17 @@ html, body {
     padding: 0 6px;
     font-size: 9.5px;
     letter-spacing: 0.04em;
+  }
+
+  .hero-scroll-indicator {
+    bottom: max(calc(env(safe-area-inset-bottom, 6px) + 6px), 12px);
+    width: 26px;
+    height: 26px;
+  }
+
+  .hero-scroll-indicator svg {
+    width: 13px;
+    height: 13px;
   }
 }
 

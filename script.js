@@ -1036,6 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressTrack = document.getElementById('slider-progress-track');
   const graniteSection = document.getElementById('granite-collection');
   const exploreCtaBtn = document.getElementById('cta-explore-granite');
+  const heroScrollIndicator = document.getElementById('hero-scroll-indicator');
   const heroContainer = document.getElementById('hero');
 
   if (!slabsStage) return;
@@ -1404,6 +1405,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // When the user scrolls all the way back to the very top (scrollY <= 2), ensure the Hero is in its clean initial visual state.
     if (scrollY <= 2) {
+      if (heroScrollIndicator) {
+        heroScrollIndicator.style.opacity = '';
+        heroScrollIndicator.style.pointerEvents = '';
+      }
       if (warmCurtain) {
         warmCurtain.style.transition = 'none';
         warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
@@ -1436,6 +1441,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (warmCurtain) {
       warmCurtain.style.transition = 'none';
       warmCurtain.style.transform = `translate3d(0, ${curtainY}%, 0)`;
+    }
+
+    if (heroScrollIndicator) {
+      heroScrollIndicator.style.opacity = progress > 0.05 ? '0' : '';
+      heroScrollIndicator.style.pointerEvents = progress > 0.05 ? 'none' : '';
     }
 
     // Hero stays strictly stationary: NO transform, NO scale, NO movement
@@ -2424,17 +2434,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Connect "EXPLORE GRANITE" CTA button to smooth slide into collection
-  if (exploreCtaBtn) {
-    exploreCtaBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-      const targetScroll = trackH - window.innerHeight;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
+  // Connect "EXPLORE GRANITE" CTA button & scroll indicator to smooth slide into collection
+  const scrollToCollection = (e) => {
+    e.preventDefault();
+    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+    const targetScroll = trackH - window.innerHeight;
+    window.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
     });
+  };
+
+  if (exploreCtaBtn) {
+    exploreCtaBtn.addEventListener('click', scrollToCollection);
+  }
+  if (heroScrollIndicator) {
+    heroScrollIndicator.addEventListener('click', scrollToCollection);
   }
 
   // Connect Navbar "About" link (navigate to /about if linked to dedicated page)
