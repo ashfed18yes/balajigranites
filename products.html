@@ -174,12 +174,32 @@
       <!-- SECTION 3 — ARCHITECTURAL APPLICATION GALLERY (Frame 00:05) -->
       <section class="product-gallery-section" aria-label="Architectural Environment">
         <div class="products-container">
-          <div class="gallery-stage">
-            <img id="gallery-stage-img" src="/assets/applications/01-black-galaxy-application.jpg"
-              alt="Architectural Installation" loading="lazy">
+          <div class="gallery-stage" id="gallery-stage">
+            <img id="gallery-stage-img" src="/assets/applications/01-black-galaxy-stairs.jpg"
+              alt="Black Galaxy installed on Stairs" loading="lazy">
+
+            <!-- Minimal Slider Navigation Arrows -->
+            <button type="button" class="gallery-slider-arrow gallery-arrow-prev" id="gallery-arrow-prev" aria-label="Previous application image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="gallery-slider-arrow gallery-arrow-next" id="gallery-arrow-next" aria-label="Next application image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Bottom Control Bar: Overlay Badge + Application Pills -->
             <div class="gallery-overlay-badge">
               <span class="gallery-badge-dot"></span>
-              <span id="gallery-badge-label">Architectural Environment · Spatial Continuity</span>
+              <span id="gallery-badge-label">Black Galaxy · Stairs</span>
+            </div>
+
+            <div class="gallery-slider-nav" id="gallery-slider-nav">
+              <button type="button" class="gallery-pill-btn is-active" data-app-index="0">Stairs</button>
+              <button type="button" class="gallery-pill-btn" data-app-index="1">Kitchen Countertop</button>
+              <button type="button" class="gallery-pill-btn" data-app-index="2">Floor</button>
             </div>
           </div>
         </div>

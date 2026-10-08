@@ -18,7 +18,12 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/01_black_galaxy.webp",
     macroImage: "Granite Images/optimized/01_black_galaxy.webp",
-    archImage: "assets/applications/01-black-galaxy-application.jpg"
+    archImage: "assets/applications/01-black-galaxy-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/01-black-galaxy-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/01-black-galaxy-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/01-black-galaxy-floor.jpg" }
+    ]
   },
   {
     id: "02",
@@ -33,7 +38,12 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/02_kashmir_white.webp",
     macroImage: "Granite Images/optimized/02_kashmir_white.webp",
-    archImage: "assets/applications/02-kashmir-white-application.jpg"
+    archImage: "assets/applications/02-kashmir-white-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/02-kashmir-white-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/02-kashmir-white-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/02-kashmir-white-floor.jpg" }
+    ]
   },
   {
     id: "03",
@@ -48,7 +58,12 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/03_viscount_white.webp",
     macroImage: "Granite Images/optimized/03_viscount_white.webp",
-    archImage: "assets/applications/03-viscount-white-application.jpg"
+    archImage: "assets/applications/03-viscount-white-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/03-viscount-white-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/03-viscount-white-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/03-viscount-white-floor.jpg" }
+    ]
   },
   {
     id: "04",
@@ -63,7 +78,12 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/04_tan_brown.webp",
     macroImage: "Granite Images/optimized/04_tan_brown.webp",
-    archImage: "assets/applications/04-tan-brown-application.jpg"
+    archImage: "assets/applications/04-tan-brown-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/04-tan-brown-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/04-tan-brown-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/04-tan-brown-floor.jpg" }
+    ]
   },
   {
     id: "05",
@@ -78,7 +98,12 @@ const GRANITE_PRODUCTS = [
     tone: "dark",
     image: "Granite Images/optimized/05_steel_grey.webp",
     macroImage: "Granite Images/optimized/05_steel_grey.webp",
-    archImage: "assets/applications/05-steel-grey-application.jpg"
+    archImage: "assets/applications/05-steel-grey-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/05-steel-grey-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/05-steel-grey-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/05-steel-grey-floor.jpg" }
+    ]
   },
   {
     id: "06",
@@ -93,7 +118,12 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/06_ruby_red.webp",
     macroImage: "Granite Images/optimized/06_ruby_red.webp",
-    archImage: "assets/applications/06-ruby-red-application.jpg"
+    archImage: "assets/applications/06-ruby-red-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/06-ruby-red-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/06-ruby-red-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/06-ruby-red-floor.jpg" }
+    ]
   },
   {
     id: "07",
@@ -108,7 +138,12 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/07_emerald_green.webp",
     macroImage: "Granite Images/optimized/07_emerald_green.webp",
-    archImage: "assets/applications/07-emerald-green-application.jpg"
+    archImage: "assets/applications/07-emerald-green-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/07-emerald-green-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/07-emerald-green-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/07-emerald-green-floor.jpg" }
+    ]
   },
   {
     id: "08",
@@ -123,7 +158,12 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/08_desert_gold.webp",
     macroImage: "Granite Images/optimized/08_desert_gold.webp",
-    archImage: "assets/applications/08-desert-gold-application.jpg"
+    archImage: "assets/applications/08-desert-gold-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/08-desert-gold-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/08-desert-gold-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/08-desert-gold-floor.jpg" }
+    ]
   },
   {
     id: "09",
@@ -138,7 +178,12 @@ const GRANITE_PRODUCTS = [
     tone: "warm",
     image: "Granite Images/optimized/09_red_multicolor.webp",
     macroImage: "Granite Images/optimized/09_red_multicolor.webp",
-    archImage: "assets/applications/09-red-multicolor-application.jpg"
+    archImage: "assets/applications/09-red-multicolor-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/09-red-multicolor-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/09-red-multicolor-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/09-red-multicolor-floor.jpg" }
+    ]
   },
   {
     id: "10",
@@ -153,7 +198,12 @@ const GRANITE_PRODUCTS = [
     tone: "light",
     image: "Granite Images/optimized/10_moon_white.webp",
     macroImage: "Granite Images/optimized/10_moon_white.webp",
-    archImage: "assets/applications/10-moon-white-application.jpg"
+    archImage: "assets/applications/10-moon-white-stairs.jpg",
+    applicationImages: [
+      { type: "stairs", label: "Stairs", src: "assets/applications/10-moon-white-stairs.jpg" },
+      { type: "kitchen", label: "Kitchen Countertop", src: "assets/applications/10-moon-white-kitchen.jpg" },
+      { type: "floor", label: "Floor", src: "assets/applications/10-moon-white-floor.jpg" }
+    ]
   },
   {
     id: "11",
@@ -620,8 +670,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const productTitle = document.getElementById('product-title');
   const productDesc = document.getElementById('product-desc');
   const productSlabImg = document.getElementById('product-slab-img');
+  const galleryStage = document.getElementById('gallery-stage');
   const galleryStageImg = document.getElementById('gallery-stage-img');
   const galleryBadgeLabel = document.getElementById('gallery-badge-label');
+  const galleryArrowPrev = document.getElementById('gallery-arrow-prev');
+  const galleryArrowNext = document.getElementById('gallery-arrow-next');
+  const gallerySliderNav = document.getElementById('gallery-slider-nav');
   
   // Specs Elements
   const specFinish = document.getElementById('spec-finish');
@@ -648,6 +702,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentProductIndex = 0;
   let currentViewMode = 'slab'; // 'slab' | 'macro' | 'arch'
+  let currentAppSlideIndex = 0; // 0: Stairs, 1: Kitchen Countertop, 2: Floor
+
+  const resolveSrc = (path) => {
+    if (!path) return '';
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) return path;
+    return '/' + path;
+  };
 
   // 1. Vertical White/Ivory Transition Curtain Reveal on Load
   if (curtainOverlay) {
@@ -717,7 +778,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 5. Select Active Granite Product
+  // 5. Architectural Application Slider (Stairs, Kitchen Countertop, Floor)
+  function renderAppSlide(slideIdx, isDirect = false) {
+    const item = GRANITE_PRODUCTS[currentProductIndex];
+    if (!item) return;
+
+    const hasApps = Array.isArray(item.applicationImages) && item.applicationImages.length > 0;
+
+    if (galleryArrowPrev) galleryArrowPrev.style.display = hasApps ? 'flex' : 'none';
+    if (galleryArrowNext) galleryArrowNext.style.display = hasApps ? 'flex' : 'none';
+    if (gallerySliderNav) gallerySliderNav.style.display = hasApps ? 'flex' : 'none';
+
+    if (!hasApps) {
+      if (galleryStageImg) {
+        galleryStageImg.src = resolveSrc(item.archImage || item.image);
+        galleryStageImg.alt = `${item.name} Architectural Installation`;
+      }
+      if (galleryBadgeLabel) {
+        galleryBadgeLabel.textContent = `${item.name} · Architectural Environment`;
+      }
+      return;
+    }
+
+    const totalSlides = item.applicationImages.length;
+    currentAppSlideIndex = ((slideIdx % totalSlides) + totalSlides) % totalSlides;
+    const currentApp = item.applicationImages[currentAppSlideIndex];
+
+    if (gallerySliderNav) {
+      const pills = gallerySliderNav.querySelectorAll('.gallery-pill-btn');
+      pills.forEach((pill, idx) => {
+        pill.classList.toggle('is-active', idx === currentAppSlideIndex);
+      });
+    }
+
+    if (galleryBadgeLabel) {
+      galleryBadgeLabel.textContent = `${item.name} · ${currentApp.label}`;
+    }
+
+    if (galleryStageImg) {
+      const targetSrc = resolveSrc(currentApp.src);
+      if (isDirect) {
+        galleryStageImg.src = targetSrc;
+        galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
+      } else {
+        galleryStageImg.style.opacity = '0';
+        galleryStageImg.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+          galleryStageImg.onerror = () => {
+            galleryStageImg.onerror = null;
+            galleryStageImg.src = resolveSrc(item.image);
+          };
+          galleryStageImg.src = targetSrc;
+          galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
+          galleryStageImg.style.opacity = '1';
+          galleryStageImg.style.transform = 'scale(1)';
+        }, 120);
+      }
+    }
+  }
+
+  // 6. Select Active Granite Product
   function selectProduct(index, smoothScroll = false) {
     if (index < 0 || index >= GRANITE_PRODUCTS.length) return;
     currentProductIndex = index;
@@ -741,24 +861,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productSlabImg) {
       productSlabImg.style.opacity = '0';
       setTimeout(() => {
-        productSlabImg.src = item.image;
+        productSlabImg.src = resolveSrc(item.image);
         productSlabImg.alt = `${item.name} Granite Slab`;
         productSlabImg.style.opacity = '1';
       }, 150);
     }
 
-    // Update Gallery Image
-    if (galleryStageImg) {
-      galleryStageImg.onerror = () => {
-        galleryStageImg.onerror = null;
-        galleryStageImg.src = item.image;
-      };
-      galleryStageImg.src = item.archImage;
-      galleryStageImg.alt = `${item.name} Architectural Installation`;
-    }
-    if (galleryBadgeLabel) {
-      galleryBadgeLabel.textContent = `${item.name} · Architectural Environment`;
-    }
+    // Render Application Slider (Slide 1: Stairs initially visible)
+    renderAppSlide(0, true);
 
     // Update WhatsApp & Quote links
     const waText = encodeURIComponent(`Hello Balaji Granites, I am interested in ${item.name} granite. Please share details and availability.`);
@@ -783,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 6. View Switcher Mode
+  // 7. View Switcher Mode
   function updateViewDots(viewIdx) {
     viewDots.forEach((dot, idx) => {
       dot.classList.toggle('is-active', idx === viewIdx);
@@ -801,15 +911,15 @@ document.addEventListener('DOMContentLoaded', () => {
     productSlabImg.style.opacity = '0';
     setTimeout(() => {
       if (viewIdx === 0) {
-        productSlabImg.src = item.image;
+        productSlabImg.src = resolveSrc(item.image);
       } else if (viewIdx === 1) {
-        productSlabImg.src = item.macroImage;
+        productSlabImg.src = resolveSrc(item.macroImage);
       } else {
         productSlabImg.onerror = () => {
           productSlabImg.onerror = null;
-          productSlabImg.src = item.image;
+          productSlabImg.src = resolveSrc(item.image);
         };
-        productSlabImg.src = item.archImage;
+        productSlabImg.src = resolveSrc(item.archImage);
       }
       productSlabImg.style.opacity = '1';
     }, 120);
@@ -822,7 +932,55 @@ document.addEventListener('DOMContentLoaded', () => {
     dot.addEventListener('click', () => setViewMode(idx));
   });
 
-  // 7. Render All 20 Granites in Carousel
+  // 8. Application Slider Controls
+  if (galleryArrowPrev) {
+    galleryArrowPrev.addEventListener('click', () => {
+      renderAppSlide(currentAppSlideIndex - 1);
+    });
+  }
+
+  if (galleryArrowNext) {
+    galleryArrowNext.addEventListener('click', () => {
+      renderAppSlide(currentAppSlideIndex + 1);
+    });
+  }
+
+  if (gallerySliderNav) {
+    gallerySliderNav.querySelectorAll('.gallery-pill-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.dataset.appIndex, 10);
+        if (!isNaN(idx)) {
+          renderAppSlide(idx);
+        }
+      });
+    });
+  }
+
+  // Touch Swipe Support for Application Slider
+  if (galleryStage) {
+    let touchStartX = 0;
+    galleryStage.addEventListener('touchstart', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        touchStartX = e.changedTouches[0].screenX;
+      }
+    }, { passive: true });
+
+    galleryStage.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) {
+            renderAppSlide(currentAppSlideIndex + 1);
+          } else {
+            renderAppSlide(currentAppSlideIndex - 1);
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
+  // 9. Render All Granites in Carousel
   function renderCarousel(filteredList = GRANITE_PRODUCTS) {
     if (!swatchesTrack) return;
     swatchesTrack.innerHTML = '';
@@ -837,7 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.innerHTML = `
         <div class="card-swatch-media">
-          <img src="${item.image}" alt="${item.name} Swatch" loading="lazy">
+          <img src="${resolveSrc(item.image)}" alt="${item.name} Swatch" loading="lazy">
         </div>
         <div class="card-body">
           <span class="card-product-name">${item.name}</span>
@@ -856,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Carousel Controls
+  // 10. Carousel Controls
   if (carouselPrevBtn && swatchesTrack) {
     carouselPrevBtn.addEventListener('click', () => {
       swatchesTrack.scrollBy({ left: -320, behavior: 'smooth' });
