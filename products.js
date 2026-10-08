@@ -675,7 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const galleryBadgeLabel = document.getElementById('gallery-badge-label');
   const galleryArrowPrev = document.getElementById('gallery-arrow-prev');
   const galleryArrowNext = document.getElementById('gallery-arrow-next');
-  const gallerySliderNav = document.getElementById('gallery-slider-nav');
   
   // Specs Elements
   const specFinish = document.getElementById('spec-finish');
@@ -791,7 +790,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   preloadApplicationImages();
 
-  // Architectural Application Slider (Stairs, Kitchen Countertop, Floor)
+  // Architectural Application Slider (Auto-advancing every 1 second: Stairs -> Kitchen Countertop -> Floor)
+  let appSlideTimer = null;
+
+  function stopAppSlideTimer() {
+    if (appSlideTimer) {
+      clearInterval(appSlideTimer);
+      appSlideTimer = null;
+    }
+  }
+
+  function startAppSlideTimer() {
+    stopAppSlideTimer();
+    const item = GRANITE_PRODUCTS[currentProductIndex];
+    if (!item || !Array.isArray(item.applicationImages) || item.applicationImages.length <= 1) {
+      return;
+    }
+    appSlideTimer = setInterval(() => {
+      renderAppSlide(currentAppSlideIndex + 1);
+    }, 1000);
+  }
+
   function renderAppSlide(slideIdx) {
     const item = GRANITE_PRODUCTS[currentProductIndex];
     if (!item) return;
@@ -800,9 +819,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (galleryArrowPrev) galleryArrowPrev.style.display = hasApps ? 'flex' : 'none';
     if (galleryArrowNext) galleryArrowNext.style.display = hasApps ? 'flex' : 'none';
-    if (gallerySliderNav) gallerySliderNav.style.display = hasApps ? 'flex' : 'none';
 
     if (!hasApps) {
+      stopAppSlideTimer();
       if (galleryStageImg) {
         galleryStageImg.onerror = null;
         galleryStageImg.src = resolveSrc(item.archImage || item.image);
@@ -817,13 +836,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalSlides = item.applicationImages.length;
     currentAppSlideIndex = ((slideIdx % totalSlides) + totalSlides) % totalSlides;
     const currentApp = item.applicationImages[currentAppSlideIndex];
-
-    if (gallerySliderNav) {
-      const pills = gallerySliderNav.querySelectorAll('.gallery-pill-btn');
-      pills.forEach((pill, idx) => {
-        pill.classList.toggle('is-active', idx === currentAppSlideIndex);
-      });
-    }
 
     if (galleryBadgeLabel) {
       galleryBadgeLabel.textContent = `${item.name} · ${currentApp.label}`;
@@ -864,8 +876,9 @@ document.addEventListener('DOMContentLoaded', () => {
       productSlabImg.alt = `${item.name} Granite Slab`;
     }
 
-    // Render Application Slider immediately for selected granite (Slide 1: Stairs)
+    // Render Application Slider immediately for selected granite (Slide 1: Stairs) & start 1s auto-advance
     renderAppSlide(0);
+    startAppSlideTimer();
 
     // Update WhatsApp & Quote links
     const waText = encodeURIComponent(`Hello Balaji Granites, I am interested in ${item.name} granite. Please share details and availability.`);
@@ -922,27 +935,18 @@ document.addEventListener('DOMContentLoaded', () => {
     dot.addEventListener('click', () => setViewMode(idx));
   });
 
-  // 8. Application Slider Controls
+  // 8. Application Slider Controls & Swipe Support
   if (galleryArrowPrev) {
     galleryArrowPrev.addEventListener('click', () => {
       renderAppSlide(currentAppSlideIndex - 1);
+      startAppSlideTimer();
     });
   }
 
   if (galleryArrowNext) {
     galleryArrowNext.addEventListener('click', () => {
       renderAppSlide(currentAppSlideIndex + 1);
-    });
-  }
-
-  if (gallerySliderNav) {
-    gallerySliderNav.querySelectorAll('.gallery-pill-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.dataset.appIndex, 10);
-        if (!isNaN(idx)) {
-          renderAppSlide(idx);
-        }
-      });
+      startAppSlideTimer();
     });
   }
 
@@ -965,10 +969,20 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             renderAppSlide(currentAppSlideIndex - 1);
           }
+          startAppSlideTimer();
         }
       }
     }, { passive: true });
   }
+
+  // Auto-advance visibility handling (pause when tab hidden, resume when visible)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAppSlideTimer();
+    } else {
+      startAppSlideTimer();
+    }
+  });
 
   // 9. Render All Granites in Carousel
   function renderCarousel(filteredList = GRANITE_PRODUCTS) {
