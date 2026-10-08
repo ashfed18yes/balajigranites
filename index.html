@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <!-- Floating Pill Navbar (Persistent across all sections) -->
@@ -52,11 +52,12 @@
           <video
             id="cinematic-video"
             class="cinematic-video"
-            src="assets/balaji-hero-cinematic.mp4?v=2"
+            src="/assets/balaji-hero-cinematic.mp4"
             autoplay
             muted
             loop
             playsinline
+            webkit-playsinline
             preload="auto"
           ></video>
         </div>
@@ -605,6 +606,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="/script.js"></script>
 </body>
 </html>
