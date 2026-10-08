@@ -51,21 +51,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!video || !heroUi) return;
 
-  // Reset video and UI state on initial page load / reload
-  video.pause();
-  try {
-    video.currentTime = 0;
-  } catch (e) { }
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) ||
+    ('ontouchstart' in window && window.innerWidth <= 1024);
 
   heroUi.classList.remove('is-revealed');
   if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
 
-  // Ensure audio playback
-  video.muted = false;
-  video.defaultMuted = false;
-  video.removeAttribute('muted');
-  video.setAttribute('playsinline', '');
-  video.setAttribute('webkit-playsinline', '');
+  if (isMobile) {
+    // Mobile: Strict compliance with mobile autoplay policy (muted + inline)
+    // Do NOT immediately pause the video — allow native autoplay to proceed
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+  } else {
+    // Desktop: Preserve existing behavior exactly as before
+    video.pause();
+    try {
+      video.currentTime = 0;
+    } catch (e) { }
+
+    video.muted = false;
+    video.defaultMuted = false;
+    video.removeAttribute('muted');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+  }
 
   let isRevealed = false;
   let hasEnded = false;
@@ -167,36 +180,71 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Safe Autoplay Initiation
-  const startAutoplay = () => {
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          rafId = requestAnimationFrame(monitorPlayback);
-        })
-        .catch(err => {
-          console.warn('Autoplay prevented or deferred:', err);
-          // Wait for first user interaction to resume
-          const resumeOnInteraction = () => {
-            video.play().then(() => {
-              rafId = requestAnimationFrame(monitorPlayback);
-            });
-            window.removeEventListener('click', resumeOnInteraction);
-            window.removeEventListener('keydown', resumeOnInteraction);
-            window.removeEventListener('touchstart', resumeOnInteraction);
-          };
-          window.addEventListener('click', resumeOnInteraction);
-          window.addEventListener('keydown', resumeOnInteraction);
-          window.addEventListener('touchstart', resumeOnInteraction);
-        });
-    }
-  };
+  if (isMobile) {
+    const playMobileVideo = () => {
+      if (video.paused) {
+        const p = video.play();
+        if (p !== undefined) {
+          p.then(() => {
+            if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
+          }).catch(err => {
+            console.warn('Mobile autoplay deferred:', err);
+          });
+        }
+      } else {
+        if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
+      }
+    };
 
-  // If already playing or can play
-  if (video.readyState >= 2) {
-    startAutoplay();
+    if (video.readyState >= 2) {
+      playMobileVideo();
+    } else {
+      video.addEventListener('loadedmetadata', playMobileVideo, { once: true });
+      video.addEventListener('canplay', playMobileVideo, { once: true });
+    }
+
+    // Unmute on first user interaction on mobile
+    const enableAudioOnMobileInteraction = () => {
+      video.muted = false;
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+    window.addEventListener('touchstart', enableAudioOnMobileInteraction, { once: true, passive: true });
+    window.addEventListener('click', enableAudioOnMobileInteraction, { once: true, passive: true });
   } else {
-    video.addEventListener('canplay', startAutoplay, { once: true });
+    // Desktop: Preserve existing behavior exactly as before
+    const startAutoplay = () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            rafId = requestAnimationFrame(monitorPlayback);
+          })
+          .catch(err => {
+            console.warn('Autoplay prevented or deferred:', err);
+            // Wait for first user interaction to resume
+            const resumeOnInteraction = () => {
+              video.play().then(() => {
+                rafId = requestAnimationFrame(monitorPlayback);
+              });
+              window.removeEventListener('click', resumeOnInteraction);
+              window.removeEventListener('keydown', resumeOnInteraction);
+              window.removeEventListener('touchstart', resumeOnInteraction);
+            };
+            window.addEventListener('click', resumeOnInteraction);
+            window.addEventListener('keydown', resumeOnInteraction);
+            window.addEventListener('touchstart', resumeOnInteraction);
+          });
+      }
+    };
+
+    // If already playing or can play
+    if (video.readyState >= 2) {
+      startAutoplay();
+    } else {
+      video.addEventListener('canplay', startAutoplay, { once: true });
+    }
   }
 
   // Fallback: If video takes too long to load or fails, ensure UI is visible

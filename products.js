@@ -778,8 +778,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 5. Architectural Application Slider (Stairs, Kitchen Countertop, Floor)
-  function renderAppSlide(slideIdx, isDirect = false) {
+  // 5. Preload All Application Images into memory cache for instant, zero-latency switching
+  function preloadApplicationImages() {
+    GRANITE_PRODUCTS.slice(0, 10).forEach(product => {
+      if (Array.isArray(product.applicationImages)) {
+        product.applicationImages.forEach(app => {
+          const img = new Image();
+          img.src = resolveSrc(app.src);
+        });
+      }
+    });
+  }
+  preloadApplicationImages();
+
+  // Architectural Application Slider (Stairs, Kitchen Countertop, Floor)
+  function renderAppSlide(slideIdx) {
     const item = GRANITE_PRODUCTS[currentProductIndex];
     if (!item) return;
 
@@ -791,6 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!hasApps) {
       if (galleryStageImg) {
+        galleryStageImg.onerror = null;
         galleryStageImg.src = resolveSrc(item.archImage || item.image);
         galleryStageImg.alt = `${item.name} Architectural Installation`;
       }
@@ -817,23 +831,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (galleryStageImg) {
       const targetSrc = resolveSrc(currentApp.src);
-      if (isDirect) {
-        galleryStageImg.src = targetSrc;
-        galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
-      } else {
-        galleryStageImg.style.opacity = '0';
-        galleryStageImg.style.transform = 'scale(1.02)';
-        setTimeout(() => {
-          galleryStageImg.onerror = () => {
-            galleryStageImg.onerror = null;
-            galleryStageImg.src = resolveSrc(item.image);
-          };
-          galleryStageImg.src = targetSrc;
-          galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
-          galleryStageImg.style.opacity = '1';
-          galleryStageImg.style.transform = 'scale(1)';
-        }, 120);
-      }
+      galleryStageImg.onerror = null;
+      galleryStageImg.src = targetSrc;
+      galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
     }
   }
 
@@ -857,18 +857,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (specCharacter) specCharacter.textContent = item.character;
     if (specApplication) specApplication.textContent = item.application;
 
-    // Update Main Slab Image
+    // Update Main Slab Image immediately
     if (productSlabImg) {
-      productSlabImg.style.opacity = '0';
-      setTimeout(() => {
-        productSlabImg.src = resolveSrc(item.image);
-        productSlabImg.alt = `${item.name} Granite Slab`;
-        productSlabImg.style.opacity = '1';
-      }, 150);
+      productSlabImg.onerror = null;
+      productSlabImg.src = resolveSrc(item.image);
+      productSlabImg.alt = `${item.name} Granite Slab`;
     }
 
-    // Render Application Slider (Slide 1: Stairs initially visible)
-    renderAppSlide(0, true);
+    // Render Application Slider immediately for selected granite (Slide 1: Stairs)
+    renderAppSlide(0);
 
     // Update WhatsApp & Quote links
     const waText = encodeURIComponent(`Hello Balaji Granites, I am interested in ${item.name} granite. Please share details and availability.`);
@@ -908,21 +905,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!item || !productSlabImg) return;
     updateViewDots(viewIdx);
 
-    productSlabImg.style.opacity = '0';
-    setTimeout(() => {
-      if (viewIdx === 0) {
-        productSlabImg.src = resolveSrc(item.image);
-      } else if (viewIdx === 1) {
-        productSlabImg.src = resolveSrc(item.macroImage);
-      } else {
-        productSlabImg.onerror = () => {
-          productSlabImg.onerror = null;
-          productSlabImg.src = resolveSrc(item.image);
-        };
-        productSlabImg.src = resolveSrc(item.archImage);
-      }
-      productSlabImg.style.opacity = '1';
-    }, 120);
+    if (viewIdx === 0) {
+      productSlabImg.src = resolveSrc(item.image);
+    } else if (viewIdx === 1) {
+      productSlabImg.src = resolveSrc(item.macroImage);
+    } else {
+      productSlabImg.onerror = null;
+      productSlabImg.src = resolveSrc(item.archImage);
+    }
   }
 
   viewDots.forEach((dot, idx) => {
