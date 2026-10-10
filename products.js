@@ -654,6 +654,150 @@ const GRANITE_PRODUCTS = [
     image: "Granite Images/optimized/40_amazonite_lux.webp",
     macroImage: "Granite Images/optimized/40_amazonite_lux.webp",
     archImage: "assets/applications/40-amazonite-lux-application.jpg"
+  },
+  {
+    id: "41",
+    name: "Alaska White Granite",
+    category: "Indian Granite",
+    origin: "Rajasthan, India",
+    desc: "White Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Silver Veins",
+    application: "Countertops",
+    tone: "light",
+    image: "assets/New Granites/Alaska White Granite.jpg",
+    macroImage: "assets/New Granites/Alaska White Granite.jpg",
+    archImage: "assets/New Granites/Alaska White Granite Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Alaska White Granite Application.jpg" }
+    ]
+  },
+  {
+    id: "42",
+    name: "Cherry Red",
+    category: "Indian Granite",
+    origin: "Madhya Pradesh, India",
+    desc: "Red Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Crimson Grain",
+    application: "Flooring",
+    tone: "warm",
+    image: "assets/New Granites/Cherry Red.jpg",
+    macroImage: "assets/New Granites/Cherry Red.jpg",
+    archImage: "assets/New Granites/Cherry Red Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Cherry Red Application.jpg" }
+    ]
+  },
+  {
+    id: "43",
+    name: "Coffee Brown Granite",
+    category: "Indian Granite",
+    origin: "Telangana, India",
+    desc: "Brown Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Espresso Grains",
+    application: "Countertops",
+    tone: "warm",
+    image: "assets/New Granites/Coffee Brown Granite.jpg",
+    macroImage: "assets/New Granites/Coffee Brown Granite.jpg",
+    archImage: "assets/New Granites/Coffee Brown Granite Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Coffee Brown Granite Application.jpg" }
+    ]
+  },
+  {
+    id: "44",
+    name: "Fish Black Granite",
+    category: "Indian Granite",
+    origin: "Andhra Pradesh, India",
+    desc: "Black Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Silver Flecks",
+    application: "Kitchen",
+    tone: "dark",
+    image: "assets/New Granites/Fish Black Granite.jpg",
+    macroImage: "assets/New Granites/Fish Black Granite.jpg",
+    archImage: "assets/New Granites/Fish Black Granite Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Fish Black Granite Application.jpg" }
+    ]
+  },
+  {
+    id: "45",
+    name: "Galaxy Black Granite",
+    category: "Indian Granite",
+    origin: "Andhra Pradesh, India",
+    desc: "Black Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Golden Crystals",
+    application: "Countertops",
+    tone: "dark",
+    image: "assets/New Granites/Galaxy Black Granite.jpg",
+    macroImage: "assets/New Granites/Galaxy Black Granite.jpg",
+    archImage: "assets/New Granites/Galaxy Black Granite Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Galaxy Black Granite Application.jpg" }
+    ]
+  },
+  {
+    id: "46",
+    name: "Modern Brown",
+    category: "Indian Granite",
+    origin: "Rajasthan, India",
+    desc: "Brown Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Walnut Texture",
+    application: "Flooring",
+    tone: "warm",
+    image: "assets/New Granites/Mordern Brown.jpg",
+    macroImage: "assets/New Granites/Mordern Brown.jpg",
+    archImage: "assets/New Granites/Mordern Brown Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Mordern Brown Application.jpg" }
+    ]
+  },
+  {
+    id: "47",
+    name: "P White Granite",
+    category: "Indian Granite",
+    origin: "Rajasthan, India",
+    desc: "White Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Platinum Flecks",
+    application: "Countertops",
+    tone: "light",
+    image: "assets/New Granites/P-White Granite.jpg",
+    macroImage: "assets/New Granites/P-White Granite.jpg",
+    archImage: "assets/New Granites/P White Granite application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/P White Granite application.jpg" }
+    ]
+  },
+  {
+    id: "48",
+    name: "Z-Black South",
+    category: "Indian Granite",
+    origin: "Tamil Nadu, India",
+    desc: "Black Granite",
+    finish: "Polished",
+    thickness: "20mm / 30mm",
+    character: "Deep Obsidian",
+    application: "Countertops",
+    tone: "dark",
+    image: "assets/New Granites/Z-Black South.jpg",
+    macroImage: "assets/New Granites/Z-Black South.jpg",
+    archImage: "assets/New Granites/Z-Black South Application.jpg",
+    applicationImages: [
+      { type: "residential", label: "Residential Living", src: "assets/New Granites/Z-Black South Application.jpg" }
+    ]
   }
 ];
 
@@ -779,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Preload All Application Images into memory cache for instant, zero-latency switching
   function preloadApplicationImages() {
-    GRANITE_PRODUCTS.slice(0, 10).forEach(product => {
+    GRANITE_PRODUCTS.forEach(product => {
       if (Array.isArray(product.applicationImages)) {
         product.applicationImages.forEach(app => {
           const img = new Image();

@@ -1020,6 +1020,166 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: "Full Slab", src: "Granite Images/optimized/40_amazonite_lux.webp" },
         { label: "Macro Grain", src: "Granite Images/optimized/40_amazonite_lux.webp", isMacro: true }
       ]
+    },
+    {
+      id: "41",
+      name: "ALASKA WHITE GRANITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "White Granite",
+      finish: "Polished",
+      character: "Silver Veins",
+      detailedDesc: "White Granite",
+      features: ["Lustrous Quartz", "Pale Silver Veins", "Countertops • Islands"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/Alaska White Granite.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Alaska White Granite.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Alaska White Granite.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Alaska White Granite Application.jpg" }
+      ]
+    },
+    {
+      id: "42",
+      name: "CHERRY RED",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Red Granite",
+      finish: "Polished",
+      character: "Crimson Grain",
+      detailedDesc: "Red Granite",
+      features: ["Deep Crimson", "Uniform Grain", "Flooring • Facades"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "assets/New Granites/Cherry Red.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Cherry Red.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Cherry Red.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Cherry Red Application.jpg" }
+      ]
+    },
+    {
+      id: "43",
+      name: "COFFEE BROWN GRANITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Brown Granite",
+      finish: "Polished",
+      character: "Espresso Grains",
+      detailedDesc: "Brown Granite",
+      features: ["Rich Espresso", "Golden Brown Flecks", "Kitchen • Stairs"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/Coffee Brown Granite.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Coffee Brown Granite.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Coffee Brown Granite.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Coffee Brown Granite Application.jpg" }
+      ]
+    },
+    {
+      id: "44",
+      name: "FISH BLACK GRANITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Black Granite",
+      finish: "Polished",
+      character: "Silver Flecks",
+      detailedDesc: "Black Granite",
+      features: ["Jet Black Matrix", "Silver Fish Scales", "Kitchens • Countertops"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/Fish Black Granite.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Fish Black Granite.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Fish Black Granite.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Fish Black Granite Application.jpg" }
+      ]
+    },
+    {
+      id: "45",
+      name: "GALAXY BLACK GRANITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Black Granite",
+      finish: "Polished",
+      character: "Golden Crystals",
+      detailedDesc: "Black Granite",
+      features: ["Deep Black", "Reflective Copper Bronzite", "Interiors • Countertops"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/Galaxy Black Granite.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Galaxy Black Granite.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Galaxy Black Granite.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Galaxy Black Granite Application.jpg" }
+      ]
+    },
+    {
+      id: "46",
+      name: "MODERN BROWN",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Brown Granite",
+      finish: "Polished",
+      character: "Walnut Texture",
+      detailedDesc: "Brown Granite",
+      features: ["Contemporary Walnut", "Earthy Swirls", "Flooring • Accent Walls"],
+      applications: ["floor", "staircase", "other"],
+      tone: "warm",
+      finishes: ["polished"],
+      image: "assets/New Granites/Mordern Brown.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Mordern Brown.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Mordern Brown.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Mordern Brown Application.jpg" }
+      ]
+    },
+    {
+      id: "47",
+      name: "P WHITE GRANITE",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "White Granite",
+      finish: "Polished",
+      character: "Platinum Flecks",
+      detailedDesc: "White Granite",
+      features: ["Milky White Base", "Subtle Grey Minerals", "Countertops • Flooring"],
+      applications: ["kitchen", "floor", "other"],
+      tone: "light",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/P-White Granite.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/P-White Granite.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/P-White Granite.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/P White Granite application.jpg" }
+      ]
+    },
+    {
+      id: "48",
+      name: "Z-BLACK SOUTH",
+      category: "INDIAN GRANITE",
+      origin: "Indian Granite",
+      desc: "Black Granite",
+      finish: "Polished",
+      character: "Deep Obsidian",
+      detailedDesc: "Black Granite",
+      features: ["Absolute Dark Density", "Zero Variation", "Kitchen Counters • Stairs"],
+      applications: ["kitchen", "floor", "staircase", "other"],
+      tone: "dark",
+      finishes: ["polished", "honed"],
+      image: "assets/New Granites/Z-Black South.jpg",
+      thumbnails: [
+        { label: "Full Slab", src: "assets/New Granites/Z-Black South.jpg" },
+        { label: "Macro Grain", src: "assets/New Granites/Z-Black South.jpg", isMacro: true },
+        { label: "Residential Setting", src: "assets/New Granites/Z-Black South Application.jpg" }
+      ]
     }
   ];
 
