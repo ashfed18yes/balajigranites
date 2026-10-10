@@ -1472,6 +1472,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let isFinderActive = false;
   let isTileActive = false;
   let isTransitioning = false;
+  let isHeroTransitioning = false;
+  let heroTransitionRaf = null;
   let finderTouchStartY = 0;
   let currentTileIndex = 0; // Starts at initial valid state (index 0)
   let isTransitionCooldown = false;
@@ -1620,7 +1622,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // before curtain starts dropping at 70%, guaranteeing Granite is 100% hidden before Hero appears.
     const revealProgress = Math.max(0, Math.min(1, (progress - 0.78) / 0.22));
 
-    if (graniteInner && !isFinderActive && !isTileActive && !isTransitioning) {
+    if (graniteInner && !isFinderActive && !isTileActive && (!isTransitioning || isHeroTransitioning)) {
       graniteInner.style.transition = 'none';
       if (revealProgress > 0) {
         graniteInner.style.visibility = 'visible';
@@ -1650,6 +1652,11 @@ document.addEventListener('DOMContentLoaded', () => {
     isFinderActive = false;
     isTileActive = false;
     isTransitioning = false;
+    isHeroTransitioning = false;
+    if (heroTransitionRaf) {
+      cancelAnimationFrame(heroTransitionRaf);
+      heroTransitionRaf = null;
+    }
     isTransitionCooldown = false;
     mobileGestureHandled = false;
     mobileTouchSection = 'HERO';
@@ -1753,6 +1760,184 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => {
       document.documentElement.style.scrollBehavior = '';
     });
+  }
+
+  /* ==========================================================================
+     Hero → Granite Collection Controlled Transition
+     ========================================================================== */
+
+  function transitionHeroToCollection(onComplete) {
+    if (isHeroTransitioning || (isTransitioning && !isHeroTransitioning) || isTransitionCooldown) return;
+    if (isFinderActive || isTileActive) return;
+
+    isHeroTransitioning = true;
+    isTransitioning = true;
+    if (heroTransitionRaf) {
+      cancelAnimationFrame(heroTransitionRaf);
+      heroTransitionRaf = null;
+    }
+
+    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+    const maxScroll = Math.max(1, trackH - window.innerHeight);
+    const startY = window.scrollY || window.pageYOffset;
+    const targetY = maxScroll;
+    const distance = targetY - startY;
+
+    if (Math.abs(distance) < 2) {
+      window.scrollTo(0, targetY);
+      updateTransition();
+      isHeroTransitioning = false;
+      isTransitioning = false;
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const preventScrollFight = (e) => {
+      if (e.cancelable) e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    const startTime = performance.now();
+    const duration = Math.min(750, Math.max(450, (Math.abs(distance) / maxScroll) * 700));
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const nextY = startY + distance * ease;
+
+      window.scrollTo(0, nextY);
+      updateTransition();
+
+      if (progress < 1) {
+        heroTransitionRaf = requestAnimationFrame(step);
+      } else {
+        heroTransitionRaf = null;
+        window.scrollTo(0, targetY);
+        updateTransition();
+
+        // Enforce 100% complete state for Granite Collection
+        if (graniteInner) {
+          graniteInner.style.visibility = 'visible';
+          graniteInner.style.opacity = '1';
+          graniteInner.style.transform = 'translate3d(0, 0, 0)';
+          graniteInner.style.filter = 'blur(0px)';
+        }
+        if (graniteSection) {
+          graniteSection.style.visibility = 'visible';
+          graniteSection.style.pointerEvents = 'auto';
+        }
+        if (warmCurtain) {
+          warmCurtain.style.transform = 'translate3d(0, 0%, 0)';
+        }
+
+        window.removeEventListener('wheel', preventScrollFight);
+        window.removeEventListener('touchmove', preventScrollFight);
+
+        isHeroTransitioning = false;
+        isTransitioning = false;
+        isTransitionCooldown = true;
+        setTimeout(() => {
+          isTransitionCooldown = false;
+        }, 200);
+
+        if (onComplete) onComplete();
+      }
+    }
+
+    heroTransitionRaf = requestAnimationFrame(step);
+  }
+
+  function transitionCollectionToHero(onComplete) {
+    if (isHeroTransitioning || (isTransitioning && !isHeroTransitioning) || isTransitionCooldown) return;
+    if (isFinderActive || isTileActive) return;
+
+    isHeroTransitioning = true;
+    isTransitioning = true;
+    if (heroTransitionRaf) {
+      cancelAnimationFrame(heroTransitionRaf);
+      heroTransitionRaf = null;
+    }
+
+    const startY = window.scrollY || window.pageYOffset;
+    const targetY = 0;
+    const distance = targetY - startY;
+
+    if (Math.abs(distance) < 2) {
+      window.scrollTo(0, 0);
+      updateTransition();
+      isHeroTransitioning = false;
+      isTransitioning = false;
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const preventScrollFight = (e) => {
+      if (e.cancelable) e.preventDefault();
+    };
+    window.addEventListener('wheel', preventScrollFight, { passive: false });
+    window.addEventListener('touchmove', preventScrollFight, { passive: false });
+
+    const startTime = performance.now();
+    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+    const maxScroll = Math.max(1, trackH - window.innerHeight);
+    const duration = Math.min(750, Math.max(450, (Math.abs(distance) / maxScroll) * 700));
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const nextY = startY + distance * ease;
+
+      window.scrollTo(0, nextY);
+      updateTransition();
+
+      if (progress < 1) {
+        heroTransitionRaf = requestAnimationFrame(step);
+      } else {
+        heroTransitionRaf = null;
+        window.scrollTo(0, 0);
+        updateTransition();
+
+        // Enforce 100% clean state for Hero
+        if (heroScrollIndicator) {
+          heroScrollIndicator.style.opacity = '';
+          heroScrollIndicator.style.pointerEvents = '';
+        }
+        if (warmCurtain) {
+          warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
+        }
+        if (graniteInner) {
+          graniteInner.style.opacity = '0';
+          graniteInner.style.transform = 'translate3d(0, 20px, 0)';
+          graniteInner.style.filter = 'blur(6px)';
+          graniteInner.style.visibility = 'hidden';
+        }
+        if (graniteSection) {
+          graniteSection.style.visibility = 'hidden';
+          graniteSection.style.pointerEvents = 'none';
+        }
+        if (heroContainer) {
+          heroContainer.style.transform = 'none';
+          heroContainer.style.opacity = '1';
+        }
+
+        window.removeEventListener('wheel', preventScrollFight);
+        window.removeEventListener('touchmove', preventScrollFight);
+
+        isHeroTransitioning = false;
+        isTransitioning = false;
+        isTransitionCooldown = true;
+        setTimeout(() => {
+          isTransitionCooldown = false;
+        }, 200);
+
+        if (onComplete) onComplete();
+      }
+    }
+
+    heroTransitionRaf = requestAnimationFrame(step);
   }
 
   /* ==========================================================================
@@ -2005,6 +2190,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Expose on window for verification
+  window.transitionHeroToCollection = transitionHeroToCollection;
+  window.transitionCollectionToHero = transitionCollectionToHero;
   window.transitionToFinder = transitionToFinder;
   window.transitionBackToCollection = transitionBackToCollection;
   window.transitionToTiles = transitionToTiles;
@@ -2024,7 +2211,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileTouchSection = 'TILES';
     } else if (isFinderActive) {
       mobileTouchSection = 'FINDER';
-    } else if (currentScrollProgress >= 0.88) {
+    } else if (currentScrollProgress >= 0.70) {
       mobileTouchSection = 'GRANITE';
     } else {
       mobileTouchSection = 'HERO';
@@ -2036,7 +2223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
-    if (isTransitioning || isTransitionCooldown) return;
+    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) return;
 
     // 1. One downward scroll gesture at end of Granite Collection -> Finder
     if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
@@ -2075,8 +2262,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
-    if (isTransitioning || isTransitionCooldown) return;
-    if (mobileGestureHandled) return;
+    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) {
+      if (e.cancelable) e.preventDefault();
+      return;
+    }
+    if (mobileGestureHandled) {
+      if (e.cancelable) e.preventDefault();
+      return;
+    }
     if (!e.touches || e.touches.length === 0) return;
 
     const currentX = e.touches[0].clientX;
@@ -2089,28 +2282,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filter out horizontal swipes (e.g., granite slabs or tile cards)
     if (absX >= absY || absY < 45) return;
 
-    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-    const maxScroll = Math.max(1, trackH - window.innerHeight);
-
     // Strictly enforce: ONE intentional swipe = ONE adjacent section transition
     if (mobileTouchSection === 'HERO') {
       if (diffY > 0) {
         // Swipe UP on Hero -> Smoothly transition to Granite Collection ONLY (cannot skip into Finder)
         mobileGestureHandled = true;
-        e.preventDefault();
-        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+        if (e.cancelable) e.preventDefault();
+        transitionHeroToCollection();
       }
     } else if (mobileTouchSection === 'GRANITE') {
       if (diffY > 0) {
         // Swipe UP on Granite Collection -> Transition to Granite Finder ONLY (cannot skip into Tiles)
         mobileGestureHandled = true;
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         transitionToFinder();
       } else if (diffY < 0) {
         // Swipe DOWN on Granite Collection -> Smoothly transition back to Hero ONLY
         mobileGestureHandled = true;
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (e.cancelable) e.preventDefault();
+        transitionCollectionToHero();
       }
     } else if (mobileTouchSection === 'FINDER') {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
@@ -2119,12 +2309,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (diffY < 0 && finderTop <= 4) {
         // Swipe DOWN at top of Finder -> Transition back to Granite Collection ONLY (cannot skip into Hero)
         mobileGestureHandled = true;
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         transitionBackToCollection();
       } else if (diffY > 0 && isFinderAtEnd) {
         // Swipe UP at bottom of Finder -> Transition to Tile Collection ONLY
         mobileGestureHandled = true;
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         transitionToTiles();
       }
       // If within scrollable body of Finder, native smooth scrolling is untouched
@@ -2133,39 +2323,44 @@ document.addEventListener('DOMContentLoaded', () => {
       if (diffY < 0 && tileTop <= 4) {
         // Swipe DOWN at top of Tile Section -> Transition back to Granite Finder ONLY
         mobileGestureHandled = true;
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         transitionBackToFinder();
       }
     }
   }, { passive: false });
 
   window.addEventListener('touchend', () => {
-    // If user released halfway between Hero and Granite without triggering threshold, snap to nearest clean state
-    if (!mobileGestureHandled && !isFinderActive && !isTileActive && !isTransitioning && !isTransitionCooldown) {
-      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-      const maxScroll = Math.max(1, trackH - window.innerHeight);
-
-      if (mobileTouchSection === 'HERO' && currentScrollProgress > 0.35) {
-        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
-      } else if (mobileTouchSection === 'HERO' && currentScrollProgress <= 0.35 && currentScrollProgress > 0.02) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (mobileTouchSection === 'GRANITE' && currentScrollProgress < 0.65) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (mobileTouchSection === 'GRANITE' && currentScrollProgress >= 0.65 && currentScrollProgress < 0.98) {
-        window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+    // If not transitioning and page is in an intermediate state between Hero and Granite,
+    // snap cleanly to either Hero or Granite Collection (never remain in a washed-out intermediate state!)
+    if (!isFinderActive && !isTileActive && !isTransitioning && !isHeroTransitioning && !isTransitionCooldown) {
+      if (currentScrollProgress > 0.02 && currentScrollProgress < 0.98) {
+        if (currentScrollProgress >= 0.40) {
+          transitionHeroToCollection();
+        } else {
+          transitionCollectionToHero();
+        }
       }
     }
     mobileGestureHandled = false;
   }, { passive: true });
 
   window.addEventListener('touchcancel', () => {
+    if (!isFinderActive && !isTileActive && !isTransitioning && !isHeroTransitioning && !isTransitionCooldown) {
+      if (currentScrollProgress > 0.02 && currentScrollProgress < 0.98) {
+        if (currentScrollProgress >= 0.40) {
+          transitionHeroToCollection();
+        } else {
+          transitionCollectionToHero();
+        }
+      }
+    }
     mobileGestureHandled = false;
   }, { passive: true });
 
   window.addEventListener('keydown', (e) => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
-    if (isTransitioning || isTransitionCooldown) return;
+    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) return;
 
     if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
@@ -2597,12 +2792,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Connect "EXPLORE GRANITE" CTA button & scroll indicator to smooth slide into collection
   const scrollToCollection = (e) => {
     e.preventDefault();
-    const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-    const targetScroll = trackH - window.innerHeight;
-    window.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth'
-    });
+    if (isTileActive) transitionBackToFinder();
+    if (isFinderActive) transitionBackToCollection();
+    transitionHeroToCollection();
   };
 
   if (exploreCtaBtn) {
