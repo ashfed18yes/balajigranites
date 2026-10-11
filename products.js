@@ -1013,6 +1013,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (specCharacter) specCharacter.textContent = item.character;
     if (specApplication) specApplication.textContent = item.application;
 
+    // Trigger specifications animation
+    const specsGrid = document.querySelector('.specs-grid-layout');
+    if (specsGrid) {
+      specsGrid.classList.remove('is-animating');
+      void specsGrid.offsetWidth;
+      specsGrid.classList.add('is-animating');
+    }
+
     // Update Main Slab Image immediately
     if (productSlabImg) {
       productSlabImg.onerror = null;
@@ -1201,4 +1209,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   renderCarousel();
   selectProduct(currentProductIndex, false);
+
+  // Trigger specifications animation on scroll into view or initial load
+  const specsSection = document.querySelector('.product-specs-section');
+  const initialSpecsGrid = document.querySelector('.specs-grid-layout');
+  if (initialSpecsGrid) {
+    if ('IntersectionObserver' in window && specsSection) {
+      const specsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            initialSpecsGrid.classList.add('is-animating');
+            specsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+      specsObserver.observe(specsSection);
+    } else {
+      initialSpecsGrid.classList.add('is-animating');
+    }
+  }
 });

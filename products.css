@@ -457,25 +457,30 @@ body.products-page {
    ========================================================================== */
 .product-specs-section {
   position: relative;
-  padding: 60px 0;
+  padding: 24px 0 28px;
   border-top: 1px solid var(--color-stone-rule);
 }
 
 .specs-title {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-stone-dark);
-  margin-bottom: 28px;
+  margin-bottom: 14px;
+  opacity: 0.85;
 }
 
 .specs-grid-layout {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 60px;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 36px;
   align-items: center;
+}
+
+.specs-grid-layout.is-animating .specs-title {
+  animation: specsFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .specs-table {
@@ -487,29 +492,78 @@ body.products-page {
   border-bottom: 1px solid var(--color-stone-rule);
 }
 
+.specs-grid-layout.is-animating .specs-table tr {
+  animation: specsRowCascade 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.specs-grid-layout.is-animating .specs-table tr:nth-child(1) { animation-delay: 0.03s; }
+.specs-grid-layout.is-animating .specs-table tr:nth-child(2) { animation-delay: 0.07s; }
+.specs-grid-layout.is-animating .specs-table tr:nth-child(3) { animation-delay: 0.11s; }
+.specs-grid-layout.is-animating .specs-table tr:nth-child(4) { animation-delay: 0.15s; }
+.specs-grid-layout.is-animating .specs-table tr:nth-child(5) { animation-delay: 0.19s; }
+
 .specs-table td {
-  padding: 18px 0;
-  font-size: 14.5px;
+  padding: 7px 0;
+  font-size: 13.5px;
+  line-height: 1.35;
 }
 
 .specs-label {
   color: var(--color-text-muted);
   font-weight: 500;
-  width: 140px;
+  width: 110px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .specs-value {
   color: var(--color-stone-dark);
   font-weight: 600;
   font-family: var(--font-serif);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  font-size: 13.5px;
 }
 
 .specs-actions-column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
+}
+
+.specs-grid-layout.is-animating .specs-actions-column {
+  animation: specsFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+}
+
+.specs-actions-column .btn-stone-dark,
+.specs-actions-column .btn-stone-light {
+  height: 44px;
+  padding: 0 24px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+@keyframes specsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes specsRowCascade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -517,7 +571,7 @@ body.products-page {
    ========================================================================== */
 .product-gallery-section {
   position: relative;
-  padding: 60px 0 80px;
+  padding: 32px 0 60px;
   border-top: 1px solid var(--color-stone-rule);
 }
 
@@ -586,33 +640,13 @@ body.products-page {
   right: 24px;
 }
 
-/* Bottom Control Bar: Overlay Badge + Application Pills */
+/* Bottom Control Bar: Overlay Badge (Removed: Pure image presentation) */
 .gallery-overlay-badge {
-  position: absolute;
-  bottom: 24px;
-  left: 28px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(31, 30, 27, 0.76);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 8px 18px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  z-index: 10;
+  display: none !important;
 }
 
 .gallery-badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #eae8e3;
+  display: none !important;
 }
 
 .gallery-slider-nav {
@@ -631,11 +665,7 @@ body.products-page {
     right: 12px;
   }
   .gallery-overlay-badge {
-    bottom: auto;
-    top: 18px;
-    left: 18px;
-    font-size: 10.5px;
-    padding: 6px 14px;
+    display: none !important;
   }
 }
 
