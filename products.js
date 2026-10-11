@@ -968,6 +968,16 @@ document.addEventListener('DOMContentLoaded', () => {
     'assets/applications/10-moon-white-stairs.jpg',
     'assets/applications/11-lakha-red-application.jpg',
     'assets/applications/12-rosy-pink-application.jpg',
+    'assets/applications/13-blue-pearl-application.jpg',
+    'assets/applications/14-mahogany-wave-application.jpg',
+    'assets/applications/15-jhansi-red-application.jpg',
+    'assets/applications/16-absolute-black-application.jpg',
+    'assets/applications/17-black-forest-application.jpg',
+    'assets/applications/18-paradiso-classique-application.jpg',
+    'assets/applications/19-baltic-brown-application.jpg',
+    'assets/applications/20-chima-pink-application.jpg',
+    'assets/applications/21-titanium-black-application.jpg',
+    'assets/applications/22-alaska-white-application.jpg',
     'assets/New Granites/Alaska White Granite Application.jpg',
     'assets/New Granites/Cherry Red Application.jpg',
     'assets/New Granites/Coffee Brown Granite Application.jpg',
@@ -1033,6 +1043,9 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = resolveSrc(app.src);
           }
         });
+      } else if (product.archImage && isValidArchImage(product.archImage)) {
+        const img = new Image();
+        img.src = resolveSrc(product.archImage);
       }
     });
   }
