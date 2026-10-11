@@ -843,9 +843,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselNextBtn = document.getElementById('carousel-next-btn');
   const toneFilterSelect = document.getElementById('tone-filter-select');
 
-  let currentProductIndex = 0;
+  // State — Single Source of Truth
+  let currentProductId = "01";
   let currentSlabSlideIndex = 0;
-  let currentAppSlideIndex = 0; // 0: Stairs, 1: Kitchen Countertop, 2: Floor
+  let currentAppSlideIndex = 0;
+  let appSlideTimer = null;
+  let slabTransitionTimer = null;
 
   const resolveSrc = (path) => {
     if (!path) return '';
@@ -921,22 +924,121 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 5. Preload All Application Images into memory cache for instant, zero-latency switching
+  // Verified application image assets that exist on disk
+  const KNOWN_VALID_ARCH_IMAGES = new Set([
+    'assets/applications/01-black-galaxy-application.jpg',
+    'assets/applications/01-black-galaxy-floor.jpg',
+    'assets/applications/01-black-galaxy-kitchen.jpg',
+    'assets/applications/01-black-galaxy-stairs.jpg',
+    'assets/applications/02-kashmir-white-application.jpg',
+    'assets/applications/02-kashmir-white-floor.jpg',
+    'assets/applications/02-kashmir-white-kitchen.jpg',
+    'assets/applications/02-kashmir-white-stairs.jpg',
+    'assets/applications/03-viscount-white-application.jpg',
+    'assets/applications/03-viscount-white-floor.jpg',
+    'assets/applications/03-viscount-white-kitchen.jpg',
+    'assets/applications/03-viscount-white-stairs.jpg',
+    'assets/applications/04-tan-brown-application.jpg',
+    'assets/applications/04-tan-brown-floor.jpg',
+    'assets/applications/04-tan-brown-kitchen.jpg',
+    'assets/applications/04-tan-brown-stairs.jpg',
+    'assets/applications/05-steel-grey-application.jpg',
+    'assets/applications/05-steel-grey-floor.jpg',
+    'assets/applications/05-steel-grey-kitchen.jpg',
+    'assets/applications/05-steel-grey-stairs.jpg',
+    'assets/applications/06-ruby-red-application.jpg',
+    'assets/applications/06-ruby-red-floor.jpg',
+    'assets/applications/06-ruby-red-kitchen.jpg',
+    'assets/applications/06-ruby-red-stairs.jpg',
+    'assets/applications/07-emerald-green-application.jpg',
+    'assets/applications/07-emerald-green-floor.jpg',
+    'assets/applications/07-emerald-green-kitchen.jpg',
+    'assets/applications/07-emerald-green-stairs.jpg',
+    'assets/applications/08-desert-gold-application.jpg',
+    'assets/applications/08-desert-gold-floor.jpg',
+    'assets/applications/08-desert-gold-kitchen.jpg',
+    'assets/applications/08-desert-gold-stairs.jpg',
+    'assets/applications/09-red-multicolor-application.jpg',
+    'assets/applications/09-red-multicolor-floor.jpg',
+    'assets/applications/09-red-multicolor-kitchen.jpg',
+    'assets/applications/09-red-multicolor-stairs.jpg',
+    'assets/applications/10-moon-white-application.jpg',
+    'assets/applications/10-moon-white-floor.jpg',
+    'assets/applications/10-moon-white-kitchen.jpg',
+    'assets/applications/10-moon-white-stairs.jpg',
+    'assets/applications/11-lakha-red-application.jpg',
+    'assets/applications/12-rosy-pink-application.jpg',
+    'assets/New Granites/Alaska White Granite Application.jpg',
+    'assets/New Granites/Cherry Red Application.jpg',
+    'assets/New Granites/Coffee Brown Granite Application.jpg',
+    'assets/New Granites/Fish Black Granite Application.jpg',
+    'assets/New Granites/Galaxy Black Granite Application.jpg',
+    'assets/New Granites/Mordern Brown Application.jpg',
+    'assets/New Granites/P White Granite application.jpg',
+    'assets/New Granites/Z-Black South Application.jpg'
+  ]);
+
+  function isValidArchImage(path) {
+    if (!path) return false;
+    const cleanPath = path.replace(/^\//, '');
+    return KNOWN_VALID_ARCH_IMAGES.has(cleanPath);
+  }
+
+  // Consistent Product Lookup by Unique Identifier (ID or name)
+  function getProductById(id) {
+    if (!id) return GRANITE_PRODUCTS[0];
+    const query = String(id).trim().toLowerCase();
+    return GRANITE_PRODUCTS.find(p => 
+      String(p.id).toLowerCase() === query || 
+      String(p.id).padStart(2, '0').toLowerCase() === query ||
+      p.name.toLowerCase() === query
+    ) || GRANITE_PRODUCTS[0];
+  }
+
+  function getProductSlides(item) {
+    if (!item) return [];
+    const slides = [
+      { label: `${item.name} · Full Slab`, src: item.image }
+    ];
+    if (Array.isArray(item.applicationImages) && item.applicationImages.length > 0) {
+      item.applicationImages.forEach(app => {
+        if (app.src) {
+          slides.push({ label: `${item.name} · ${app.label}`, src: app.src });
+        }
+      });
+    } else if (item.archImage && isValidArchImage(item.archImage)) {
+      slides.push({ label: `${item.name} · Architectural Space`, src: item.archImage });
+    }
+    return slides;
+  }
+
+  function getApplicationSlides(item) {
+    if (!item) return [];
+    if (Array.isArray(item.applicationImages) && item.applicationImages.length > 0) {
+      return item.applicationImages;
+    }
+    if (item.archImage && isValidArchImage(item.archImage)) {
+      return [{ type: 'architecture', label: 'Architectural Environment', src: item.archImage }];
+    }
+    return [{ type: 'slab', label: 'Texture Detail', src: item.image }];
+  }
+
+  // 5. Preload All Application Images into memory cache for instant switching
   function preloadApplicationImages() {
     GRANITE_PRODUCTS.forEach(product => {
       if (Array.isArray(product.applicationImages)) {
         product.applicationImages.forEach(app => {
-          const img = new Image();
-          img.src = resolveSrc(app.src);
+          if (app.src) {
+            const img = new Image();
+            img.src = resolveSrc(app.src);
+          }
         });
       }
     });
   }
   preloadApplicationImages();
 
-  // Architectural Application Slider (Auto-advancing every 1 second: Stairs -> Kitchen Countertop -> Floor)
-  let appSlideTimer = null;
-
+  // 6. Architectural Application Slider
   function stopAppSlideTimer() {
     if (appSlideTimer) {
       clearInterval(appSlideTimer);
@@ -946,74 +1048,141 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startAppSlideTimer() {
     stopAppSlideTimer();
-    const item = GRANITE_PRODUCTS[currentProductIndex];
-    if (!item || !Array.isArray(item.applicationImages) || item.applicationImages.length <= 1) {
-      return;
-    }
+    const item = getProductById(currentProductId);
+    const appSlides = getApplicationSlides(item);
+    if (appSlides.length <= 1) return;
+
     appSlideTimer = setInterval(() => {
       renderAppSlide(currentAppSlideIndex + 1);
-    }, 1000);
+    }, 3200);
   }
 
   function renderAppSlide(slideIdx) {
-    const item = GRANITE_PRODUCTS[currentProductIndex];
-    if (!item) return;
+    const item = getProductById(currentProductId);
+    if (!item || !galleryStageImg) return;
 
-    const hasApps = Array.isArray(item.applicationImages) && item.applicationImages.length > 0;
+    const appSlides = getApplicationSlides(item);
+    const totalSlides = appSlides.length;
+    const hasMultiple = totalSlides > 1;
 
-    if (galleryArrowPrev) galleryArrowPrev.style.display = hasApps ? 'flex' : 'none';
-    if (galleryArrowNext) galleryArrowNext.style.display = hasApps ? 'flex' : 'none';
+    if (galleryArrowPrev) galleryArrowPrev.style.display = hasMultiple ? 'flex' : 'none';
+    if (galleryArrowNext) galleryArrowNext.style.display = hasMultiple ? 'flex' : 'none';
 
-    if (!hasApps) {
+    if (!hasMultiple) {
       stopAppSlideTimer();
-      if (galleryStageImg) {
-        galleryStageImg.onerror = null;
-        galleryStageImg.src = resolveSrc(item.archImage || item.image);
-        galleryStageImg.alt = `${item.name} Architectural Installation`;
-      }
-      if (galleryBadgeLabel) {
-        galleryBadgeLabel.textContent = `${item.name} · Architectural Environment`;
-      }
-      return;
     }
 
-    const totalSlides = item.applicationImages.length;
     currentAppSlideIndex = ((slideIdx % totalSlides) + totalSlides) % totalSlides;
-    const currentApp = item.applicationImages[currentAppSlideIndex];
+    const currentApp = appSlides[currentAppSlideIndex];
 
     if (galleryBadgeLabel) {
       galleryBadgeLabel.textContent = `${item.name} · ${currentApp.label}`;
     }
 
-    if (galleryStageImg) {
-      const targetSrc = resolveSrc(currentApp.src);
+    galleryStageImg.onerror = () => {
       galleryStageImg.onerror = null;
-      galleryStageImg.src = targetSrc;
-      galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
-    }
+      galleryStageImg.src = resolveSrc(item.image);
+      galleryStageImg.alt = `${item.name} Texture Detail`;
+    };
+    galleryStageImg.src = resolveSrc(currentApp.src);
+    galleryStageImg.alt = `${item.name} installed in ${currentApp.label}`;
   }
 
-  // 6. Select Active Granite Product
-  function selectProduct(index, smoothScroll = false) {
-    if (index < 0 || index >= GRANITE_PRODUCTS.length) return;
-    currentProductIndex = index;
-    const item = GRANITE_PRODUCTS[index];
-    currentViewMode = 'slab';
+  // 7. Hero Slab Image Slider & Direct Swipe / Drag Navigation
+  function renderSlabSlide(slideIdx, direction = 0) {
+    const item = getProductById(currentProductId);
+    if (!item || !productSlabImg) return;
+    const slides = getProductSlides(item);
+    if (!slides.length) return;
 
-    // Update Text Content
+    currentSlabSlideIndex = ((slideIdx % slides.length) + slides.length) % slides.length;
+    const currentSlide = slides[currentSlabSlideIndex];
+    const hasMultiple = slides.length > 1;
+
+    // Show or hide slab slider arrow controls based on slide count
+    if (slabArrowPrev) slabArrowPrev.style.display = hasMultiple ? 'flex' : 'none';
+    if (slabArrowNext) slabArrowNext.style.display = hasMultiple ? 'flex' : 'none';
+
+    // Update bottom pagination dots
+    if (productViewsRow) {
+      if (!hasMultiple) {
+        productViewsRow.style.display = 'none';
+        productViewsRow.innerHTML = '';
+      } else {
+        productViewsRow.style.display = 'flex';
+        productViewsRow.innerHTML = '';
+        slides.forEach((s, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `view-dot-btn ${idx === currentSlabSlideIndex ? 'is-active' : ''}`;
+          btn.dataset.index = idx;
+          btn.setAttribute('aria-label', s.label);
+          btn.setAttribute('title', s.label);
+          productViewsRow.appendChild(btn);
+        });
+      }
+    }
+
+    // Clear pending transition timer to avoid race conditions
+    if (slabTransitionTimer) {
+      clearTimeout(slabTransitionTimer);
+      slabTransitionTimer = null;
+    }
+
+    const expectedProductId = item.id;
+    productSlabImg.style.transition = 'opacity 0.2s ease, transform 0.22s ease';
+    productSlabImg.style.opacity = '0.35';
+    if (direction > 0) {
+      productSlabImg.style.transform = 'scale(0.98) translateX(-10px)';
+    } else if (direction < 0) {
+      productSlabImg.style.transform = 'scale(0.98) translateX(10px)';
+    }
+
+    slabTransitionTimer = setTimeout(() => {
+      // Guard against stale asynchronous updates
+      if (currentProductId !== expectedProductId) return;
+
+      productSlabImg.onerror = () => {
+        productSlabImg.onerror = null;
+        productSlabImg.src = resolveSrc(item.image);
+      };
+      productSlabImg.src = resolveSrc(currentSlide.src);
+      productSlabImg.alt = currentSlide.label;
+
+      requestAnimationFrame(() => {
+        productSlabImg.style.opacity = '1';
+        productSlabImg.style.transform = 'scale(1) translateX(0)';
+      });
+    }, 60);
+  }
+
+  // 8. Select Granite by Unique Product Identifier
+  function selectProductById(id, options = {}) {
+    const { smoothScroll = false, updateUrl = true } = options;
+    const item = getProductById(id);
+    if (!item) return;
+
+    currentProductId = item.id;
+    currentSlabSlideIndex = 0;
+    currentAppSlideIndex = 0;
+
+    // Document Title
+    document.title = `${item.name} | Balaji Granites`;
+
+    // Breadcrumbs & Header Text
     if (breadcrumbName) breadcrumbName.textContent = item.name;
     if (productEyebrow) productEyebrow.textContent = `Natural ${item.category}`;
     if (productTitle) productTitle.textContent = item.name;
     if (productDesc) productDesc.textContent = item.desc;
 
-    // Update Specs
-    if (specFinish) specFinish.textContent = item.finish;
-    if (specThickness) specThickness.textContent = item.thickness;
-    if (specOrigin) specOrigin.textContent = item.origin;
-    if (specCharacter) specCharacter.textContent = item.character;
-    if (specApplication) specApplication.textContent = item.application;
+    // Specifications
+    if (specFinish) specFinish.textContent = item.finish || 'Polished';
+    if (specThickness) specThickness.textContent = item.thickness || '20mm / 30mm';
+    if (specOrigin) specOrigin.textContent = item.origin || 'Indian Granite';
+    if (specCharacter) specCharacter.textContent = item.character || 'Natural Mineral';
+    if (specApplication) specApplication.textContent = item.application || 'Interiors & Exteriors';
 
-    // Trigger specifications animation
+    // Specifications Animation
     const specsGrid = document.querySelector('.specs-grid-layout');
     if (specsGrid) {
       specsGrid.classList.remove('is-animating');
@@ -1021,14 +1190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       specsGrid.classList.add('is-animating');
     }
 
-    // Render Hero Slab Slider at Slide 0 (Full Slab)
-    renderSlabSlide(0);
-
-    // Render Application Slider immediately for selected granite (Slide 1: Stairs) & start 1s auto-advance
-    renderAppSlide(0);
-    startAppSlideTimer();
-
-    // Update WhatsApp & Quote links
+    // WhatsApp & Quote Action Links
     const waText = encodeURIComponent(`Hello Balaji Granites, I am interested in ${item.name} granite. Please share details and availability.`);
     const waUrl = `https://wa.me/919660222886?text=${waText}`;
     const quoteUrl = `mailto:sales@balajigranites.com?subject=Quote%20Request%3A%20${encodeURIComponent(item.name)}%20Granite&body=Hello%20Balaji%20Granites%20Team%2C%0A%0AI%20would%20like%20to%20request%20information%20for%20${encodeURIComponent(item.name)}%20granite.%0A%0AApplication%3A%0AEstimated%20Quantity%3A%0ALocation%3A%0A%0AThank%20you!`;
@@ -1038,83 +1200,56 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnQuoteTop) btnQuoteTop.href = quoteUrl;
     if (btnQuoteSpecs) btnQuoteSpecs.href = quoteUrl;
 
-    // Update selected state in carousel
-    document.querySelectorAll('.related-product-card').forEach((card, idx) => {
-      card.classList.toggle('is-selected', card.dataset.id === item.id);
+    // Carousel Selection States — matches exact unique product ID
+    document.querySelectorAll('.related-product-card').forEach(card => {
+      const isSelected = card.dataset.id === item.id;
+      card.classList.toggle('is-selected', isSelected);
+      if (isSelected) {
+        card.setAttribute('aria-selected', 'true');
+      } else {
+        card.removeAttribute('aria-selected');
+      }
     });
 
+    // Update URL query parameter seamlessly
+    if (updateUrl && window.history && window.history.replaceState) {
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set('id', item.id);
+      window.history.replaceState({ productId: item.id }, '', newUrl.toString());
+    }
+
+    // Render Main Slab Viewer
+    renderSlabSlide(0);
+
+    // Render Architectural Application Viewer
+    renderAppSlide(0);
+    startAppSlideTimer();
+
+    // Scroll active card into view in carousel if offscreen
+    if (swatchesTrack) {
+      const activeCard = swatchesTrack.querySelector(`.related-product-card[data-id="${item.id}"]`);
+      if (activeCard && typeof activeCard.scrollIntoView === 'function') {
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+
+    // Smooth scroll to top of page when requested
     if (smoothScroll) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
-  // 7. Hero Slab Image Slider & Direct Swipe / Drag Navigation
-  function getProductSlides(item) {
-    if (!item) return [];
-    const slides = [
-      { label: `${item.name} · Full Slab`, src: item.image }
-    ];
-    if (Array.isArray(item.applicationImages) && item.applicationImages.length > 0) {
-      item.applicationImages.forEach(app => {
-        slides.push({ label: `${item.name} · ${app.label}`, src: app.src });
-      });
-    } else if (item.archImage) {
-      slides.push({ label: `${item.name} · Architectural Space`, src: item.archImage });
+  // Backward compatibility wrapper for legacy callers
+  function selectProduct(indexOrId, smoothScroll = false) {
+    if (typeof indexOrId === 'number') {
+      const product = GRANITE_PRODUCTS[indexOrId] || GRANITE_PRODUCTS[0];
+      selectProductById(product.id, { smoothScroll });
+    } else {
+      selectProductById(indexOrId, { smoothScroll });
     }
-    return slides;
   }
 
-  function renderSlabSlide(slideIdx, direction = 0) {
-    const item = GRANITE_PRODUCTS[currentProductIndex];
-    if (!item || !productSlabImg) return;
-    const slides = getProductSlides(item);
-    if (!slides.length) return;
-
-    currentSlabSlideIndex = ((slideIdx % slides.length) + slides.length) % slides.length;
-    const currentSlide = slides[currentSlabSlideIndex];
-
-    // Update bottom pagination dots
-    if (productViewsRow) {
-      if (productViewsRow.children.length !== slides.length) {
-        productViewsRow.innerHTML = '';
-        slides.forEach((s, idx) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `view-dot-btn ${idx === currentSlabSlideIndex ? 'is-active' : ''}`;
-          btn.dataset.index = idx;
-          btn.setAttribute('aria-label', s.label);
-          productViewsRow.appendChild(btn);
-        });
-      } else {
-        const dots = productViewsRow.querySelectorAll('.view-dot-btn');
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('is-active', idx === currentSlabSlideIndex);
-        });
-      }
-    }
-
-    // Smooth transition
-    productSlabImg.style.transition = 'opacity 0.22s ease, transform 0.25s ease';
-    productSlabImg.style.opacity = '0.35';
-    if (direction > 0) {
-      productSlabImg.style.transform = 'scale(0.98) translateX(-10px)';
-    } else if (direction < 0) {
-      productSlabImg.style.transform = 'scale(0.98) translateX(10px)';
-    }
-
-    setTimeout(() => {
-      productSlabImg.onerror = null;
-      productSlabImg.src = resolveSrc(currentSlide.src);
-      productSlabImg.alt = currentSlide.label;
-
-      requestAnimationFrame(() => {
-        productSlabImg.style.opacity = '1';
-        productSlabImg.style.transform = 'scale(1) translateX(0)';
-      });
-    }, 80);
-  }
-
-  // Slider Arrow Buttons
+  // 9. Slider Arrow Controls
   if (slabArrowPrev) {
     slabArrowPrev.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1129,7 +1264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Slider Pagination Dots Click
+  // Slider Pagination Dots Click Delegation
   if (productViewsRow) {
     productViewsRow.addEventListener('click', (e) => {
       const dot = e.target.closest('.view-dot-btn');
@@ -1142,7 +1277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Touch Swipe & Mouse Drag Directly Across Images
+  // Touch Swipe & Mouse Drag Directly Across Slab Images
   if (productSlabCard) {
     let touchStartX = 0;
     let touchStartY = 0;
@@ -1213,16 +1348,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Application Slider Controls & Swipe Support
+  // 10. Application Slider Controls & Swipe Support
   if (galleryArrowPrev) {
-    galleryArrowPrev.addEventListener('click', () => {
+    galleryArrowPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
       renderAppSlide(currentAppSlideIndex - 1);
       startAppSlideTimer();
     });
   }
 
   if (galleryArrowNext) {
-    galleryArrowNext.addEventListener('click', () => {
+    galleryArrowNext.addEventListener('click', (e) => {
+      e.stopPropagation();
       renderAppSlide(currentAppSlideIndex + 1);
       startAppSlideTimer();
     });
@@ -1262,7 +1399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 9. Render All Granites in Carousel
+  // 11. Render All Granites in Carousel
   function renderCarousel(filteredList = GRANITE_PRODUCTS) {
     if (!swatchesTrack) return;
     swatchesTrack.innerHTML = '';
@@ -1271,45 +1408,88 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'related-product-card';
       card.dataset.id = item.id;
-      if (item.id === GRANITE_PRODUCTS[currentProductIndex].id) {
+      if (item.id === currentProductId) {
         card.classList.add('is-selected');
+        card.setAttribute('aria-selected', 'true');
       }
 
       card.innerHTML = `
         <div class="card-swatch-media">
-          <img src="${resolveSrc(item.image)}" alt="${item.name} Swatch" loading="lazy">
+          <img src="${resolveSrc(item.image)}" alt="${item.name} Swatch" loading="lazy" decoding="async">
         </div>
         <div class="card-body">
           <span class="card-product-name">${item.name}</span>
-          <span class="card-product-cat">${item.finish}</span>
+          <span class="card-product-cat">${item.finish || 'Polished'}</span>
         </div>
       `;
-
-      card.addEventListener('click', () => {
-        const fullIndex = GRANITE_PRODUCTS.findIndex(p => p.id === item.id);
-        if (fullIndex !== -1) {
-          selectProduct(fullIndex, true);
-        }
-      });
 
       swatchesTrack.appendChild(card);
     });
   }
 
-  // 10. Carousel Controls
-  if (carouselPrevBtn && swatchesTrack) {
-    carouselPrevBtn.addEventListener('click', () => {
-      swatchesTrack.scrollBy({ left: -320, behavior: 'smooth' });
+  // Swipe / Drag Tracking on Swatches Track to differentiate scrolling from intentional clicks
+  let isTrackDragging = false;
+  let trackStartX = 0;
+  let trackStartY = 0;
+  let trackStartScrollLeft = 0;
+
+  if (swatchesTrack) {
+    swatchesTrack.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        trackStartX = e.touches[0].clientX;
+        trackStartY = e.touches[0].clientY;
+        trackStartScrollLeft = swatchesTrack.scrollLeft;
+        isTrackDragging = false;
+      }
+    }, { passive: true });
+
+    swatchesTrack.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        const diffX = Math.abs(e.touches[0].clientX - trackStartX);
+        const scrollDiff = Math.abs(swatchesTrack.scrollLeft - trackStartScrollLeft);
+        if (diffX > 10 || scrollDiff > 6) {
+          isTrackDragging = true;
+        }
+      }
+    }, { passive: true });
+
+    // Delegated click handler on the track using unique product ID
+    swatchesTrack.addEventListener('click', (e) => {
+      if (isTrackDragging) {
+        isTrackDragging = false;
+        return;
+      }
+      const card = e.target.closest('.related-product-card');
+      if (!card) return;
+      const productId = card.dataset.id;
+      if (productId) {
+        selectProductById(productId, { smoothScroll: true, updateUrl: true });
+      }
     });
   }
 
-  if (carouselNextBtn && swatchesTrack) {
-    carouselNextBtn.addEventListener('click', () => {
-      swatchesTrack.scrollBy({ left: 320, behavior: 'smooth' });
+  // Carousel Controls — purely scroll the swatches track, never select cards
+  if (carouselPrevBtn) {
+    carouselPrevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (swatchesTrack) {
+        swatchesTrack.scrollBy({ left: -340, behavior: 'smooth' });
+      }
     });
   }
 
-  // 9. Tone Filter Dropdown
+  if (carouselNextBtn) {
+    carouselNextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (swatchesTrack) {
+        swatchesTrack.scrollBy({ left: 340, behavior: 'smooth' });
+      }
+    });
+  }
+
+  // 12. Tone Filter Dropdown
   if (toneFilterSelect) {
     toneFilterSelect.addEventListener('change', () => {
       const selectedTone = toneFilterSelect.value;
@@ -1319,24 +1499,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const filtered = GRANITE_PRODUCTS.filter(p => p.tone === selectedTone);
         renderCarousel(filtered);
       }
+
+      // Ensure active product is marked selected if present in filtered view
+      if (swatchesTrack) {
+        const activeCard = swatchesTrack.querySelector(`.related-product-card[data-id="${currentProductId}"]`);
+        if (activeCard) {
+          activeCard.classList.add('is-selected');
+          activeCard.setAttribute('aria-selected', 'true');
+        }
+      }
     });
   }
 
-  // 10. Check URL query/hash for deep-linking (e.g. ?id=03)
+  // 13. Deep-Linking: Check URL query parameter or hash
   const urlParams = new URLSearchParams(window.location.search);
   const requestedId = urlParams.get('id') || window.location.hash.replace('#', '');
   if (requestedId) {
-    const foundIdx = GRANITE_PRODUCTS.findIndex(p => p.id === requestedId || p.name.toLowerCase() === requestedId.toLowerCase());
-    if (foundIdx !== -1) {
-      currentProductIndex = foundIdx;
+    const found = getProductById(requestedId);
+    if (found) {
+      currentProductId = found.id;
     }
   }
 
-  // Initial render
+  // 14. Initial Render
   renderCarousel();
-  selectProduct(currentProductIndex, false);
+  selectProductById(currentProductId, { smoothScroll: false, updateUrl: false });
 
-  // Trigger specifications animation on scroll into view or initial load
+  // Handle browser Back / Forward buttons
+  window.addEventListener('popstate', (e) => {
+    const popId = e.state?.productId || new URLSearchParams(window.location.search).get('id') || '01';
+    selectProductById(popId, { smoothScroll: false, updateUrl: false });
+  });
+
+  // Expose global methods for external triggers
+  window.selectProductById = selectProductById;
+  window.selectProduct = selectProduct;
+
+  // 15. Trigger specifications animation on scroll into view or initial load
   const specsSection = document.querySelector('.product-specs-section');
   const initialSpecsGrid = document.querySelector('.specs-grid-layout');
   if (initialSpecsGrid) {
