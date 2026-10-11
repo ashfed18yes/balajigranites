@@ -432,9 +432,9 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* 1. HERO VIDEO — RESPONSIVE PORTRAIT ADAPTATION WITH SEAMLESS STONE ENVIRONMENT BLENDING */
+  /* 1. HERO VIDEO — RESPONSIVE PORTRAIT ADAPTATION WITH SEAMLESS MARBLE ENVIRONMENT BLENDING */
   .hero-container {
-    background-color: #c7c6c2;
+    background-color: #dedcd8;
   }
 
   .video-wrapper {
@@ -446,22 +446,59 @@ html, body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #c7c6c2;
+    background-color: #c5beb1;
+    background: 
+      /* Warm directional lighting beam from upper-left simulating the wall in the video */
+      radial-gradient(ellipse 90% 65% at 20% 24%, rgba(236, 230, 220, 0.95) 0%, rgba(214, 207, 196, 0.6) 45%, transparent 75%),
+      /* Soft floor specular reflection glow in lower center */
+      radial-gradient(ellipse 85% 40% at 50% 68%, rgba(218, 211, 200, 0.6) 0%, rgba(198, 191, 180, 0.3) 45%, transparent 75%),
+      /* Continuous vertical stone tonal gradient matching video opening lighting */
+      linear-gradient(
+        180deg,
+        #b6afa4 0%,
+        #c3bcae 15%,
+        #cec7b8 30%,
+        #d5cebe 48%,
+        #c9c2b2 62%,
+        #b9b2a2 78%,
+        #a69f8f 100%
+      );
   }
 
-  .cinematic-video-bg {
-    display: block;
+  /* Atmospheric stone lighting depth layer */
+  .video-wrapper::before {
+    content: '';
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    filter: blur(48px) brightness(1.04) saturate(1.04);
-    opacity: 0.95;
-    transform: scale(1.3);
+    background: 
+      radial-gradient(ellipse 70% 50% at 28% 28%, rgba(244, 239, 230, 0.6) 0%, rgba(220, 213, 202, 0.25) 50%, transparent 80%),
+      radial-gradient(ellipse 110% 70% at 75% 35%, rgba(198, 191, 178, 0.35) 0%, transparent 60%);
     pointer-events: none;
-    user-select: none;
+    z-index: 1;
+  }
+
+  /* Seamless edge feathering overlay blending the video boundaries into ambient space */
+  .video-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    background: linear-gradient(
+      180deg,
+      rgba(182, 175, 164, 0.95) 0%,
+      rgba(195, 188, 176, 0.65) 12%,
+      rgba(212, 205, 193, 0.25) 24%,
+      transparent 35%,
+      transparent 65%,
+      rgba(201, 194, 182, 0.25) 75%,
+      rgba(185, 178, 166, 0.65) 88%,
+      rgba(166, 159, 147, 0.95) 100%
+    );
   }
 
   .cinematic-video {
@@ -469,12 +506,36 @@ html, body {
     top: auto;
     left: auto;
     width: 100%;
-    height: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     z-index: 2;
+    /* Softly feathered top and bottom video edges to completely dissolve rectangular seams */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.15) 2%,
+      rgba(0, 0, 0, 0.7) 5%,
+      black 10%,
+      black 90%,
+      rgba(0, 0, 0, 0.7) 95%,
+      rgba(0, 0, 0, 0.15) 98%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.15) 2%,
+      rgba(0, 0, 0, 0.7) 5%,
+      black 10%,
+      black 90%,
+      rgba(0, 0, 0, 0.7) 95%,
+      rgba(0, 0, 0, 0.15) 98%,
+      transparent 100%
+    );
   }
 
   /* 2. MOBILE NAVBAR — COMPACT PREMIUM FLOATING PILL + USABLE MENU */
