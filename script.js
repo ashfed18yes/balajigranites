@@ -58,27 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
   heroUi.classList.remove('is-revealed');
   if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
 
-  if (isMobile) {
-    // Mobile: Strict compliance with mobile autoplay policy (muted + inline)
-    // Do NOT immediately pause the video — allow native autoplay to proceed
-    video.muted = true;
-    video.defaultMuted = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-  } else {
-    // Desktop: Preserve existing behavior exactly as before
-    video.pause();
-    try {
-      video.currentTime = 0;
-    } catch (e) { }
-
-    video.muted = false;
-    video.defaultMuted = false;
-    video.removeAttribute('muted');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-  }
+  // Configure inline playback across both mobile and desktop
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
 
   let isRevealed = false;
   let hasEnded = false;
@@ -179,72 +161,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Safe Autoplay Initiation
-  if (isMobile) {
-    const playMobileVideo = () => {
-      if (video.paused) {
-        const p = video.play();
-        if (p !== undefined) {
-          p.then(() => {
-            if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
-          }).catch(err => {
-            console.warn('Mobile autoplay deferred:', err);
-          });
-        }
-      } else {
-        if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
-      }
-    };
-
-    if (video.readyState >= 2) {
-      playMobileVideo();
-    } else {
-      video.addEventListener('loadedmetadata', playMobileVideo, { once: true });
-      video.addEventListener('canplay', playMobileVideo, { once: true });
+  // Autoplay initiation with sound attempt & graceful fallback
+  const enableAudioOnInteraction = () => {
+    video.muted = false;
+    video.removeAttribute('muted');
+    if (video.paused && !hasEnded) {
+      video.play().catch(() => {});
     }
+  };
 
-    // Unmute on first user interaction on mobile
-    const enableAudioOnMobileInteraction = () => {
-      video.muted = false;
-      if (video.paused) {
-        video.play().catch(() => {});
-      }
-    };
-    window.addEventListener('touchstart', enableAudioOnMobileInteraction, { once: true, passive: true });
-    window.addEventListener('click', enableAudioOnMobileInteraction, { once: true, passive: true });
+  window.addEventListener('pointerdown', enableAudioOnInteraction, { once: true, passive: true });
+  window.addEventListener('touchstart', enableAudioOnInteraction, { once: true, passive: true });
+  window.addEventListener('click', enableAudioOnInteraction, { once: true, passive: true });
+  window.addEventListener('keydown', enableAudioOnInteraction, { once: true, passive: true });
+  window.addEventListener('wheel', enableAudioOnInteraction, { once: true, passive: true });
+
+  const startHeroVideo = () => {
+    // 1. Attempt autoplay with sound
+    video.muted = false;
+    video.removeAttribute('muted');
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
+        })
+        .catch(() => {
+          // 2. If browser blocks sound, immediately fall back to muted so video plays automatically without delay
+          video.muted = true;
+          video.setAttribute('muted', '');
+          video.play()
+            .then(() => {
+              if (!hasEnded) rafId = requestAnimationFrame(monitorPlayback);
+            })
+            .catch(err => {
+              console.warn('Autoplay fallback deferred:', err);
+            });
+        });
+    }
+  };
+
+  if (video.readyState >= 2) {
+    startHeroVideo();
   } else {
-    // Desktop: Preserve existing behavior exactly as before
-    const startAutoplay = () => {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            rafId = requestAnimationFrame(monitorPlayback);
-          })
-          .catch(err => {
-            console.warn('Autoplay prevented or deferred:', err);
-            // Wait for first user interaction to resume
-            const resumeOnInteraction = () => {
-              video.play().then(() => {
-                rafId = requestAnimationFrame(monitorPlayback);
-              });
-              window.removeEventListener('click', resumeOnInteraction);
-              window.removeEventListener('keydown', resumeOnInteraction);
-              window.removeEventListener('touchstart', resumeOnInteraction);
-            };
-            window.addEventListener('click', resumeOnInteraction);
-            window.addEventListener('keydown', resumeOnInteraction);
-            window.addEventListener('touchstart', resumeOnInteraction);
-          });
-      }
-    };
-
-    // If already playing or can play
-    if (video.readyState >= 2) {
-      startAutoplay();
-    } else {
-      video.addEventListener('canplay', startAutoplay, { once: true });
-    }
+    video.addEventListener('loadedmetadata', startHeroVideo, { once: true });
+    video.addEventListener('canplay', startHeroVideo, { once: true });
   }
 
   // Fallback: If video takes too long to load or fails, ensure UI is visible
@@ -1469,18 +1431,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let scrollRafId = null;
   let currentScrollProgress = 0;
+  let isGraniteActive = false;
   let isFinderActive = false;
   let isTileActive = false;
   let isTransitioning = false;
-  let isHeroTransitioning = false;
-  let heroTransitionRaf = null;
-  let finderTouchStartY = 0;
   let currentTileIndex = 0; // Starts at initial valid state (index 0)
-  let isTransitionCooldown = false;
   let mobileTouchStartX = 0;
   let mobileTouchStartY = 0;
-  let mobileTouchSection = 'HERO';
-  let mobileGestureHandled = false;
+  let mobileGestureConsumed = false;
 
   // Premium Architectural Tile Collection Data
   const TILE_COLLECTION = [
@@ -1551,6 +1509,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateTransition() {
     scrollRafId = null;
+    if (isTransitioning) return;
+
+    if (isMobile) {
+      // Discrete state enforcement on mobile prevents float-rounding washouts
+      if (!isGraniteActive && !isFinderActive && !isTileActive) {
+        if (warmCurtain) warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
+        if (graniteInner) {
+          graniteInner.style.opacity = '0';
+          graniteInner.style.visibility = 'hidden';
+        }
+        if (graniteSection) {
+          graniteSection.style.visibility = 'hidden';
+          graniteSection.style.pointerEvents = 'none';
+        }
+        if (heroScrollIndicator) {
+          heroScrollIndicator.style.opacity = '';
+          heroScrollIndicator.style.pointerEvents = '';
+        }
+      } else if (isGraniteActive && !isFinderActive && !isTileActive) {
+        if (warmCurtain) warmCurtain.style.transform = 'translate3d(0, 0%, 0)';
+        if (graniteInner) {
+          graniteInner.style.opacity = '1';
+          graniteInner.style.visibility = 'visible';
+          graniteInner.style.transform = 'translate3d(0, 0, 0)';
+          graniteInner.style.filter = 'blur(0px)';
+        }
+        if (graniteSection) {
+          graniteSection.style.visibility = 'visible';
+          graniteSection.style.pointerEvents = 'auto';
+        }
+        if (heroScrollIndicator) {
+          heroScrollIndicator.style.opacity = '0';
+          heroScrollIndicator.style.pointerEvents = 'none';
+        }
+      }
+      return;
+    }
+
     const scrollY = window.scrollY || window.pageYOffset;
     const windowH = window.innerHeight;
     const trackH = experienceTrack ? experienceTrack.offsetHeight : windowH * 2.2;
@@ -1594,9 +1590,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Phase A: Warm Ivory Curtain Cover (0% to 70% of scroll)
-    // Curtains moves from translateY(100%) to translateY(0%)
-    // At progress 0% -> translateY(100%) [Hero 100% visible]
-    // At progress 70% -> translateY(0%) [Screen is 100% covered in warm ivory]
     const curtainProgress = Math.min(1, progress / 0.70);
     const curtainY = (1 - curtainProgress) * 100;
 
@@ -1617,12 +1610,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Phase B: Granite Collection Emergence / Dissolve (78% to 100% of scroll)
-    // Buffer zone (70% to 78%): Screen is 100% solid warm ivory curtain covering the hero.
-    // Above 78%, Granite softly emerges. In reverse, Granite dissolves completely by 78%,
-    // before curtain starts dropping at 70%, guaranteeing Granite is 100% hidden before Hero appears.
     const revealProgress = Math.max(0, Math.min(1, (progress - 0.78) / 0.22));
 
-    if (graniteInner && !isFinderActive && !isTileActive && (!isTransitioning || isHeroTransitioning)) {
+    if (graniteInner && !isFinderActive && !isTileActive) {
       graniteInner.style.transition = 'none';
       if (revealProgress > 0) {
         graniteInner.style.visibility = 'visible';
@@ -1649,17 +1639,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetExperienceToTop() {
+    isGraniteActive = false;
     isFinderActive = false;
     isTileActive = false;
     isTransitioning = false;
-    isHeroTransitioning = false;
-    if (heroTransitionRaf) {
-      cancelAnimationFrame(heroTransitionRaf);
-      heroTransitionRaf = null;
-    }
-    isTransitionCooldown = false;
-    mobileGestureHandled = false;
-    mobileTouchSection = 'HERO';
+    mobileGestureConsumed = false;
 
     // Reset tile curtain & inner
     if (tileCurtain) {
@@ -1763,20 +1747,49 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     Hero → Granite Collection Controlled Transition
+     Hero ↔ Granite Collection Transition
      ========================================================================== */
 
   function transitionHeroToCollection(onComplete) {
-    if (isHeroTransitioning || (isTransitioning && !isHeroTransitioning) || isTransitionCooldown) return;
-    if (isFinderActive || isTileActive) return;
-
-    isHeroTransitioning = true;
+    if (isTransitioning || isFinderActive || isTileActive) return;
     isTransitioning = true;
-    if (heroTransitionRaf) {
-      cancelAnimationFrame(heroTransitionRaf);
-      heroTransitionRaf = null;
+
+    if (heroScrollIndicator) {
+      heroScrollIndicator.style.opacity = '0';
+      heroScrollIndicator.style.pointerEvents = 'none';
     }
 
+    if (isMobile) {
+      // GPU-accelerated CSS transition matching Finder/Tiles
+      if (warmCurtain) {
+        warmCurtain.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        warmCurtain.style.transform = 'translate3d(0, 0%, 0)';
+      }
+
+      setTimeout(() => {
+        if (graniteSection) graniteSection.style.visibility = 'visible';
+        if (graniteInner) {
+          graniteInner.style.visibility = 'visible';
+          graniteInner.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease';
+          graniteInner.style.opacity = '1';
+          graniteInner.style.transform = 'translate3d(0, 0, 0)';
+          graniteInner.style.filter = 'blur(0px)';
+        }
+      }, 250);
+
+      setTimeout(() => {
+        if (graniteSection) {
+          graniteSection.style.visibility = 'visible';
+          graniteSection.style.pointerEvents = 'auto';
+        }
+        isGraniteActive = true;
+        isTransitioning = false;
+        if (onComplete) onComplete();
+      }, 600);
+      return;
+    }
+
+    // DESKTOP: Smooth programmatic scroll step
     const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
     const maxScroll = Math.max(1, trackH - window.innerHeight);
     const startY = window.scrollY || window.pageYOffset;
@@ -1786,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(distance) < 2) {
       window.scrollTo(0, targetY);
       updateTransition();
-      isHeroTransitioning = false;
+      isGraniteActive = true;
       isTransitioning = false;
       if (onComplete) onComplete();
       return;
@@ -1796,7 +1809,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.cancelable) e.preventDefault();
     };
     window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
 
     const startTime = performance.now();
     const duration = Math.min(750, Math.max(450, (Math.abs(distance) / maxScroll) * 700));
@@ -1811,13 +1823,11 @@ document.addEventListener('DOMContentLoaded', () => {
       updateTransition();
 
       if (progress < 1) {
-        heroTransitionRaf = requestAnimationFrame(step);
+        requestAnimationFrame(step);
       } else {
-        heroTransitionRaf = null;
         window.scrollTo(0, targetY);
         updateTransition();
 
-        // Enforce 100% complete state for Granite Collection
         if (graniteInner) {
           graniteInner.style.visibility = 'visible';
           graniteInner.style.opacity = '1';
@@ -1833,33 +1843,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         window.removeEventListener('wheel', preventScrollFight);
-        window.removeEventListener('touchmove', preventScrollFight);
-
-        isHeroTransitioning = false;
+        isGraniteActive = true;
         isTransitioning = false;
-        isTransitionCooldown = true;
-        setTimeout(() => {
-          isTransitionCooldown = false;
-        }, 200);
-
         if (onComplete) onComplete();
       }
     }
 
-    heroTransitionRaf = requestAnimationFrame(step);
+    requestAnimationFrame(step);
   }
 
   function transitionCollectionToHero(onComplete) {
-    if (isHeroTransitioning || (isTransitioning && !isHeroTransitioning) || isTransitionCooldown) return;
-    if (isFinderActive || isTileActive) return;
-
-    isHeroTransitioning = true;
+    if (isTransitioning || isFinderActive || isTileActive) return;
     isTransitioning = true;
-    if (heroTransitionRaf) {
-      cancelAnimationFrame(heroTransitionRaf);
-      heroTransitionRaf = null;
+
+    if (isMobile) {
+      // GPU-accelerated CSS transition matching Finder/Tiles
+      if (graniteSection) graniteSection.style.pointerEvents = 'none';
+      if (graniteInner) {
+        graniteInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+        graniteInner.style.opacity = '0';
+        graniteInner.style.transform = 'translate3d(0, 20px, 0)';
+        graniteInner.style.filter = 'blur(6px)';
+      }
+
+      if (warmCurtain) {
+        warmCurtain.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
+      }
+
+      setTimeout(() => {
+        if (graniteSection) {
+          graniteSection.style.visibility = 'hidden';
+          graniteSection.style.pointerEvents = 'none';
+        }
+        if (graniteInner) {
+          graniteInner.style.visibility = 'hidden';
+        }
+        if (heroScrollIndicator) {
+          heroScrollIndicator.style.opacity = '';
+          heroScrollIndicator.style.pointerEvents = '';
+        }
+        isGraniteActive = false;
+        isTransitioning = false;
+        if (onComplete) onComplete();
+      }, 600);
+      return;
     }
 
+    // DESKTOP: Smooth programmatic scroll step
     const startY = window.scrollY || window.pageYOffset;
     const targetY = 0;
     const distance = targetY - startY;
@@ -1867,7 +1898,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(distance) < 2) {
       window.scrollTo(0, 0);
       updateTransition();
-      isHeroTransitioning = false;
+      isGraniteActive = false;
       isTransitioning = false;
       if (onComplete) onComplete();
       return;
@@ -1877,7 +1908,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.cancelable) e.preventDefault();
     };
     window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
 
     const startTime = performance.now();
     const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
@@ -1894,13 +1924,11 @@ document.addEventListener('DOMContentLoaded', () => {
       updateTransition();
 
       if (progress < 1) {
-        heroTransitionRaf = requestAnimationFrame(step);
+        requestAnimationFrame(step);
       } else {
-        heroTransitionRaf = null;
         window.scrollTo(0, 0);
         updateTransition();
 
-        // Enforce 100% clean state for Hero
         if (heroScrollIndicator) {
           heroScrollIndicator.style.opacity = '';
           heroScrollIndicator.style.pointerEvents = '';
@@ -1924,20 +1952,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         window.removeEventListener('wheel', preventScrollFight);
-        window.removeEventListener('touchmove', preventScrollFight);
-
-        isHeroTransitioning = false;
+        isGraniteActive = false;
         isTransitioning = false;
-        isTransitionCooldown = true;
-        setTimeout(() => {
-          isTransitionCooldown = false;
-        }, 200);
-
         if (onComplete) onComplete();
       }
     }
 
-    heroTransitionRaf = requestAnimationFrame(step);
+    requestAnimationFrame(step);
   }
 
   /* ==========================================================================
@@ -1948,29 +1969,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isFinderActive || isTransitioning) return;
     isTransitioning = true;
 
-    // STEP 3: Temporarily take control of transition.
-    // Prevent normal scrolling from fighting the animation during this short transition.
-    const preventScrollFight = (e) => {
-      e.preventDefault();
-    };
-    window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
-
-    // STEP 5: As the ivory layer rises, Granite Collection UI subtly disappears behind it
     if (graniteInner) {
       graniteInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
       graniteInner.style.opacity = '0';
       graniteInner.style.filter = 'blur(5px)';
     }
 
-    // STEP 4: The warm ivory curtain begins rising from bottom: translateY(100%) → translateY(0%)
-    // Duration: 850ms, cubic-bezier(0.16, 1, 0.3, 1)
     if (finderCurtain) {
       finderCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
       finderCurtain.style.transform = 'translate3d(0, 0%, 0)';
     }
 
-    // STEP 6: Once ivory layer has covered ~70–80% (~550ms), reveal Granite Finder
     setTimeout(() => {
       if (graniteFinder) {
         graniteFinder.style.visibility = 'visible';
@@ -1983,16 +1992,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 550);
 
-    // STEP 7 & 8: Curtain reaches full coverage, release temporary scroll lock, normal scrolling resumes
     setTimeout(() => {
       isFinderActive = true;
+      isGraniteActive = false;
       isTransitioning = false;
-      isTransitionCooldown = true;
-      setTimeout(() => {
-        isTransitionCooldown = false;
-      }, 350);
-      window.removeEventListener('wheel', preventScrollFight);
-      window.removeEventListener('touchmove', preventScrollFight);
 
       if (graniteFinder) {
         graniteFinder.style.visibility = 'visible';
@@ -2012,12 +2015,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function transitionBackToCollection() {
     if (!isFinderActive || isTransitioning) return;
     isTransitioning = true;
-
-    const preventScrollFight = (e) => {
-      e.preventDefault();
-    };
-    window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
 
     if (graniteFinder) {
       graniteFinder.style.pointerEvents = 'none';
@@ -2045,13 +2042,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       isFinderActive = false;
+      isGraniteActive = true;
       isTransitioning = false;
-      isTransitionCooldown = true;
-      setTimeout(() => {
-        isTransitionCooldown = false;
-      }, 350);
-      window.removeEventListener('wheel', preventScrollFight);
-      window.removeEventListener('touchmove', preventScrollFight);
 
       if (graniteFinder) {
         graniteFinder.style.visibility = 'hidden';
@@ -2075,29 +2067,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isTileActive || isTransitioning) return;
     isTransitioning = true;
 
-    // STEP 3: Temporarily take control of transition.
-    // Prevent normal scrolling from fighting the animation during this short transition.
-    const preventScrollFight = (e) => {
-      e.preventDefault();
-    };
-    window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
-
-    // STEP 4: As the ivory layer rises, Granite Finder subtly blurs/dims
     if (finderInner) {
       finderInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
       finderInner.style.opacity = '0';
       finderInner.style.filter = 'blur(4px)';
     }
 
-    // STEP 4: The full-screen warm ivory layer begins rising from the bottom
-    // translateY(100%) → translateY(0%) over 850ms, cubic-bezier(0.16, 1, 0.3, 1)
     if (tileCurtain) {
       tileCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
       tileCurtain.style.transform = 'translate3d(0, 0%, 0)';
     }
 
-    // STEP 5: Once ivory layer has covered ~70–80% (~550ms), reveal Tile section
     setTimeout(() => {
       if (tileSection) {
         tileSection.style.visibility = 'visible';
@@ -2110,16 +2090,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 550);
 
-    // STEP 6: Curtain reaches full coverage, release temporary scroll lock, normal scrolling resumes
     setTimeout(() => {
       isTileActive = true;
+      isFinderActive = false;
       isTransitioning = false;
-      isTransitionCooldown = true;
-      setTimeout(() => {
-        isTransitionCooldown = false;
-      }, 350);
-      window.removeEventListener('wheel', preventScrollFight);
-      window.removeEventListener('touchmove', preventScrollFight);
 
       if (tileSection) {
         tileSection.style.visibility = 'visible';
@@ -2135,12 +2109,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function transitionBackToFinder() {
     if (!isTileActive || isTransitioning) return;
     isTransitioning = true;
-
-    const preventScrollFight = (e) => {
-      e.preventDefault();
-    };
-    window.addEventListener('wheel', preventScrollFight, { passive: false });
-    window.addEventListener('touchmove', preventScrollFight, { passive: false });
 
     if (tileSection) {
       tileSection.style.pointerEvents = 'none';
@@ -2171,13 +2139,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       isTileActive = false;
+      isFinderActive = true;
       isTransitioning = false;
-      isTransitionCooldown = true;
-      setTimeout(() => {
-        isTransitionCooldown = false;
-      }, 350);
-      window.removeEventListener('wheel', preventScrollFight);
-      window.removeEventListener('touchmove', preventScrollFight);
 
       if (tileSection) {
         tileSection.style.visibility = 'hidden';
@@ -2198,24 +2161,15 @@ document.addEventListener('DOMContentLoaded', () => {
   window.transitionBackToFinder = transitionBackToFinder;
 
   // Controlled Gesture Listeners for Mobile & Desktop Section Progression
-  // Guarantees ONE intentional mobile swipe = ONE section transition (never skips sections)
   window.addEventListener('touchstart', (e) => {
     if (!e.touches || e.touches.length === 0) return;
+    if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
+    if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
+    if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
+
     mobileTouchStartX = e.touches[0].clientX;
     mobileTouchStartY = e.touches[0].clientY;
-    finderTouchStartY = e.touches[0].clientY;
-    mobileGestureHandled = false;
-
-    // Detect section at the exact moment touch begins
-    if (isTileActive) {
-      mobileTouchSection = 'TILES';
-    } else if (isFinderActive) {
-      mobileTouchSection = 'FINDER';
-    } else if (currentScrollProgress >= 0.70) {
-      mobileTouchSection = 'GRANITE';
-    } else {
-      mobileTouchSection = 'HERO';
-    }
+    mobileGestureConsumed = false;
   }, { passive: true });
 
   window.addEventListener('wheel', (e) => {
@@ -2223,7 +2177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
-    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) return;
+    if (isTransitioning) return;
 
     // 1. One downward scroll gesture at end of Granite Collection -> Finder
     if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
@@ -2258,18 +2212,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: false });
 
   window.addEventListener('touchmove', (e) => {
-    // Safety: do not intercept if modal/lightbox is open, during transitions or drags
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
-    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) {
+
+    if (isTransitioning || mobileGestureConsumed) {
       if (e.cancelable) e.preventDefault();
       return;
     }
-    if (mobileGestureHandled) {
-      if (e.cancelable) e.preventDefault();
-      return;
-    }
+
     if (!e.touches || e.touches.length === 0) return;
 
     const currentX = e.touches[0].clientX;
@@ -2280,94 +2231,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const absY = Math.abs(diffY);
 
     // Filter out horizontal swipes (e.g., granite slabs or tile cards)
-    if (absX >= absY || absY < 45) return;
+    if (absX >= absY || absY < 40) return;
 
-    // Strictly enforce: ONE intentional swipe = ONE adjacent section transition
-    if (mobileTouchSection === 'HERO') {
-      if (diffY > 0) {
-        // Swipe UP on Hero -> Smoothly transition to Granite Collection ONLY (cannot skip into Finder)
-        mobileGestureHandled = true;
+    if (isTileActive) {
+      const tileTop = tileSection ? tileSection.scrollTop : 0;
+      if (diffY < 0 && tileTop <= 4) {
+        mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionHeroToCollection();
+        transitionBackToFinder();
       }
-    } else if (mobileTouchSection === 'GRANITE') {
-      if (diffY > 0) {
-        // Swipe UP on Granite Collection -> Transition to Granite Finder ONLY (cannot skip into Tiles)
-        mobileGestureHandled = true;
-        if (e.cancelable) e.preventDefault();
-        transitionToFinder();
-      } else if (diffY < 0) {
-        // Swipe DOWN on Granite Collection -> Smoothly transition back to Hero ONLY
-        mobileGestureHandled = true;
-        if (e.cancelable) e.preventDefault();
-        transitionCollectionToHero();
-      }
-    } else if (mobileTouchSection === 'FINDER') {
+    } else if (isFinderActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
 
       if (diffY < 0 && finderTop <= 4) {
-        // Swipe DOWN at top of Finder -> Transition back to Granite Collection ONLY (cannot skip into Hero)
-        mobileGestureHandled = true;
+        mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
         transitionBackToCollection();
       } else if (diffY > 0 && isFinderAtEnd) {
-        // Swipe UP at bottom of Finder -> Transition to Tile Collection ONLY
-        mobileGestureHandled = true;
+        mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
         transitionToTiles();
       }
-      // If within scrollable body of Finder, native smooth scrolling is untouched
-    } else if (mobileTouchSection === 'TILES') {
-      const tileTop = tileSection ? tileSection.scrollTop : 0;
-      if (diffY < 0 && tileTop <= 4) {
-        // Swipe DOWN at top of Tile Section -> Transition back to Granite Finder ONLY
-        mobileGestureHandled = true;
+    } else if (isGraniteActive) {
+      if (diffY > 0) {
+        mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionBackToFinder();
+        transitionToFinder();
+      } else if (diffY < 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionCollectionToHero();
+      }
+    } else {
+      // HERO section
+      if (diffY > 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionHeroToCollection();
       }
     }
   }, { passive: false });
 
   window.addEventListener('touchend', () => {
-    // If not transitioning and page is in an intermediate state between Hero and Granite,
-    // snap cleanly to either Hero or Granite Collection (never remain in a washed-out intermediate state!)
-    if (!isFinderActive && !isTileActive && !isTransitioning && !isHeroTransitioning && !isTransitionCooldown) {
-      if (currentScrollProgress > 0.02 && currentScrollProgress < 0.98) {
-        if (currentScrollProgress >= 0.40) {
-          transitionHeroToCollection();
-        } else {
-          transitionCollectionToHero();
-        }
-      }
-    }
-    mobileGestureHandled = false;
+    mobileGestureConsumed = false;
   }, { passive: true });
 
   window.addEventListener('touchcancel', () => {
-    if (!isFinderActive && !isTileActive && !isTransitioning && !isHeroTransitioning && !isTransitionCooldown) {
-      if (currentScrollProgress > 0.02 && currentScrollProgress < 0.98) {
-        if (currentScrollProgress >= 0.40) {
-          transitionHeroToCollection();
-        } else {
-          transitionCollectionToHero();
-        }
-      }
-    }
-    mobileGestureHandled = false;
+    mobileGestureConsumed = false;
   }, { passive: true });
 
   window.addEventListener('keydown', (e) => {
     if (modalBackdrop && modalBackdrop.classList.contains('is-open')) return;
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
-    if (isTransitioning || isTransitionCooldown || isHeroTransitioning) return;
+    if (isTransitioning) return;
 
     if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         transitionToFinder();
       }
-    } else if (isFinderActive && !isTileActive && !isTransitioning) {
+    } else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
         e.preventDefault();
@@ -2379,7 +2303,7 @@ document.addEventListener('DOMContentLoaded', () => {
           transitionToTiles();
         }
       }
-    } else if (isTileActive && !isTransitioning) {
+    } else if (isTileActive) {
       const tileTop = tileSection ? tileSection.scrollTop : 0;
       if (tileTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
         e.preventDefault();
@@ -2818,12 +2742,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isFinderActive) {
         transitionBackToCollection();
       }
-      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-      const targetScroll = trackH - window.innerHeight;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
+      if (isMobile) {
+        transitionHeroToCollection();
+      } else {
+        const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+        const targetScroll = trackH - window.innerHeight;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      }
     });
   }
 
@@ -2841,12 +2769,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isFinderActive) {
         transitionBackToCollection();
       }
-      const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
-      const targetScroll = trackH - window.innerHeight;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
+      if (isMobile) {
+        transitionHeroToCollection();
+      } else {
+        const trackH = experienceTrack ? experienceTrack.offsetHeight : window.innerHeight * 2.2;
+        const targetScroll = trackH - window.innerHeight;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      }
     });
   }
 
@@ -2860,10 +2792,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isFinderActive) {
       transitionBackToCollection();
     }
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    if (isMobile) {
+      transitionCollectionToHero();
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   };
 
   if (navHomeLink) {
