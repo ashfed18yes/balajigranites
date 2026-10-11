@@ -72,30 +72,38 @@
           <div class="product-hero-grid">
             
             <!-- Left: Slab Showcase Viewer -->
+            <!-- Left: Slab Showcase Slider -->
             <div class="product-media-column">
-              <!-- Floating Vertical Multi-View Dots -->
-              <div class="product-vertical-indicator" aria-hidden="true">
-                <span class="vertical-dot is-active" title="Full Slab View"></span>
-                <span class="vertical-dot" title="Macro Grain View"></span>
-                <span class="vertical-dot" title="Architectural Installation"></span>
-              </div>
-
-              <!-- Main Slab Card -->
-              <div class="product-slab-card">
+              <!-- Main Slab Card Slider -->
+              <div class="product-slab-card" id="product-slab-card">
                 <img 
                   id="product-slab-img" 
                   class="product-slab-img" 
                   src="/Granite Images/optimized/01_black_galaxy.webp" 
-                  alt="Granite Slab"
+                  alt="Black Galaxy Granite Slab"
+                  draggable="false"
                 >
                 <div class="product-slab-sheen" aria-hidden="true"></div>
+
+                <!-- Slider Navigation Arrow Buttons -->
+                <button type="button" class="slab-slider-arrow slab-arrow-prev" id="slab-arrow-prev" aria-label="Previous view">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button type="button" class="slab-slider-arrow slab-arrow-next" id="slab-arrow-next" aria-label="Next view">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
               </div>
 
-              <!-- View Switcher Dots -->
-              <div class="product-views-row" role="tablist" aria-label="Granite view options">
-                <button type="button" class="view-dot-btn is-active" aria-label="Full Slab View"></button>
-                <button type="button" class="view-dot-btn" aria-label="Macro Grain View"></button>
-                <button type="button" class="view-dot-btn" aria-label="Architectural Space View"></button>
+              <!-- View Switcher / Pagination Dots -->
+              <div class="product-views-row" id="product-views-row" role="tablist" aria-label="Granite view options">
+                <button type="button" class="view-dot-btn is-active" data-index="0" aria-label="Full Slab View"></button>
+                <button type="button" class="view-dot-btn" data-index="1" aria-label="Stairs View"></button>
+                <button type="button" class="view-dot-btn" data-index="2" aria-label="Kitchen Countertop View"></button>
+                <button type="button" class="view-dot-btn" data-index="3" aria-label="Floor View"></button>
               </div>
             </div>
 

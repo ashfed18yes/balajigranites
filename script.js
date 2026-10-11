@@ -1401,6 +1401,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const navAboutLink = document.getElementById('nav-about');
   const navProductsLink = document.getElementById('nav-products');
 
+  // Stairs Application DOM Elements
+  const stairsCurtain = document.getElementById('stairs-ivory-curtain');
+  const stairsSection = document.getElementById('stairs-application');
+  const stairsInner = document.getElementById('stairs-application-inner');
+  const stairsStage = document.getElementById('stairs-stage');
+  const stairsBtnPrev = document.getElementById('stairs-prev');
+  const stairsBtnNext = document.getElementById('stairs-next');
+  const stairsCounterCurrent = document.getElementById('stairs-counter-current');
+  const stairsCounterTotal = document.getElementById('stairs-counter-total');
+
   // Granite Finder DOM Elements
   const finderCurtain = document.getElementById('finder-ivory-curtain');
   const graniteFinder = document.getElementById('granite-finder');
@@ -1432,10 +1442,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let scrollRafId = null;
   let currentScrollProgress = 0;
   let isGraniteActive = false;
+  let isStairsActive = false;
   let isFinderActive = false;
   let isTileActive = false;
   let isTransitioning = false;
   let currentTileIndex = 0; // Starts at initial valid state (index 0)
+  let currentStairsIndex = 0;
+  let stairsAutoPlayTimer = null;
   let mobileTouchStartX = 0;
   let mobileTouchStartY = 0;
   let mobileGestureConsumed = false;
@@ -1507,13 +1520,212 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  // Premium Stairs Application Data (all 34 images from assets/Stairs APplication/)
+  const STAIRS_APPLICATION_IMAGES = [
+    "assets/Stairs APplication/11fcd602-6e48-4e10-abaa-3a779bf292a9.jpg",
+    "assets/Stairs APplication/1a3d5b4a-e78f-4e26-aba6-fb3f2c6c55d4.jpg",
+    "assets/Stairs APplication/1e5ba5ce-58f0-4b13-b901-f595ea96b378.jpg",
+    "assets/Stairs APplication/1f12b855-8427-4f06-8a04-985c4430ec07.jpg",
+    "assets/Stairs APplication/27b9604e-69af-4be9-a8a1-71989f7927d8.jpg",
+    "assets/Stairs APplication/34afda0b-6c2b-4d78-a7f0-43dc5ce7ad9c.jpg",
+    "assets/Stairs APplication/35a89c94-74e5-4081-b7b7-9115eac88457.jpg",
+    "assets/Stairs APplication/36e6623a-c173-4f96-a2b6-b9e6628a11a0.jpg",
+    "assets/Stairs APplication/397fa547-0986-4e3d-b1b1-0a099f309470.jpg",
+    "assets/Stairs APplication/3c88b8ed-d5fd-4cce-95bb-7bc468dea26e.jpg",
+    "assets/Stairs APplication/58e01276-e1f1-49a3-bf5c-afcb25fc18ad.jpg",
+    "assets/Stairs APplication/5ae5e393-aa8e-421a-996c-c1df3b386d01.jpg",
+    "assets/Stairs APplication/5e9f773d-ae23-4124-8839-e927217385fb.jpg",
+    "assets/Stairs APplication/6a60e43e-ce82-421f-8818-41c2d2b31fa6.jpg",
+    "assets/Stairs APplication/7210ec03-461e-4fa4-b629-37a8b7eaa8f7.jpg",
+    "assets/Stairs APplication/75ebfdc8-fcb0-42f5-963b-6ede607819ae.jpg",
+    "assets/Stairs APplication/78f7bae7-fc30-42e2-a6d5-306bc0bb5371.jpg",
+    "assets/Stairs APplication/7e25afb3-32fa-42a3-bbd6-cd1c819a26e8.jpg",
+    "assets/Stairs APplication/800cf457-5a0b-45d1-8422-1793b581d266.jpg",
+    "assets/Stairs APplication/80df554e-e0ca-4539-9ee1-f2acce4e72ea.jpg",
+    "assets/Stairs APplication/84f13c3b-6b41-416a-a9e7-8a2fcdfaf2f0.jpg",
+    "assets/Stairs APplication/930f08ad-9aee-414a-9ca1-fd6e0ce78805.jpg",
+    "assets/Stairs APplication/958e9d5b-51d1-4af3-9f51-fc57342e5687.jpg",
+    "assets/Stairs APplication/9ad7f8bc-b779-4b2f-a6c0-d0bba0138e07.jpg",
+    "assets/Stairs APplication/a99d0798-30c8-4e96-b4a2-6205436859f0.jpg",
+    "assets/Stairs APplication/b5d2da3c-6932-4395-bae7-6f5ebeafbe1b.jpg",
+    "assets/Stairs APplication/bc60de68-3de5-41da-a5ae-eaf36795d0e5.jpg",
+    "assets/Stairs APplication/bf19345d-b611-4081-84e6-d79844975ca6.jpg",
+    "assets/Stairs APplication/c9a5dae6-24fc-4afc-9ea2-b5a174d00026.jpg",
+    "assets/Stairs APplication/cae97537-e23d-4c09-8d7f-b89e4ecc734f.jpg",
+    "assets/Stairs APplication/f71e6548-242a-4820-a7ef-bb9725dcf214.jpg",
+    "assets/Stairs APplication/fa1e1748-96c5-48f4-ac80-12496bb71f7a.jpg",
+    "assets/Stairs APplication/fbb60587-9464-41c4-9473-686299cab513.jpg",
+    "assets/Stairs APplication/fc1d3cad-d768-40ee-905b-e0c880fed208.jpg"
+  ];
+
+  const stairsElements = [];
+  const totalStairsImages = STAIRS_APPLICATION_IMAGES.length;
+
+  if (stairsCounterTotal) {
+    stairsCounterTotal.textContent = String(totalStairsImages).padStart(2, '0');
+  }
+
+  if (stairsStage) {
+    STAIRS_APPLICATION_IMAGES.forEach((src, index) => {
+      const item = document.createElement('div');
+      item.className = 'stairs-item';
+      item.dataset.index = index;
+      
+      const img = document.createElement('img');
+      img.className = 'stairs-img';
+      img.src = src;
+      img.alt = `Stairs Application of Granite - Image ${index + 1}`;
+      img.loading = index < 6 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.onerror = () => {
+        if (!img.dataset.retried) {
+          img.dataset.retried = '1';
+          img.src = src.includes('APplication') 
+            ? src.replace('APplication', 'Application') 
+            : src.replace('Application', 'APplication');
+        }
+      };
+
+      item.appendChild(img);
+
+      item.addEventListener('click', () => {
+        if (index !== currentStairsIndex) {
+          goToStairsSlide(index);
+          resetStairsAutoPlay();
+        }
+      });
+
+      stairsStage.appendChild(item);
+      stairsElements.push(item);
+    });
+  }
+
+  function renderStairsSlider(targetIdx) {
+    currentStairsIndex = (targetIdx + totalStairsImages) % totalStairsImages;
+
+    const activeIdx = currentStairsIndex;
+    const prevIdx = (activeIdx - 1 + totalStairsImages) % totalStairsImages;
+    const nextIdx = (activeIdx + 1) % totalStairsImages;
+    const farPrevIdx = (activeIdx - 2 + totalStairsImages) % totalStairsImages;
+    const farNextIdx = (activeIdx + 2) % totalStairsImages;
+
+    stairsElements.forEach((el, idx) => {
+      el.className = 'stairs-item';
+      if (idx === activeIdx) {
+        el.classList.add('is-active');
+      } else if (idx === prevIdx) {
+        el.classList.add('is-prev');
+      } else if (idx === nextIdx) {
+        el.classList.add('is-next');
+      } else if (idx === farPrevIdx) {
+        el.classList.add('is-far-prev');
+      } else if (idx === farNextIdx) {
+        el.classList.add('is-far-next');
+      } else {
+        el.classList.add('is-hidden');
+      }
+    });
+
+    if (stairsCounterCurrent) {
+      stairsCounterCurrent.textContent = String(activeIdx + 1).padStart(2, '0');
+    }
+  }
+
+  function goToStairsSlide(index) {
+    renderStairsSlider(index);
+  }
+
+  function startStairsAutoPlay() {
+    stopStairsAutoPlay();
+    stairsAutoPlayTimer = setInterval(() => {
+      goToStairsSlide(currentStairsIndex + 1);
+    }, 3200);
+  }
+
+  function stopStairsAutoPlay() {
+    if (stairsAutoPlayTimer) {
+      clearInterval(stairsAutoPlayTimer);
+      stairsAutoPlayTimer = null;
+    }
+  }
+
+  function resetStairsAutoPlay() {
+    if (isStairsActive) {
+      startStairsAutoPlay();
+    }
+  }
+
+  // Initial render of stairs
+  renderStairsSlider(0);
+
+  if (stairsBtnPrev) {
+    stairsBtnPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToStairsSlide(currentStairsIndex - 1);
+      resetStairsAutoPlay();
+    });
+  }
+
+  if (stairsBtnNext) {
+    stairsBtnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToStairsSlide(currentStairsIndex + 1);
+      resetStairsAutoPlay();
+    });
+  }
+
+  // Touch Swipe & Mouse Drag for Stairs Stage
+  if (stairsStage) {
+    let stairsTouchStartX = 0;
+    stairsStage.addEventListener('touchstart', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        stairsTouchStartX = e.changedTouches[0].screenX;
+      }
+    }, { passive: true });
+
+    stairsStage.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const diffX = e.changedTouches[0].screenX - stairsTouchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) {
+            goToStairsSlide(currentStairsIndex + 1);
+          } else {
+            goToStairsSlide(currentStairsIndex - 1);
+          }
+          resetStairsAutoPlay();
+        }
+      }
+    }, { passive: true });
+
+    let stairsPointerDown = false;
+    let stairsPointerStartX = 0;
+    stairsStage.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      stairsPointerDown = true;
+      stairsPointerStartX = e.clientX;
+    });
+    window.addEventListener('mouseup', (e) => {
+      if (!stairsPointerDown) return;
+      stairsPointerDown = false;
+      const diffX = e.clientX - stairsPointerStartX;
+      if (Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          goToStairsSlide(currentStairsIndex + 1);
+        } else {
+          goToStairsSlide(currentStairsIndex - 1);
+        }
+        resetStairsAutoPlay();
+      }
+    });
+  }
+
   function updateTransition() {
     scrollRafId = null;
     if (isTransitioning) return;
 
     if (isMobile) {
       // Discrete state enforcement on mobile prevents float-rounding washouts
-      if (!isGraniteActive && !isFinderActive && !isTileActive) {
+      if (!isGraniteActive && !isStairsActive && !isFinderActive && !isTileActive) {
         if (warmCurtain) warmCurtain.style.transform = 'translate3d(0, 100%, 0)';
         if (graniteInner) {
           graniteInner.style.opacity = '0';
@@ -1527,7 +1739,7 @@ document.addEventListener('DOMContentLoaded', () => {
           heroScrollIndicator.style.opacity = '';
           heroScrollIndicator.style.pointerEvents = '';
         }
-      } else if (isGraniteActive && !isFinderActive && !isTileActive) {
+      } else if (isGraniteActive && !isStairsActive && !isFinderActive && !isTileActive) {
         if (warmCurtain) warmCurtain.style.transform = 'translate3d(0, 0%, 0)';
         if (graniteInner) {
           graniteInner.style.opacity = '1';
@@ -1612,7 +1824,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Phase B: Granite Collection Emergence / Dissolve (78% to 100% of scroll)
     const revealProgress = Math.max(0, Math.min(1, (progress - 0.78) / 0.22));
 
-    if (graniteInner && !isFinderActive && !isTileActive) {
+    if (graniteInner && !isStairsActive && !isFinderActive && !isTileActive) {
       graniteInner.style.transition = 'none';
       if (revealProgress > 0) {
         graniteInner.style.visibility = 'visible';
@@ -1627,7 +1839,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (graniteSection && !isFinderActive && !isTileActive) {
+    if (graniteSection && !isStairsActive && !isFinderActive && !isTileActive) {
       if (revealProgress > 0) {
         graniteSection.style.visibility = 'visible';
         graniteSection.style.pointerEvents = revealProgress > 0.7 ? 'auto' : 'none';
@@ -1640,10 +1852,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function resetExperienceToTop() {
     isGraniteActive = false;
+    isStairsActive = false;
     isFinderActive = false;
     isTileActive = false;
     isTransitioning = false;
     mobileGestureConsumed = false;
+    stopStairsAutoPlay();
+
+    // Reset stairs curtain & inner
+    if (stairsCurtain) {
+      stairsCurtain.style.transition = 'none';
+      stairsCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    if (stairsInner) {
+      stairsInner.style.transition = 'none';
+      stairsInner.style.opacity = '0';
+      stairsInner.style.transform = 'translate3d(0, 20px, 0)';
+      stairsInner.style.filter = 'blur(6px)';
+      stairsInner.style.visibility = 'hidden';
+    }
+
+    if (stairsSection) {
+      stairsSection.style.pointerEvents = 'none';
+      stairsSection.style.visibility = 'hidden';
+    }
+
+    currentStairsIndex = 0;
+    renderStairsSlider(0);
 
     // Reset tile curtain & inner
     if (tileCurtain) {
@@ -1751,7 +1987,7 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
 
   function transitionHeroToCollection(onComplete) {
-    if (isTransitioning || isFinderActive || isTileActive) return;
+    if (isTransitioning || isStairsActive || isFinderActive || isTileActive) return;
     isTransitioning = true;
 
     if (heroScrollIndicator) {
@@ -1853,7 +2089,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function transitionCollectionToHero(onComplete) {
-    if (isTransitioning || isFinderActive || isTileActive) return;
+    if (isTransitioning || isStairsActive || isFinderActive || isTileActive) return;
     isTransitioning = true;
 
     if (isMobile) {
@@ -1962,17 +2198,115 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     Granite Collection → Granite Finder Cinematic Transition
+     Granite Collection ↔ Stairs Application ↔ Granite Finder Transitions
      ========================================================================== */
 
-  function transitionToFinder() {
-    if (isFinderActive || isTransitioning) return;
+  function transitionCollectionToStairs() {
+    if (isStairsActive || isTransitioning) return;
     isTransitioning = true;
 
     if (graniteInner) {
       graniteInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
       graniteInner.style.opacity = '0';
       graniteInner.style.filter = 'blur(5px)';
+    }
+
+    if (stairsCurtain) {
+      stairsCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      stairsCurtain.style.transform = 'translate3d(0, 0%, 0)';
+    }
+
+    setTimeout(() => {
+      if (stairsSection) {
+        stairsSection.style.visibility = 'visible';
+      }
+      if (stairsInner) {
+        stairsInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        stairsInner.style.opacity = '1';
+        stairsInner.style.transform = 'translate3d(0, 0, 0)';
+        stairsInner.style.filter = 'blur(0px)';
+        stairsInner.style.visibility = 'visible';
+      }
+    }, 550);
+
+    setTimeout(() => {
+      isStairsActive = true;
+      isGraniteActive = false;
+      isTransitioning = false;
+
+      if (stairsSection) {
+        stairsSection.style.visibility = 'visible';
+        stairsSection.style.pointerEvents = 'auto';
+      }
+      if (graniteSection) {
+        graniteSection.style.pointerEvents = 'none';
+        graniteSection.style.visibility = 'hidden';
+      }
+      if (graniteInner) {
+        graniteInner.style.transition = 'none';
+        graniteInner.style.visibility = 'hidden';
+      }
+      startStairsAutoPlay();
+    }, 850);
+  }
+
+  function transitionStairsToCollection() {
+    if (!isStairsActive || isTransitioning) return;
+    isTransitioning = true;
+    stopStairsAutoPlay();
+
+    if (stairsSection) {
+      stairsSection.style.pointerEvents = 'none';
+    }
+
+    if (stairsInner) {
+      stairsInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+      stairsInner.style.opacity = '0';
+      stairsInner.style.transform = 'translate3d(0, 20px, 0)';
+      stairsInner.style.filter = 'blur(5px)';
+    }
+
+    if (stairsCurtain) {
+      stairsCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      stairsCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    setTimeout(() => {
+      if (graniteInner) {
+        graniteInner.style.visibility = 'visible';
+        graniteInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        graniteInner.style.opacity = '1';
+        graniteInner.style.filter = 'blur(0px)';
+      }
+    }, 350);
+
+    setTimeout(() => {
+      isStairsActive = false;
+      isGraniteActive = true;
+      isTransitioning = false;
+
+      if (stairsSection) {
+        stairsSection.style.visibility = 'hidden';
+      }
+      if (stairsInner) {
+        stairsInner.style.visibility = 'hidden';
+      }
+      if (graniteSection) {
+        graniteSection.style.pointerEvents = 'auto';
+        graniteSection.style.visibility = 'visible';
+      }
+    }, 850);
+  }
+
+  function transitionStairsToFinder() {
+    if (isFinderActive || isTransitioning) return;
+    isTransitioning = true;
+    stopStairsAutoPlay();
+
+    if (stairsInner) {
+      stairsInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
+      stairsInner.style.opacity = '0';
+      stairsInner.style.filter = 'blur(5px)';
     }
 
     if (finderCurtain) {
@@ -1994,25 +2328,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       isFinderActive = true;
-      isGraniteActive = false;
+      isStairsActive = false;
       isTransitioning = false;
 
       if (graniteFinder) {
         graniteFinder.style.visibility = 'visible';
         graniteFinder.style.pointerEvents = 'auto';
       }
-      if (graniteSection) {
-        graniteSection.style.pointerEvents = 'none';
-        graniteSection.style.visibility = 'hidden';
+      if (stairsSection) {
+        stairsSection.style.pointerEvents = 'none';
+        stairsSection.style.visibility = 'hidden';
       }
-      if (graniteInner) {
-        graniteInner.style.transition = 'none';
-        graniteInner.style.visibility = 'hidden';
+      if (stairsInner) {
+        stairsInner.style.transition = 'none';
+        stairsInner.style.visibility = 'hidden';
       }
     }, 850);
   }
 
-  function transitionBackToCollection() {
+  function transitionFinderToStairs() {
     if (!isFinderActive || isTransitioning) return;
     isTransitioning = true;
 
@@ -2033,31 +2367,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setTimeout(() => {
-      if (graniteInner) {
-        graniteInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
-        graniteInner.style.opacity = '1';
-        graniteInner.style.filter = 'blur(0px)';
+      if (stairsInner) {
+        stairsInner.style.visibility = 'visible';
+        stairsInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        stairsInner.style.opacity = '1';
+        stairsInner.style.filter = 'blur(0px)';
       }
     }, 350);
 
     setTimeout(() => {
       isFinderActive = false;
-      isGraniteActive = true;
+      isStairsActive = true;
       isTransitioning = false;
 
       if (graniteFinder) {
         graniteFinder.style.visibility = 'hidden';
       }
-      if (graniteSection) {
-        graniteSection.style.pointerEvents = 'auto';
-        graniteSection.style.visibility = 'visible';
+      if (stairsSection) {
+        stairsSection.style.pointerEvents = 'auto';
+        stairsSection.style.visibility = 'visible';
       }
-      if (graniteInner) {
-        graniteInner.style.transition = 'none';
-        graniteInner.style.visibility = 'visible';
-      }
+      startStairsAutoPlay();
     }, 850);
   }
+
+  const transitionToFinder = transitionCollectionToStairs;
+  const transitionBackToCollection = transitionStairsToCollection;
 
   /* ==========================================================================
      Granite Finder → Tile Collection Cinematic Transition (Bidirectional)
@@ -2155,8 +2490,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Expose on window for verification
   window.transitionHeroToCollection = transitionHeroToCollection;
   window.transitionCollectionToHero = transitionCollectionToHero;
-  window.transitionToFinder = transitionToFinder;
-  window.transitionBackToCollection = transitionBackToCollection;
+  window.transitionCollectionToStairs = transitionCollectionToStairs;
+  window.transitionStairsToCollection = transitionStairsToCollection;
+  window.transitionStairsToFinder = transitionStairsToFinder;
+  window.transitionFinderToStairs = transitionFinderToStairs;
+  window.transitionToFinder = transitionCollectionToStairs;
+  window.transitionBackToCollection = transitionStairsToCollection;
   window.transitionToTiles = transitionToTiles;
   window.transitionBackToFinder = transitionBackToFinder;
 
@@ -2179,21 +2518,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (wasDragging || isPointerDown || isPillDragging || isStageDragging) return;
     if (isTransitioning) return;
 
-    // 1. One downward scroll gesture at end of Granite Collection -> Finder
-    if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
+    // 1. One downward scroll gesture at end of Granite Collection -> Stairs Application
+    if (!isStairsActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.deltaY > 15) {
         e.preventDefault();
-        transitionToFinder();
+        transitionCollectionToStairs();
       }
     }
-    // 2. Upward scroll gesture at top of Granite Finder -> Collection
+    // 2. Stairs Application
+    else if (isStairsActive && !isFinderActive && !isTileActive) {
+      if (e.deltaY > 15) {
+        e.preventDefault();
+        transitionStairsToFinder();
+      } else if (e.deltaY < -15) {
+        e.preventDefault();
+        transitionStairsToCollection();
+      }
+    }
+    // 3. Upward scroll gesture at top of Granite Finder -> Stairs Application
     else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && e.deltaY < -15) {
         e.preventDefault();
-        transitionBackToCollection();
+        transitionFinderToStairs();
       } else {
-        // 3. Downward scroll gesture at end of Granite Finder -> Tile Section
+        // 4. Downward scroll gesture at end of Granite Finder -> Tile Section
         const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
         if (isFinderAtEnd && e.deltaY > 15) {
           e.preventDefault();
@@ -2201,7 +2550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
-    // 4. Upward scroll gesture at top of Tile Section -> Finder
+    // 5. Upward scroll gesture at top of Tile Section -> Finder
     else if (isTileActive) {
       const tileTop = tileSection ? tileSection.scrollTop : 0;
       if (tileTop <= 2 && e.deltaY < -15) {
@@ -2230,7 +2579,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const absX = Math.abs(diffX);
     const absY = Math.abs(diffY);
 
-    // Filter out horizontal swipes (e.g., granite slabs or tile cards)
+    // Filter out horizontal swipes (e.g., granite slabs, stairs, or tile cards)
     if (absX >= absY || absY < 40) return;
 
     if (isTileActive) {
@@ -2247,17 +2596,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (diffY < 0 && finderTop <= 4) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionBackToCollection();
+        transitionFinderToStairs();
       } else if (diffY > 0 && isFinderAtEnd) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
         transitionToTiles();
       }
+    } else if (isStairsActive) {
+      if (diffY > 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionStairsToFinder();
+      } else if (diffY < 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionStairsToCollection();
+      }
     } else if (isGraniteActive) {
       if (diffY > 0) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionToFinder();
+        transitionCollectionToStairs();
       } else if (diffY < 0) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
@@ -2286,16 +2645,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (isTransitioning) return;
 
-    if (!isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
+    if (!isStairsActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
-        transitionToFinder();
+        transitionCollectionToStairs();
+      }
+    } else if (isStairsActive && !isFinderActive && !isTileActive) {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        transitionStairsToFinder();
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        transitionStairsToCollection();
+      } else if (e.key === 'ArrowLeft') {
+        goToStairsSlide(currentStairsIndex - 1);
+        resetStairsAutoPlay();
+      } else if (e.key === 'ArrowRight') {
+        goToStairsSlide(currentStairsIndex + 1);
+        resetStairsAutoPlay();
       }
     } else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
         e.preventDefault();
-        transitionBackToCollection();
+        transitionFinderToStairs();
       } else {
         const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
         if (isFinderAtEnd && (e.key === 'ArrowDown' || e.key === 'PageDown')) {

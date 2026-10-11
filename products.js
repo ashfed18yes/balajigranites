@@ -813,7 +813,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const productEyebrow = document.getElementById('product-eyebrow');
   const productTitle = document.getElementById('product-title');
   const productDesc = document.getElementById('product-desc');
+  const productSlabCard = document.getElementById('product-slab-card');
   const productSlabImg = document.getElementById('product-slab-img');
+  const slabArrowPrev = document.getElementById('slab-arrow-prev');
+  const slabArrowNext = document.getElementById('slab-arrow-next');
+  const productViewsRow = document.getElementById('product-views-row');
   const galleryStage = document.getElementById('gallery-stage');
   const galleryStageImg = document.getElementById('gallery-stage-img');
   const galleryBadgeLabel = document.getElementById('gallery-badge-label');
@@ -839,12 +843,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselNextBtn = document.getElementById('carousel-next-btn');
   const toneFilterSelect = document.getElementById('tone-filter-select');
 
-  // View switch dots
-  const viewDots = document.querySelectorAll('.view-dot-btn');
-  const verticalDots = document.querySelectorAll('.vertical-dot');
-
   let currentProductIndex = 0;
-  let currentViewMode = 'slab'; // 'slab' | 'macro' | 'arch'
+  let currentSlabSlideIndex = 0;
   let currentAppSlideIndex = 0; // 0: Stairs, 1: Kitchen Countertop, 2: Floor
 
   const resolveSrc = (path) => {
@@ -1021,12 +1021,8 @@ document.addEventListener('DOMContentLoaded', () => {
       specsGrid.classList.add('is-animating');
     }
 
-    // Update Main Slab Image immediately
-    if (productSlabImg) {
-      productSlabImg.onerror = null;
-      productSlabImg.src = resolveSrc(item.image);
-      productSlabImg.alt = `${item.name} Granite Slab`;
-    }
+    // Render Hero Slab Slider at Slide 0 (Full Slab)
+    renderSlabSlide(0);
 
     // Render Application Slider immediately for selected granite (Slide 1: Stairs) & start 1s auto-advance
     renderAppSlide(0);
@@ -1042,9 +1038,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnQuoteTop) btnQuoteTop.href = quoteUrl;
     if (btnQuoteSpecs) btnQuoteSpecs.href = quoteUrl;
 
-    // Update view switcher dots
-    updateViewDots(0);
-
     // Update selected state in carousel
     document.querySelectorAll('.related-product-card').forEach((card, idx) => {
       card.classList.toggle('is-selected', card.dataset.id === item.id);
@@ -1055,37 +1048,170 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 7. View Switcher Mode
-  function updateViewDots(viewIdx) {
-    viewDots.forEach((dot, idx) => {
-      dot.classList.toggle('is-active', idx === viewIdx);
-    });
-    verticalDots.forEach((dot, idx) => {
-      dot.classList.toggle('is-active', idx === viewIdx);
-    });
+  // 7. Hero Slab Image Slider & Direct Swipe / Drag Navigation
+  function getProductSlides(item) {
+    if (!item) return [];
+    const slides = [
+      { label: `${item.name} · Full Slab`, src: item.image }
+    ];
+    if (Array.isArray(item.applicationImages) && item.applicationImages.length > 0) {
+      item.applicationImages.forEach(app => {
+        slides.push({ label: `${item.name} · ${app.label}`, src: app.src });
+      });
+    } else if (item.archImage) {
+      slides.push({ label: `${item.name} · Architectural Space`, src: item.archImage });
+    }
+    return slides;
   }
 
-  function setViewMode(viewIdx) {
+  function renderSlabSlide(slideIdx, direction = 0) {
     const item = GRANITE_PRODUCTS[currentProductIndex];
     if (!item || !productSlabImg) return;
-    updateViewDots(viewIdx);
+    const slides = getProductSlides(item);
+    if (!slides.length) return;
 
-    if (viewIdx === 0) {
-      productSlabImg.src = resolveSrc(item.image);
-    } else if (viewIdx === 1) {
-      productSlabImg.src = resolveSrc(item.macroImage);
-    } else {
-      productSlabImg.onerror = null;
-      productSlabImg.src = resolveSrc(item.archImage);
+    currentSlabSlideIndex = ((slideIdx % slides.length) + slides.length) % slides.length;
+    const currentSlide = slides[currentSlabSlideIndex];
+
+    // Update bottom pagination dots
+    if (productViewsRow) {
+      if (productViewsRow.children.length !== slides.length) {
+        productViewsRow.innerHTML = '';
+        slides.forEach((s, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `view-dot-btn ${idx === currentSlabSlideIndex ? 'is-active' : ''}`;
+          btn.dataset.index = idx;
+          btn.setAttribute('aria-label', s.label);
+          productViewsRow.appendChild(btn);
+        });
+      } else {
+        const dots = productViewsRow.querySelectorAll('.view-dot-btn');
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('is-active', idx === currentSlabSlideIndex);
+        });
+      }
     }
+
+    // Smooth transition
+    productSlabImg.style.transition = 'opacity 0.22s ease, transform 0.25s ease';
+    productSlabImg.style.opacity = '0.35';
+    if (direction > 0) {
+      productSlabImg.style.transform = 'scale(0.98) translateX(-10px)';
+    } else if (direction < 0) {
+      productSlabImg.style.transform = 'scale(0.98) translateX(10px)';
+    }
+
+    setTimeout(() => {
+      productSlabImg.onerror = null;
+      productSlabImg.src = resolveSrc(currentSlide.src);
+      productSlabImg.alt = currentSlide.label;
+
+      requestAnimationFrame(() => {
+        productSlabImg.style.opacity = '1';
+        productSlabImg.style.transform = 'scale(1) translateX(0)';
+      });
+    }, 80);
   }
 
-  viewDots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => setViewMode(idx));
-  });
-  verticalDots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => setViewMode(idx));
-  });
+  // Slider Arrow Buttons
+  if (slabArrowPrev) {
+    slabArrowPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      renderSlabSlide(currentSlabSlideIndex - 1, -1);
+    });
+  }
+
+  if (slabArrowNext) {
+    slabArrowNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      renderSlabSlide(currentSlabSlideIndex + 1, 1);
+    });
+  }
+
+  // Slider Pagination Dots Click
+  if (productViewsRow) {
+    productViewsRow.addEventListener('click', (e) => {
+      const dot = e.target.closest('.view-dot-btn');
+      if (!dot) return;
+      const idx = parseInt(dot.dataset.index, 10);
+      if (!isNaN(idx)) {
+        const dir = idx >= currentSlabSlideIndex ? 1 : -1;
+        renderSlabSlide(idx, dir);
+      }
+    });
+  }
+
+  // Touch Swipe & Mouse Drag Directly Across Images
+  if (productSlabCard) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isHorizontalSwipe = false;
+
+    productSlabCard.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isHorizontalSwipe = false;
+      }
+    }, { passive: true });
+
+    productSlabCard.addEventListener('touchmove', (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = currentX - touchStartX;
+      const diffY = currentY - touchStartY;
+
+      if (!isHorizontalSwipe && Math.abs(diffX) > 10 && Math.abs(diffX) > Math.abs(diffY)) {
+        isHorizontalSwipe = true;
+      }
+      if (isHorizontalSwipe && e.cancelable) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    productSlabCard.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 35) {
+          if (diffX < 0) {
+            renderSlabSlide(currentSlabSlideIndex + 1, 1);
+          } else {
+            renderSlabSlide(currentSlabSlideIndex - 1, -1);
+          }
+        }
+      }
+    }, { passive: true });
+
+    // Pointer / Mouse Drag Support
+    let isPointerDown = false;
+    let pointerStartX = 0;
+
+    productSlabCard.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.slab-slider-arrow')) return;
+      isPointerDown = true;
+      pointerStartX = e.clientX;
+    });
+
+    productSlabCard.addEventListener('pointerup', (e) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      const diffX = e.clientX - pointerStartX;
+      if (Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          renderSlabSlide(currentSlabSlideIndex + 1, 1);
+        } else {
+          renderSlabSlide(currentSlabSlideIndex - 1, -1);
+        }
+      }
+    });
+
+    productSlabCard.addEventListener('pointercancel', () => {
+      isPointerDown = false;
+    });
+  }
 
   // 8. Application Slider Controls & Swipe Support
   if (galleryArrowPrev) {

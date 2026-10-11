@@ -1955,6 +1955,262 @@ html, body {
 }
 
 /* ==========================================================================
+   Solid Warm Ivory Transition Curtain for Stairs Application
+   ========================================================================== */
+.stairs-ivory-curtain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dedcd8;
+  z-index: 25;
+  box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.18);
+  transform: translate3d(0, 100%, 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Stairs Application of Granites Section
+   ========================================================================== */
+.stairs-application-section {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  background: transparent;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+}
+
+.stairs-application-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 105px 32px 34px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 20px, 0);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+  transition: 
+    opacity 0.6s var(--ease-cinematic), 
+    transform 0.6s var(--ease-cinematic), 
+    filter 0.6s var(--ease-cinematic);
+}
+
+/* Simple, Elegant Heading */
+.stairs-header {
+  text-align: center;
+  max-width: 900px;
+  z-index: 5;
+  margin-top: 10px;
+}
+
+.stairs-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-stone-dark);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Stairs Carousel Stage */
+.stairs-stage-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  height: min(480px, 52vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+  overflow: visible;
+}
+
+.stairs-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+}
+
+/* Individual Stairs Slide Item - Strictly Borderless */
+.stairs-item {
+  position: absolute;
+  width: min(640px, 55vw);
+  height: 100%;
+  max-height: 440px;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #242320;
+  cursor: pointer;
+  transition: 
+    transform 0.75s var(--ease-cinematic),
+    opacity 0.75s var(--ease-cinematic),
+    box-shadow 0.75s var(--ease-cinematic),
+    filter 0.75s var(--ease-cinematic);
+  will-change: transform, opacity;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.stairs-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Spatial States - Layered carousel effect matching reference */
+.stairs-item.is-active {
+  transform: translateX(0) scale(1);
+  z-index: 10;
+  opacity: 1;
+  box-shadow: 
+    0 24px 60px -10px rgba(0, 0, 0, 0.28),
+    0 8px 24px -6px rgba(0, 0, 0, 0.14);
+  cursor: default;
+}
+
+.stairs-item.is-prev {
+  transform: translateX(-480px) scale(0.78);
+  z-index: 5;
+  opacity: 0.75;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.18);
+}
+
+.stairs-item.is-prev:hover {
+  opacity: 0.9;
+  transform: translateX(-480px) scale(0.81);
+}
+
+.stairs-item.is-next {
+  transform: translateX(480px) scale(0.78);
+  z-index: 5;
+  opacity: 0.75;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.18);
+}
+
+.stairs-item.is-next:hover {
+  opacity: 0.9;
+  transform: translateX(480px) scale(0.81);
+}
+
+.stairs-item.is-far-prev {
+  transform: translateX(-880px) scale(0.58);
+  z-index: 2;
+  opacity: 0.28;
+}
+
+.stairs-item.is-far-next {
+  transform: translateX(880px) scale(0.58);
+  z-index: 2;
+  opacity: 0.28;
+}
+
+.stairs-item.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.35);
+  z-index: 0;
+}
+
+/* Minimal Stairs Counter */
+.stairs-counter {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-stone-dark);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 10px;
+  z-index: 5;
+}
+
+.stairs-counter-divider {
+  font-size: 13px;
+  color: #8c8880;
+  font-weight: 400;
+}
+
+.stairs-counter-total {
+  font-size: 13px;
+  color: #8c8880;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .stairs-item {
+    width: min(520px, 68vw);
+  }
+  .stairs-item.is-prev {
+    transform: translateX(-360px) scale(0.78);
+  }
+  .stairs-item.is-next {
+    transform: translateX(360px) scale(0.78);
+  }
+  .stairs-item.is-far-prev {
+    transform: translateX(-660px) scale(0.58);
+  }
+  .stairs-item.is-far-next {
+    transform: translateX(660px) scale(0.58);
+  }
+}
+
+@media (max-width: 768px) {
+  .stairs-application-inner {
+    padding: 85px 16px 24px;
+  }
+  .stairs-stage-wrapper {
+    height: min(340px, 46vh);
+  }
+  .stairs-item {
+    width: 78vw;
+    max-width: 340px;
+    height: 100%;
+    max-height: 290px;
+    border-radius: 14px;
+  }
+  .stairs-item.is-prev {
+    transform: translateX(-74%) scale(0.82);
+    opacity: 0.6;
+  }
+  .stairs-item.is-next {
+    transform: translateX(74%) scale(0.82);
+    opacity: 0.6;
+  }
+  .stairs-item.is-far-prev,
+  .stairs-item.is-far-next {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .stairs-title {
+    font-size: 24px;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* ==========================================================================
    Solid Warm Ivory Transition Curtain for Granite Finder
    ========================================================================== */
 .finder-ivory-curtain {
@@ -1963,7 +2219,7 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: #dedcd8;
-  z-index: 30;
+  z-index: 35;
   box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.18);
   transform: translate3d(0, 100%, 0);
   will-change: transform;
