@@ -7,7 +7,7 @@
 const GRANITE_PRODUCTS = [
   {
     id: "01",
-    name: "Black Galaxy",
+    name: "R-Black Granite",
     category: "Indian Granite",
     origin: "Andhra Pradesh, India",
     desc: "Black Granite",

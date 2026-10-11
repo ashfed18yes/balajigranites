@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const GRANITE_COLLECTION = [
     {
       id: "01",
-      name: "BLACK GALAXY",
+      name: "R-BLACK GRANITE",
       category: "INDIAN GRANITE",
       origin: "Indian Granite",
       desc: "Black Granite",
