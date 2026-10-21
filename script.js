@@ -1411,6 +1411,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const stairsCounterCurrent = document.getElementById('stairs-counter-current');
   const stairsCounterTotal = document.getElementById('stairs-counter-total');
 
+  // Kitchen Application DOM Elements
+  const kitchenCurtain = document.getElementById('kitchen-ivory-curtain');
+  const kitchenSection = document.getElementById('kitchen-application');
+  const kitchenInner = document.getElementById('kitchen-application-inner');
+  const kitchenStage = document.getElementById('kitchen-stage');
+  const kitchenBtnPrev = document.getElementById('kitchen-prev');
+  const kitchenBtnNext = document.getElementById('kitchen-next');
+  const kitchenCounterCurrent = document.getElementById('kitchen-counter-current');
+  const kitchenCounterTotal = document.getElementById('kitchen-counter-total');
+
   // Granite Finder DOM Elements
   const finderCurtain = document.getElementById('finder-ivory-curtain');
   const graniteFinder = document.getElementById('granite-finder');
@@ -1443,12 +1453,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentScrollProgress = 0;
   let isGraniteActive = false;
   let isStairsActive = false;
+  let isKitchenActive = false;
   let isFinderActive = false;
   let isTileActive = false;
   let isTransitioning = false;
   let currentTileIndex = 0; // Starts at initial valid state (index 0)
   let currentStairsIndex = 0;
   let stairsAutoPlayTimer = null;
+  let currentKitchenIndex = 0;
+  let kitchenAutoPlayTimer = null;
   let mobileTouchStartX = 0;
   let mobileTouchStartY = 0;
   let mobileGestureConsumed = false;
@@ -1556,6 +1569,50 @@ document.addEventListener('DOMContentLoaded', () => {
     "assets/Stairs APplication/fa1e1748-96c5-48f4-ac80-12496bb71f7a.jpg",
     "assets/Stairs APplication/fbb60587-9464-41c4-9473-686299cab513.jpg",
     "assets/Stairs APplication/fc1d3cad-d768-40ee-905b-e0c880fed208.jpg"
+  ];
+
+  // Kitchen Application Images (all 40 from assets/KItchen tiles/)
+  const KITCHEN_APPLICATION_IMAGES = [
+    "assets/KItchen tiles/02d6934f-423e-4978-a2c6-4e0e76fd25e9.jpg",
+    "assets/KItchen tiles/0490bc10-7b3e-4c13-badc-497f9cce8376.jpg",
+    "assets/KItchen tiles/0ae07eda-d174-4d4d-845c-19e8010af101.jpg",
+    "assets/KItchen tiles/0c4f2121-dbe9-4155-a5e6-53cc89229794.jpg",
+    "assets/KItchen tiles/10a6a1ef-abde-4c62-aad8-c769255b6b64.jpg",
+    "assets/KItchen tiles/1448217c-a8fc-4cf4-a294-0514ab2c3311.jpg",
+    "assets/KItchen tiles/1be66002-a8db-4812-9718-0414999c51d1.jpg",
+    "assets/KItchen tiles/26a1538c-1d71-42c1-a9a9-37db6aa190b3.jpg",
+    "assets/KItchen tiles/2fb2331e-3541-4551-9429-96f89b55c804.jpg",
+    "assets/KItchen tiles/31148176-2c9f-4cce-8034-89c2ce10f1a8.jpg",
+    "assets/KItchen tiles/31842d8a-1d7c-4bbc-92b7-c6df557c799c.jpg",
+    "assets/KItchen tiles/39b68a48-f83f-4b1e-80e6-cc998234749d.jpg",
+    "assets/KItchen tiles/4b464ca3-ba1a-4a7b-a7c2-48eaf468c644.jpg",
+    "assets/KItchen tiles/4dea004a-2e05-4c9e-8d76-0e9d26730a8b.jpg",
+    "assets/KItchen tiles/55791c19-70ab-4cfb-98d0-1aae99e3a727.jpg",
+    "assets/KItchen tiles/5c4239bf-eb1f-407f-80fb-5e80e7ec41f9.jpg",
+    "assets/KItchen tiles/6c682a33-0e7b-4b23-a5ea-af2c9e0eb209.jpg",
+    "assets/KItchen tiles/7420e4b0-bae2-4fa2-9b6a-e224479a71aa.jpg",
+    "assets/KItchen tiles/78fcc083-ac35-4919-bdc6-4356e693130f.jpg",
+    "assets/KItchen tiles/79258b4c-b22e-4c6b-a16b-df8791b2aa0f.jpg",
+    "assets/KItchen tiles/79f91570-6303-4754-b7c4-9c94c07ac627.jpg",
+    "assets/KItchen tiles/87841ece-1593-4e8d-acd3-0838a40be454.jpg",
+    "assets/KItchen tiles/8b3e8872-87c3-4462-a8de-b97f1ff1cdf7.jpg",
+    "assets/KItchen tiles/8fca0295-5e57-4283-b927-84c90f632531.jpg",
+    "assets/KItchen tiles/943c4938-282a-48ae-af20-f0cfc3c746c9.jpg",
+    "assets/KItchen tiles/9682a6c9-e099-4042-aeee-8d67788cecf9.jpg",
+    "assets/KItchen tiles/9c132189-addf-41db-98b0-121b776b5816.jpg",
+    "assets/KItchen tiles/9e110753-2d10-4177-84cb-2b6411922f5a.jpg",
+    "assets/KItchen tiles/a7d16c1b-2812-458d-a1fe-b1e36623b83e.jpg",
+    "assets/KItchen tiles/a8c963ba-3b6d-43c9-84c9-defa85e5d18a.jpg",
+    "assets/KItchen tiles/abef46c6-56ee-4075-9f11-7a568becd734.jpg",
+    "assets/KItchen tiles/ae7137c2-0bf8-467e-b57e-6763e53cd976.jpg",
+    "assets/KItchen tiles/b25e16fa-1aa7-4e6c-9ebd-7ad0fd838be5.jpg",
+    "assets/KItchen tiles/b28f96a7-b4cd-4b02-b954-9eab3c6b157f.jpg",
+    "assets/KItchen tiles/bc9b34e7-be4d-4fc9-9fd2-5f5477361bad.jpg",
+    "assets/KItchen tiles/be1cde42-ee55-4348-a448-dbf4d33c3588.jpg",
+    "assets/KItchen tiles/c219c7dd-d62e-4f3e-b8b5-200c648d13e4.jpg",
+    "assets/KItchen tiles/c8d24b01-45f1-4566-8fce-a3e18ee8d393.jpg",
+    "assets/KItchen tiles/d8786169-556d-44e5-8268-cb71a509f061.jpg",
+    "assets/KItchen tiles/f97ad625-9753-420d-bd20-5a6b489b33ab.jpg"
   ];
 
   const stairsElements = [];
@@ -1719,6 +1776,161 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Kitchen Application Slider ----
+
+  const kitchenElements = [];
+  const totalKitchenImages = KITCHEN_APPLICATION_IMAGES.length;
+
+  if (kitchenCounterTotal) {
+    kitchenCounterTotal.textContent = String(totalKitchenImages).padStart(2, '0');
+  }
+
+  if (kitchenStage) {
+    KITCHEN_APPLICATION_IMAGES.forEach((src, index) => {
+      const item = document.createElement('div');
+      item.className = 'kitchen-item';
+      item.dataset.index = index;
+
+      const img = document.createElement('img');
+      img.className = 'kitchen-img';
+      img.src = src;
+      img.alt = `Kitchen Application of Granite - Image ${index + 1}`;
+      img.loading = index < 6 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+
+      item.appendChild(img);
+
+      item.addEventListener('click', () => {
+        if (index !== currentKitchenIndex) {
+          goToKitchenSlide(index);
+          resetKitchenAutoPlay();
+        }
+      });
+
+      kitchenStage.appendChild(item);
+      kitchenElements.push(item);
+    });
+  }
+
+  function renderKitchenSlider(targetIdx) {
+    currentKitchenIndex = (targetIdx + totalKitchenImages) % totalKitchenImages;
+
+    const activeIdx = currentKitchenIndex;
+    const prevIdx = (activeIdx - 1 + totalKitchenImages) % totalKitchenImages;
+    const nextIdx = (activeIdx + 1) % totalKitchenImages;
+    const farPrevIdx = (activeIdx - 2 + totalKitchenImages) % totalKitchenImages;
+    const farNextIdx = (activeIdx + 2) % totalKitchenImages;
+
+    kitchenElements.forEach((el, idx) => {
+      el.className = 'kitchen-item';
+      if (idx === activeIdx) {
+        el.classList.add('is-active');
+      } else if (idx === prevIdx) {
+        el.classList.add('is-prev');
+      } else if (idx === nextIdx) {
+        el.classList.add('is-next');
+      } else if (idx === farPrevIdx) {
+        el.classList.add('is-far-prev');
+      } else if (idx === farNextIdx) {
+        el.classList.add('is-far-next');
+      } else {
+        el.classList.add('is-hidden');
+      }
+    });
+
+    if (kitchenCounterCurrent) {
+      kitchenCounterCurrent.textContent = String(activeIdx + 1).padStart(2, '0');
+    }
+  }
+
+  function goToKitchenSlide(index) {
+    renderKitchenSlider(index);
+  }
+
+  function startKitchenAutoPlay() {
+    stopKitchenAutoPlay();
+    kitchenAutoPlayTimer = setInterval(() => {
+      goToKitchenSlide(currentKitchenIndex + 1);
+    }, 3200);
+  }
+
+  function stopKitchenAutoPlay() {
+    if (kitchenAutoPlayTimer) {
+      clearInterval(kitchenAutoPlayTimer);
+      kitchenAutoPlayTimer = null;
+    }
+  }
+
+  function resetKitchenAutoPlay() {
+    if (isKitchenActive) {
+      startKitchenAutoPlay();
+    }
+  }
+
+  // Initial render of kitchen slider
+  renderKitchenSlider(0);
+
+  if (kitchenBtnPrev) {
+    kitchenBtnPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToKitchenSlide(currentKitchenIndex - 1);
+      resetKitchenAutoPlay();
+    });
+  }
+
+  if (kitchenBtnNext) {
+    kitchenBtnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToKitchenSlide(currentKitchenIndex + 1);
+      resetKitchenAutoPlay();
+    });
+  }
+
+  // Touch swipe & mouse drag for Kitchen Stage
+  if (kitchenStage) {
+    let kitchenTouchStartX = 0;
+    kitchenStage.addEventListener('touchstart', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        kitchenTouchStartX = e.changedTouches[0].screenX;
+      }
+    }, { passive: true });
+
+    kitchenStage.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const diffX = e.changedTouches[0].screenX - kitchenTouchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) {
+            goToKitchenSlide(currentKitchenIndex + 1);
+          } else {
+            goToKitchenSlide(currentKitchenIndex - 1);
+          }
+          resetKitchenAutoPlay();
+        }
+      }
+    }, { passive: true });
+
+    let kitchenPointerDown = false;
+    let kitchenPointerStartX = 0;
+    kitchenStage.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      kitchenPointerDown = true;
+      kitchenPointerStartX = e.clientX;
+    });
+    window.addEventListener('mouseup', (e) => {
+      if (!kitchenPointerDown) return;
+      kitchenPointerDown = false;
+      const diffX = e.clientX - kitchenPointerStartX;
+      if (Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          goToKitchenSlide(currentKitchenIndex + 1);
+        } else {
+          goToKitchenSlide(currentKitchenIndex - 1);
+        }
+        resetKitchenAutoPlay();
+      }
+    });
+  }
+
   function updateTransition() {
     scrollRafId = null;
     if (isTransitioning) return;
@@ -1853,11 +2065,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function resetExperienceToTop() {
     isGraniteActive = false;
     isStairsActive = false;
+    isKitchenActive = false;
     isFinderActive = false;
     isTileActive = false;
     isTransitioning = false;
     mobileGestureConsumed = false;
     stopStairsAutoPlay();
+    stopKitchenAutoPlay();
 
     // Reset stairs curtain & inner
     if (stairsCurtain) {
@@ -1880,6 +2094,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentStairsIndex = 0;
     renderStairsSlider(0);
+
+    // Reset kitchen curtain & inner
+    if (kitchenCurtain) {
+      kitchenCurtain.style.transition = 'none';
+      kitchenCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    if (kitchenInner) {
+      kitchenInner.style.transition = 'none';
+      kitchenInner.style.opacity = '0';
+      kitchenInner.style.transform = 'translate3d(0, 20px, 0)';
+      kitchenInner.style.filter = 'blur(6px)';
+      kitchenInner.style.visibility = 'hidden';
+    }
+
+    if (kitchenSection) {
+      kitchenSection.style.pointerEvents = 'none';
+      kitchenSection.style.visibility = 'hidden';
+    }
+
+    currentKitchenIndex = 0;
+    renderKitchenSlider(0);
 
     // Reset tile curtain & inner
     if (tileCurtain) {
@@ -2395,6 +2631,202 @@ document.addEventListener('DOMContentLoaded', () => {
   const transitionBackToCollection = transitionStairsToCollection;
 
   /* ==========================================================================
+     Stairs Application ↔ Kitchen Application ↔ Granite Finder Transitions
+     ========================================================================== */
+
+  function transitionStairsToKitchen() {
+    if (isKitchenActive || isTransitioning) return;
+    isTransitioning = true;
+    stopStairsAutoPlay();
+
+    if (stairsInner) {
+      stairsInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
+      stairsInner.style.opacity = '0';
+      stairsInner.style.filter = 'blur(5px)';
+    }
+
+    if (kitchenCurtain) {
+      kitchenCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      kitchenCurtain.style.transform = 'translate3d(0, 0%, 0)';
+    }
+
+    setTimeout(() => {
+      if (kitchenSection) {
+        kitchenSection.style.visibility = 'visible';
+      }
+      if (kitchenInner) {
+        kitchenInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        kitchenInner.style.opacity = '1';
+        kitchenInner.style.transform = 'translate3d(0, 0, 0)';
+        kitchenInner.style.filter = 'blur(0px)';
+        kitchenInner.style.visibility = 'visible';
+      }
+    }, 550);
+
+    setTimeout(() => {
+      isKitchenActive = true;
+      isStairsActive = false;
+      isTransitioning = false;
+
+      if (kitchenSection) {
+        kitchenSection.style.visibility = 'visible';
+        kitchenSection.style.pointerEvents = 'auto';
+      }
+      if (stairsSection) {
+        stairsSection.style.pointerEvents = 'none';
+        stairsSection.style.visibility = 'hidden';
+      }
+      if (stairsInner) {
+        stairsInner.style.transition = 'none';
+        stairsInner.style.visibility = 'hidden';
+      }
+      startKitchenAutoPlay();
+    }, 850);
+  }
+
+  function transitionKitchenToStairs() {
+    if (!isKitchenActive || isTransitioning) return;
+    isTransitioning = true;
+    stopKitchenAutoPlay();
+
+    if (kitchenSection) {
+      kitchenSection.style.pointerEvents = 'none';
+    }
+
+    if (kitchenInner) {
+      kitchenInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+      kitchenInner.style.opacity = '0';
+      kitchenInner.style.transform = 'translate3d(0, 20px, 0)';
+      kitchenInner.style.filter = 'blur(5px)';
+    }
+
+    if (kitchenCurtain) {
+      kitchenCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      kitchenCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    setTimeout(() => {
+      if (stairsInner) {
+        stairsInner.style.visibility = 'visible';
+        stairsInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        stairsInner.style.opacity = '1';
+        stairsInner.style.filter = 'blur(0px)';
+      }
+    }, 350);
+
+    setTimeout(() => {
+      isKitchenActive = false;
+      isStairsActive = true;
+      isTransitioning = false;
+
+      if (kitchenSection) {
+        kitchenSection.style.visibility = 'hidden';
+      }
+      if (kitchenInner) {
+        kitchenInner.style.visibility = 'hidden';
+      }
+      if (stairsSection) {
+        stairsSection.style.pointerEvents = 'auto';
+        stairsSection.style.visibility = 'visible';
+      }
+      startStairsAutoPlay();
+    }, 850);
+  }
+
+  function transitionKitchenToFinder() {
+    if (isFinderActive || isTransitioning) return;
+    isTransitioning = true;
+    stopKitchenAutoPlay();
+
+    if (kitchenInner) {
+      kitchenInner.style.transition = 'opacity 0.45s ease, filter 0.45s ease';
+      kitchenInner.style.opacity = '0';
+      kitchenInner.style.filter = 'blur(5px)';
+    }
+
+    if (finderCurtain) {
+      finderCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      finderCurtain.style.transform = 'translate3d(0, 0%, 0)';
+    }
+
+    setTimeout(() => {
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'visible';
+      }
+      if (finderInner) {
+        finderInner.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        finderInner.style.opacity = '1';
+        finderInner.style.transform = 'translate3d(0, 0, 0)';
+        finderInner.style.filter = 'blur(0px)';
+      }
+    }, 550);
+
+    setTimeout(() => {
+      isFinderActive = true;
+      isKitchenActive = false;
+      isTransitioning = false;
+
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'visible';
+        graniteFinder.style.pointerEvents = 'auto';
+      }
+      if (kitchenSection) {
+        kitchenSection.style.pointerEvents = 'none';
+        kitchenSection.style.visibility = 'hidden';
+      }
+      if (kitchenInner) {
+        kitchenInner.style.transition = 'none';
+        kitchenInner.style.visibility = 'hidden';
+      }
+    }, 850);
+  }
+
+  function transitionFinderToKitchen() {
+    if (!isFinderActive || isTransitioning) return;
+    isTransitioning = true;
+
+    if (graniteFinder) {
+      graniteFinder.style.pointerEvents = 'none';
+    }
+
+    if (finderInner) {
+      finderInner.style.transition = 'opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease';
+      finderInner.style.opacity = '0';
+      finderInner.style.transform = 'translate3d(0, 20px, 0)';
+      finderInner.style.filter = 'blur(5px)';
+    }
+
+    if (finderCurtain) {
+      finderCurtain.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      finderCurtain.style.transform = 'translate3d(0, 100%, 0)';
+    }
+
+    setTimeout(() => {
+      if (kitchenInner) {
+        kitchenInner.style.visibility = 'visible';
+        kitchenInner.style.transition = 'opacity 0.5s ease, filter 0.5s ease';
+        kitchenInner.style.opacity = '1';
+        kitchenInner.style.filter = 'blur(0px)';
+      }
+    }, 350);
+
+    setTimeout(() => {
+      isFinderActive = false;
+      isKitchenActive = true;
+      isTransitioning = false;
+
+      if (graniteFinder) {
+        graniteFinder.style.visibility = 'hidden';
+      }
+      if (kitchenSection) {
+        kitchenSection.style.pointerEvents = 'auto';
+        kitchenSection.style.visibility = 'visible';
+      }
+      startKitchenAutoPlay();
+    }, 850);
+  }
+
+  /* ==========================================================================
      Granite Finder → Tile Collection Cinematic Transition (Bidirectional)
      ========================================================================== */
 
@@ -2492,6 +2924,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.transitionCollectionToHero = transitionCollectionToHero;
   window.transitionCollectionToStairs = transitionCollectionToStairs;
   window.transitionStairsToCollection = transitionStairsToCollection;
+  window.transitionStairsToKitchen = transitionStairsToKitchen;
+  window.transitionKitchenToStairs = transitionKitchenToStairs;
+  window.transitionKitchenToFinder = transitionKitchenToFinder;
+  window.transitionFinderToKitchen = transitionFinderToKitchen;
   window.transitionStairsToFinder = transitionStairsToFinder;
   window.transitionFinderToStairs = transitionFinderToStairs;
   window.transitionToFinder = transitionCollectionToStairs;
@@ -2519,30 +2955,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isTransitioning) return;
 
     // 1. One downward scroll gesture at end of Granite Collection -> Stairs Application
-    if (!isStairsActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
+    if (!isStairsActive && !isKitchenActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.deltaY > 15) {
         e.preventDefault();
         transitionCollectionToStairs();
       }
     }
-    // 2. Stairs Application
-    else if (isStairsActive && !isFinderActive && !isTileActive) {
+    // 2. Stairs Application -> Kitchen (down) or Collection (up)
+    else if (isStairsActive && !isKitchenActive && !isFinderActive && !isTileActive) {
       if (e.deltaY > 15) {
         e.preventDefault();
-        transitionStairsToFinder();
+        transitionStairsToKitchen();
       } else if (e.deltaY < -15) {
         e.preventDefault();
         transitionStairsToCollection();
       }
     }
-    // 3. Upward scroll gesture at top of Granite Finder -> Stairs Application
+    // 3. Kitchen Application -> Finder (down) or Stairs (up)
+    else if (isKitchenActive && !isFinderActive && !isTileActive) {
+      if (e.deltaY > 15) {
+        e.preventDefault();
+        transitionKitchenToFinder();
+      } else if (e.deltaY < -15) {
+        e.preventDefault();
+        transitionKitchenToStairs();
+      }
+    }
+    // 4. Upward scroll gesture at top of Granite Finder -> Kitchen Application
     else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && e.deltaY < -15) {
         e.preventDefault();
-        transitionFinderToStairs();
+        transitionFinderToKitchen();
       } else {
-        // 4. Downward scroll gesture at end of Granite Finder -> Tile Section
+        // 5. Downward scroll gesture at end of Granite Finder -> Tile Section
         const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
         if (isFinderAtEnd && e.deltaY > 15) {
           e.preventDefault();
@@ -2550,7 +2996,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
-    // 5. Upward scroll gesture at top of Tile Section -> Finder
+    // 6. Upward scroll gesture at top of Tile Section -> Finder
     else if (isTileActive) {
       const tileTop = tileSection ? tileSection.scrollTop : 0;
       if (tileTop <= 2 && e.deltaY < -15) {
@@ -2596,17 +3042,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (diffY < 0 && finderTop <= 4) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionFinderToStairs();
+        transitionFinderToKitchen();
       } else if (diffY > 0 && isFinderAtEnd) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
         transitionToTiles();
       }
+    } else if (isKitchenActive) {
+      if (diffY > 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionKitchenToFinder();
+      } else if (diffY < 0) {
+        mobileGestureConsumed = true;
+        if (e.cancelable) e.preventDefault();
+        transitionKitchenToStairs();
+      }
     } else if (isStairsActive) {
       if (diffY > 0) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
-        transitionStairsToFinder();
+        transitionStairsToKitchen();
       } else if (diffY < 0) {
         mobileGestureConsumed = true;
         if (e.cancelable) e.preventDefault();
@@ -2645,15 +3101,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (textureLightbox && textureLightbox.classList.contains('is-open')) return;
     if (isTransitioning) return;
 
-    if (!isStairsActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
+    if (!isStairsActive && !isKitchenActive && !isFinderActive && !isTileActive && currentScrollProgress >= 0.95) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         transitionCollectionToStairs();
       }
-    } else if (isStairsActive && !isFinderActive && !isTileActive) {
+    } else if (isStairsActive && !isKitchenActive && !isFinderActive && !isTileActive) {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
-        transitionStairsToFinder();
+        transitionStairsToKitchen();
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         e.preventDefault();
         transitionStairsToCollection();
@@ -2664,11 +3120,25 @@ document.addEventListener('DOMContentLoaded', () => {
         goToStairsSlide(currentStairsIndex + 1);
         resetStairsAutoPlay();
       }
+    } else if (isKitchenActive && !isFinderActive && !isTileActive) {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        transitionKitchenToFinder();
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        transitionKitchenToStairs();
+      } else if (e.key === 'ArrowLeft') {
+        goToKitchenSlide(currentKitchenIndex - 1);
+        resetKitchenAutoPlay();
+      } else if (e.key === 'ArrowRight') {
+        goToKitchenSlide(currentKitchenIndex + 1);
+        resetKitchenAutoPlay();
+      }
     } else if (isFinderActive && !isTileActive) {
       const finderTop = graniteFinder ? graniteFinder.scrollTop : 0;
       if (finderTop <= 2 && (e.key === 'ArrowUp' || e.key === 'PageUp')) {
         e.preventDefault();
-        transitionFinderToStairs();
+        transitionFinderToKitchen();
       } else {
         const isFinderAtEnd = graniteFinder ? (graniteFinder.scrollTop + graniteFinder.clientHeight) >= (graniteFinder.scrollHeight - 15) : true;
         if (isFinderAtEnd && (e.key === 'ArrowDown' || e.key === 'PageDown')) {
