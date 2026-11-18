@@ -1576,4 +1576,14 @@ document.addEventListener('DOMContentLoaded', () => {
       initialSpecsGrid.classList.add('is-animating');
     }
   }
+
+  // Floating bubble click tactile bounce animation
+  document.querySelectorAll('.floating-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('is-popping');
+      void btn.offsetWidth;
+      btn.classList.add('is-popping');
+      setTimeout(() => btn.classList.remove('is-popping'), 460);
+    });
+  });
 });

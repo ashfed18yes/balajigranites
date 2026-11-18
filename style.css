@@ -325,6 +325,96 @@ html, body {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Hero CTA Buttons Dancing & Jiggling Keyframe Animations
+   -------------------------------------------------------------------------- */
+@keyframes heroButtonDanceLeft {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+  12% {
+    transform: translateY(-5px) translateX(-2px) rotate(-2deg) scale(1.022);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32), 0 4px 10px rgba(0, 0, 0, 0.16);
+  }
+  24% {
+    transform: translateY(-2px) translateX(2px) rotate(1.4deg) scale(1.015);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.26), 0 3px 8px rgba(0, 0, 0, 0.14);
+  }
+  38% {
+    transform: translateY(-7px) translateX(1px) rotate(-1.5deg) scale(1.028);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34), 0 6px 12px rgba(0, 0, 0, 0.18);
+  }
+  50% {
+    transform: translateY(2px) translateX(-1px) rotate(1.8deg) scale(0.992);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.20), 0 1px 4px rgba(0, 0, 0, 0.10);
+  }
+  64% {
+    transform: translateY(-6px) translateX(-2px) rotate(-2deg) scale(1.025);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.30), 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+  78% {
+    transform: translateY(-1px) translateX(2px) rotate(1.2deg) scale(1.01);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.24), 0 3px 7px rgba(0, 0, 0, 0.12);
+  }
+  88% {
+    transform: translateY(1.5px) translateX(-1px) rotate(-0.8deg) scale(0.996);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22), 0 2px 5px rgba(0, 0, 0, 0.11);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@keyframes heroButtonDanceRight {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+  12% {
+    transform: translateY(2px) translateX(2px) rotate(1.8deg) scale(0.992);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+  24% {
+    transform: translateY(-6px) translateX(-1px) rotate(-1.6deg) scale(1.024);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11), 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  38% {
+    transform: translateY(1px) translateX(2px) rotate(1.5deg) scale(1.006);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.03);
+  }
+  50% {
+    transform: translateY(-8px) translateX(-2px) rotate(-2deg) scale(1.03);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.13), 0 5px 14px rgba(0, 0, 0, 0.06);
+  }
+  64% {
+    transform: translateY(2px) translateX(1px) rotate(1.6deg) scale(0.99);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  }
+  78% {
+    transform: translateY(-5px) translateX(-1px) rotate(-1.2deg) scale(1.02);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10), 0 3px 8px rgba(0, 0, 0, 0.04);
+  }
+  88% {
+    transform: translateY(-1px) translateX(1px) rotate(0.8deg) scale(1.005);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08), 0 2px 5px rgba(0, 0, 0, 0.03);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03);
+  }
+}
+
+@keyframes heroButtonHoverDance {
+  0% {
+    transform: translateY(-5px) scale(1.045) rotate(-1.2deg);
+  }
+  100% {
+    transform: translateY(-8px) scale(1.065) rotate(1.2deg);
+  }
+}
+
 /* Base Pill Button */
 .btn {
   display: inline-flex;
@@ -341,12 +431,14 @@ html, body {
   white-space: nowrap;
   cursor: pointer;
   outline: none;
+  transform-origin: center center;
   transition: 
     transform 0.35s var(--ease-hover),
     box-shadow 0.35s var(--ease-hover),
     background-color 0.35s var(--ease-hover),
     border-color 0.35s var(--ease-hover);
   user-select: none;
+  will-change: transform, box-shadow;
 }
 
 /* Left Button: Dark Charcoal Stone (matching reference mockup & video composition) */
@@ -357,15 +449,18 @@ html, body {
   box-shadow: 
     0 8px 24px rgba(0, 0, 0, 0.24),
     0 2px 6px rgba(0, 0, 0, 0.12);
+  animation: heroButtonDanceLeft 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .btn-dark-stone:hover {
+  animation: heroButtonHoverDance 0.8s ease-in-out infinite alternate !important;
   background: #2e2d29;
-  transform: translateY(-2px) scale(1.015);
+  transform: translateY(-5px) scale(1.045);
   box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.32),
-    0 4px 10px rgba(0, 0, 0, 0.16);
-  border-color: rgba(255, 255, 255, 0.28);
+    0 18px 40px rgba(0, 0, 0, 0.42),
+    0 6px 16px rgba(0, 0, 0, 0.22),
+    0 0 22px rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* Right Button: Light Natural Stone with Dark Border (matching reference mockup & video composition) */
@@ -378,18 +473,24 @@ html, body {
   box-shadow: 
     0 4px 18px rgba(0, 0, 0, 0.06),
     0 1px 3px rgba(0, 0, 0, 0.03);
+  animation: heroButtonDanceRight 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .btn-light-stone:hover {
+  animation: heroButtonHoverDance 0.8s ease-in-out infinite alternate !important;
   background: #eae8e3;
-  transform: translateY(-2px) scale(1.015);
+  transform: translateY(-5px) scale(1.045);
   box-shadow: 
-    0 10px 26px rgba(0, 0, 0, 0.09),
-    0 3px 8px rgba(0, 0, 0, 0.04);
+    0 16px 36px rgba(0, 0, 0, 0.14),
+    0 5px 14px rgba(0, 0, 0, 0.07),
+    0 0 24px rgba(212, 175, 55, 0.2);
+  border-color: var(--color-stone-charcoal);
 }
 
 .btn:active {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(1px) scale(0.95) rotate(0deg) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.08s ease !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -4364,34 +4465,137 @@ html, body {
    ========================================================================== */
 .floating-contact-dock {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 22px;
+  right: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
   z-index: 995;
   pointer-events: auto;
+}
+
+/* On pages with hero video intro (index.html), delay dock until UI reveal */
+.scroll-experience-wrapper ~ .floating-contact-dock {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.92);
+  transition: 
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scroll-experience-wrapper ~ .floating-contact-dock.is-revealed {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* Standalone entrance animation for non-hero pages */
+body:not(:has(.scroll-experience-wrapper)) .floating-contact-dock {
   animation: floatingDockFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes floatingDockFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(16px) scale(0.94);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+/* --------------------------------------------------------------------------
+   Floating Call Us & WhatsApp Dancing & Jiggling Keyframe Animations
+   (Exact same fluid dancing & jiggling motion as Hero CTA buttons)
+   -------------------------------------------------------------------------- */
+@keyframes floatingBtnDanceCall {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 2px 6px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+  12% {
+    transform: translateY(-5px) translateX(-2px) rotate(-2deg) scale(1.022);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32), 0 4px 10px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  }
+  24% {
+    transform: translateY(-2px) translateX(2px) rotate(1.4deg) scale(1.015);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.26), 0 3px 8px rgba(0, 0, 0, 0.14), inset 0 1px 1px rgba(255, 255, 255, 0.16);
+  }
+  38% {
+    transform: translateY(-7px) translateX(1px) rotate(-1.5deg) scale(1.028);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34), 0 6px 12px rgba(0, 0, 0, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: translateY(2px) translateX(-1px) rotate(1.8deg) scale(0.992);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.20), 0 1px 4px rgba(0, 0, 0, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  }
+  64% {
+    transform: translateY(-6px) translateX(-2px) rotate(-2deg) scale(1.025);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.30), 0 5px 10px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  }
+  78% {
+    transform: translateY(-1px) translateX(2px) rotate(1.2deg) scale(1.01);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.24), 0 3px 7px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+  88% {
+    transform: translateY(1.5px) translateX(-1px) rotate(-0.8deg) scale(0.996);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22), 0 2px 5px rgba(0, 0, 0, 0.11), inset 0 1px 1px rgba(255, 255, 255, 0.14);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), 0 2px 6px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+}
+
+@keyframes floatingBtnDanceWhatsApp {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.38), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  }
+  12% {
+    transform: translateY(2px) translateX(2px) rotate(1.8deg) scale(0.992);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32), 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+  24% {
+    transform: translateY(-6px) translateX(-1px) rotate(-1.6deg) scale(1.024);
+    box-shadow: 0 14px 30px rgba(37, 211, 102, 0.48), 0 4px 10px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  }
+  38% {
+    transform: translateY(1px) translateX(2px) rotate(1.5deg) scale(1.006);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.36), 0 2px 5px rgba(0, 0, 0, 0.09), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    transform: translateY(-8px) translateX(-2px) rotate(-2deg) scale(1.03);
+    box-shadow: 0 18px 36px rgba(37, 211, 102, 0.52), 0 5px 12px rgba(0, 0, 0, 0.14), 0 0 14px rgba(37, 211, 102, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+  }
+  64% {
+    transform: translateY(2px) translateX(1px) rotate(1.6deg) scale(0.99);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.30), 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+  78% {
+    transform: translateY(-5px) translateX(-1px) rotate(-1.2deg) scale(1.02);
+    box-shadow: 0 12px 26px rgba(37, 211, 102, 0.44), 0 3px 8px rgba(0, 0, 0, 0.11), inset 0 1px 1px rgba(255, 255, 255, 0.38);
+  }
+  88% {
+    transform: translateY(-1px) translateX(1px) rotate(0.8deg) scale(1.005);
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.36), 0 2px 5px rgba(0, 0, 0, 0.09), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.38), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* Base Floating Button — Always in expanded pill position */
 .floating-btn {
   display: inline-flex;
   align-items: center;
   gap: 9px;
   height: 46px;
-  padding: 0 18px 0 12px;
+  padding: 0 18px 0 11px;
   border-radius: 9999px;
   text-decoration: none;
   font-family: var(--font-sans);
@@ -4402,15 +4606,14 @@ html, body {
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.floating-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-}
-
-.floating-btn:active {
-  transform: translateY(0) scale(0.98);
+  box-sizing: border-box;
+  transform-origin: center center;
+  will-change: transform, box-shadow;
+  transition: 
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .floating-btn-icon-wrap {
@@ -4421,9 +4624,17 @@ html, body {
   height: 28px;
   border-radius: 50%;
   flex-shrink: 0;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 1. Contact Us Button — Architectural Deep Charcoal Stone with Warm Ivory */
+.floating-btn-label {
+  display: inline-block;
+  opacity: 1;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+/* 1. Call Us Button — Architectural Deep Charcoal Stone with Warm Ivory */
 .floating-btn-contact {
   background: rgba(31, 30, 27, 0.94);
   color: #f7f6f2;
@@ -4431,9 +4642,10 @@ html, body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.24),
     0 2px 6px rgba(0, 0, 0, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  animation: floatingBtnDanceCall 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .floating-btn-contact .floating-btn-icon-wrap {
@@ -4441,16 +4653,7 @@ html, body {
   color: #f7f6f2;
 }
 
-.floating-btn-contact:hover {
-  background: #11100e;
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #ffffff;
-  box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.32),
-    0 4px 10px rgba(0, 0, 0, 0.18);
-}
-
-/* 2. WhatsApp Contact Button — Brand Green with Pulsing Ambient Glow */
+/* 2. WhatsApp Button — Brand Emerald with Ambient Glow */
 .floating-btn-whatsapp {
   background: linear-gradient(135deg, #25D366 0%, #1eaf53 100%);
   color: #ffffff;
@@ -4459,6 +4662,7 @@ html, body {
     0 8px 24px rgba(37, 211, 102, 0.38),
     0 2px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  animation: floatingBtnDanceWhatsApp 2.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .floating-btn-whatsapp .floating-btn-icon-wrap {
@@ -4466,27 +4670,52 @@ html, body {
   color: #ffffff;
 }
 
-.floating-btn-whatsapp:hover {
-  background: linear-gradient(135deg, #2ae16d 0%, #179b47 100%);
+/* ==========================================================================
+   SMOOTH EXPANDING HOVER ANIMATION (Inspired by Hero Pill Buttons)
+   ========================================================================== */
+.floating-btn-contact:hover {
+  animation: heroButtonHoverDance 0.8s ease-in-out infinite alternate !important;
+  background: #11100e;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  transform: translateY(-5px) scale(1.045);
   box-shadow: 
-    0 12px 30px rgba(37, 211, 102, 0.52),
-    0 4px 10px rgba(0, 0, 0, 0.18);
+    0 18px 40px rgba(0, 0, 0, 0.42),
+    0 6px 16px rgba(0, 0, 0, 0.22),
+    0 0 20px rgba(212, 175, 55, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
-@keyframes waDockPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5), 0 8px 24px rgba(37, 211, 102, 0.38);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0), 0 8px 24px rgba(37, 211, 102, 0.38);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 8px 24px rgba(37, 211, 102, 0.38);
-  }
+.floating-btn-whatsapp:hover {
+  animation: heroButtonHoverDance 0.8s ease-in-out infinite alternate !important;
+  background: linear-gradient(135deg, #2ae16d 0%, #179b47 100%);
+  transform: translateY(-5px) scale(1.045);
+  box-shadow: 
+    0 18px 40px rgba(37, 211, 102, 0.58),
+    0 6px 16px rgba(37, 211, 102, 0.22),
+    0 0 24px rgba(37, 211, 102, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
-.floating-btn-whatsapp {
-  animation: waDockPulse 3.5s infinite ease-in-out;
+.floating-btn:hover .floating-btn-icon-wrap {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* Tactile Click / Press State */
+.floating-btn:active {
+  transform: translateY(1px) scale(0.95) rotate(0deg) !important;
+  transition: transform 0.08s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.floating-btn:active .floating-btn-icon-wrap {
+  transform: scale(0.95);
+}
+
+.floating-btn:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 3px;
+  transform: scale(1.04);
 }
 
 /* ==========================================================================
@@ -4545,7 +4774,7 @@ html, body {
 
   .floating-btn {
     height: 40px;
-    padding: 0 13px 0 9px;
+    padding: 0 14px 0 9px;
     font-size: 12px;
     gap: 7px;
   }

@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('cinematic-video');
   const heroUi = document.getElementById('hero-ui');
   const navbarWrapper = document.getElementById('navbar');
+  const floatingDock = document.getElementById('floating-contact-dock');
 
   if (!video || !heroUi) return;
 
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   heroUi.classList.remove('is-revealed');
   if (navbarWrapper) navbarWrapper.classList.remove('is-revealed');
+  if (floatingDock) floatingDock.classList.remove('is-revealed');
 
   // Configure inline playback across both mobile and desktop
   video.setAttribute('playsinline', '');
@@ -79,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isRevealed = true;
       heroUi.classList.add('is-revealed');
       if (navbarWrapper) navbarWrapper.classList.add('is-revealed');
+      if (floatingDock) floatingDock.classList.add('is-revealed');
     }
   }
 
@@ -100,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isRevealed = true;
     heroUi.classList.add('is-revealed');
     if (navbarWrapper) navbarWrapper.classList.add('is-revealed');
+    if (floatingDock) floatingDock.classList.add('is-revealed');
   }
 
   /**
@@ -215,6 +219,16 @@ document.addEventListener('DOMContentLoaded', () => {
       triggerUiReveal();
     }
   }, 9000);
+
+  // Floating bubble click tactile bounce animation
+  document.querySelectorAll('.floating-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('is-popping');
+      void btn.offsetWidth; // Trigger DOM reflow to restart keyframe
+      btn.classList.add('is-popping');
+      setTimeout(() => btn.classList.remove('is-popping'), 460);
+    });
+  });
 
   /* ==========================================================================
      Granite Collection Showcase & Slider Implementation
