@@ -3672,7 +3672,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close mobile menu when clicking any nav link
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .nav-whatsapp-btn').forEach(link => {
       link.addEventListener('click', () => {
         if (pillNavbar.classList.contains('menu-open')) {
           pillNavbar.classList.remove('menu-open');

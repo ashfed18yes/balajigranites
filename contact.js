@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinksMenu.classList.toggle('is-open');
     });
 
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .nav-whatsapp-btn').forEach(link => {
       link.addEventListener('click', () => {
         navLinksMenu.classList.remove('is-open');
         mobileToggle.setAttribute('aria-expanded', 'false');

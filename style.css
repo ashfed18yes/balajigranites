@@ -194,7 +194,7 @@ html, body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
 }
 
 .nav-link {
@@ -407,7 +407,7 @@ html, body {
   }
 
   .nav-links {
-    gap: 22px;
+    gap: 16px;
   }
 
   .brand-badge {
@@ -3905,5 +3905,227 @@ html, body {
     padding-top: 24px;
   }
 }
+
+/* ==========================================================================
+   PERSISTENT FLOATING QUICK CONTACT & WHATSAPP WIDGET
+   ========================================================================== */
+.floating-contact-dock {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 995;
+  pointer-events: auto;
+  animation: floatingDockFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes floatingDockFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 46px;
+  padding: 0 18px 0 12px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.floating-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.floating-btn-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 1. Contact Us Button — Architectural Deep Charcoal Stone with Warm Ivory */
+.floating-btn-contact {
+  background: rgba(31, 30, 27, 0.94);
+  color: #f7f6f2;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+.floating-btn-contact .floating-btn-icon-wrap {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f7f6f2;
+}
+
+.floating-btn-contact:hover {
+  background: #11100e;
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.32),
+    0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* 2. WhatsApp Contact Button — Brand Green with Pulsing Ambient Glow */
+.floating-btn-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #1eaf53 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 8px 24px rgba(37, 211, 102, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+.floating-btn-whatsapp .floating-btn-icon-wrap {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.floating-btn-whatsapp:hover {
+  background: linear-gradient(135deg, #2ae16d 0%, #179b47 100%);
+  box-shadow: 
+    0 12px 30px rgba(37, 211, 102, 0.52),
+    0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes waDockPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5), 0 8px 24px rgba(37, 211, 102, 0.38);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0), 0 8px 24px rgba(37, 211, 102, 0.38);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 8px 24px rgba(37, 211, 102, 0.38);
+  }
+}
+
+.floating-btn-whatsapp {
+  animation: waDockPulse 3.5s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   NAVBAR WHATSAPP BUTTON (DESKTOP & MOBILE)
+   ========================================================================== */
+.nav-whatsapp-item {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+}
+
+.nav-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px 0 10px;
+  background: linear-gradient(135deg, #25D366 0%, #1eaf53 100%);
+  color: #ffffff !important;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.28);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+  white-space: nowrap;
+}
+
+.nav-whatsapp-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.42);
+  background: linear-gradient(135deg, #2ae16d 0%, #179b47 100%);
+}
+
+.nav-whatsapp-btn svg {
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .nav-whatsapp-btn {
+    height: 32px;
+    padding: 0 12px 0 8px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-contact-dock {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    right: 14px;
+    gap: 8px;
+  }
+
+  .floating-btn {
+    height: 40px;
+    padding: 0 13px 0 9px;
+    font-size: 12px;
+    gap: 7px;
+  }
+
+  .floating-btn-icon-wrap {
+    width: 24px;
+    height: 24px;
+  }
+
+  .floating-btn-icon-wrap svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-whatsapp-item {
+    margin-left: 0;
+    margin-top: 4px;
+    width: 100%;
+    padding-top: 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-whatsapp-btn {
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 13px;
+    margin: 0;
+  }
+}
+
 
 
