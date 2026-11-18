@@ -4117,4 +4117,116 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // ==========================================================================
+  // Interactive Customer Reviews & Google Rating Component
+  // ==========================================================================
+  const starsTrack = document.getElementById('stars-track');
+  const starButtons = document.querySelectorAll('.star-btn');
+  const ratingStatusLabel = document.getElementById('rating-status-label');
+  const feedbackCollapse = document.getElementById('feedback-collapse-area');
+  const ratingIndicatorStars = document.getElementById('rating-indicator-stars');
+  const ratingIndicatorText = document.getElementById('rating-indicator-text');
+  const btnContinueGoogle = document.getElementById('btn-continue-google');
+  const handoffNotice = document.getElementById('handoff-notice');
+
+  const RATING_DESCRIPTIONS = {
+    1: '1 star — Needs Improvement',
+    2: '2 stars — Fair Experience',
+    3: '3 stars — Good Experience',
+    4: '4 stars — Very Good Experience',
+    5: '5 stars — Exceptional Experience'
+  };
+
+  const RATING_STARS_TEXT = {
+    1: '★☆☆☆☆',
+    2: '★★☆☆☆',
+    3: '★★★☆☆',
+    4: '★★★★☆',
+    5: '★★★★★'
+  };
+
+  let selectedRating = 0;
+
+  function highlightStars(rating) {
+    starButtons.forEach(btn => {
+      const btnRating = parseInt(btn.getAttribute('data-rating'), 10);
+      if (btnRating <= rating) {
+        btn.classList.add('is-hovered');
+      } else {
+        btn.classList.remove('is-hovered');
+      }
+    });
+  }
+
+  function renderSelectedRating(rating) {
+    starButtons.forEach(btn => {
+      const btnRating = parseInt(btn.getAttribute('data-rating'), 10);
+      if (btnRating <= rating) {
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+    });
+
+    if (rating > 0) {
+      if (ratingStatusLabel) {
+        ratingStatusLabel.textContent = RATING_DESCRIPTIONS[rating];
+        ratingStatusLabel.classList.add('has-selection');
+      }
+      if (ratingIndicatorStars) {
+        ratingIndicatorStars.textContent = RATING_STARS_TEXT[rating];
+      }
+      if (ratingIndicatorText) {
+        ratingIndicatorText.textContent = `${rating} out of 5 stars selected`;
+      }
+      if (feedbackCollapse) {
+        feedbackCollapse.classList.add('is-expanded');
+        feedbackCollapse.setAttribute('aria-hidden', 'false');
+      }
+    }
+  }
+
+  starButtons.forEach(btn => {
+    const rating = parseInt(btn.getAttribute('data-rating'), 10);
+
+    // Hover preview
+    btn.addEventListener('mouseenter', () => {
+      highlightStars(rating);
+      if (ratingStatusLabel && selectedRating === 0) {
+        ratingStatusLabel.textContent = RATING_DESCRIPTIONS[rating];
+      }
+    });
+
+    // Click selection (allows changing rating anytime)
+    btn.addEventListener('click', () => {
+      selectedRating = rating;
+      renderSelectedRating(selectedRating);
+    });
+  });
+
+  if (starsTrack) {
+    starsTrack.addEventListener('mouseleave', () => {
+      starButtons.forEach(btn => btn.classList.remove('is-hovered'));
+      if (selectedRating > 0) {
+        renderSelectedRating(selectedRating);
+      } else {
+        if (ratingStatusLabel) {
+          ratingStatusLabel.textContent = 'Select a star rating to begin';
+          ratingStatusLabel.classList.remove('has-selection');
+        }
+      }
+    });
+  }
+
+  // Google Review Handoff Notice
+  if (btnContinueGoogle) {
+    btnContinueGoogle.addEventListener('click', () => {
+      if (handoffNotice) {
+        handoffNotice.style.display = 'flex';
+      }
+    });
+  }
 });

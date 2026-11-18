@@ -480,6 +480,135 @@
 
         </div>
 
+        <!-- Customer Reviews & Google Rating Section -->
+        <section class="customer-reviews-section" id="customer-reviews-section" aria-label="Customer Reviews & Experience Rating">
+          <div class="reviews-container">
+            
+            <!-- Section Header -->
+            <div class="reviews-header">
+              <div class="reviews-eyebrow-wrap">
+                <span class="reviews-eyebrow-line" aria-hidden="true"></span>
+                <span class="reviews-eyebrow-text">CUSTOMER EXPERIENCE</span>
+                <span class="reviews-eyebrow-line" aria-hidden="true"></span>
+              </div>
+              <h2 class="reviews-main-title">How Was Your Experience With Us?</h2>
+              <p class="reviews-subtitle">Your feedback helps us serve you better.</p>
+            </div>
+
+            <!-- Interactive Rating Component Card -->
+            <div class="reviews-card" id="reviews-card">
+              
+              <!-- Star Rating Container -->
+              <div class="rating-stars-wrapper" role="group" aria-label="Rate your experience from 1 to 5 stars">
+                <div class="stars-track" id="stars-track">
+                  <button type="button" class="star-btn" data-rating="1" aria-label="Rate 1 star out of 5" title="1 star - Needs Improvement">
+                    <svg class="star-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </button>
+                  <button type="button" class="star-btn" data-rating="2" aria-label="Rate 2 stars out of 5" title="2 stars - Fair Experience">
+                    <svg class="star-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </button>
+                  <button type="button" class="star-btn" data-rating="3" aria-label="Rate 3 stars out of 5" title="3 stars - Good Experience">
+                    <svg class="star-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </button>
+                  <button type="button" class="star-btn" data-rating="4" aria-label="Rate 4 stars out of 5" title="4 stars - Very Good Experience">
+                    <svg class="star-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </button>
+                  <button type="button" class="star-btn" data-rating="5" aria-label="Rate 5 stars out of 5" title="5 stars - Exceptional Experience">
+                    <svg class="star-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Rating Status Text -->
+                <div class="rating-status-label" id="rating-status-label" aria-live="polite">
+                  Select a star rating to begin
+                </div>
+              </div>
+
+              <!-- Collapsible Feedback Area (Revealed after star selection) -->
+              <div class="feedback-collapse-area" id="feedback-collapse-area" aria-hidden="true">
+                
+                <div class="feedback-inner-wrap">
+                  <!-- Selected Rating Indication Badge -->
+                  <div class="selected-rating-banner" id="selected-rating-banner">
+                    <span class="rating-indicator-stars" id="rating-indicator-stars">★★★★★</span>
+                    <span class="rating-indicator-text" id="rating-indicator-text">5 out of 5 stars selected</span>
+                  </div>
+
+                  <!-- Optional Feedback Text Box -->
+                  <div class="feedback-field-group">
+                    <label for="review-feedback-text" class="feedback-field-label">
+                      <span>Share your thoughts (optional)</span>
+                      <span class="optional-pill">Optional</span>
+                    </label>
+                    <textarea 
+                      id="review-feedback-text" 
+                      class="feedback-textarea" 
+                      rows="3" 
+                      placeholder="Tell us about your natural stone selection, architectural project, or showroom experience..."
+                    ></textarea>
+                  </div>
+
+                  <!-- Google Review Info Note -->
+                  <div class="google-handoff-note">
+                    <svg class="google-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span>Clicking below opens our official Google Business Profile in a new tab. Please choose your star rating and publish your review on Google.</span>
+                  </div>
+
+                  <!-- Action Button: Continue to Google Reviews -->
+                  <div class="feedback-actions">
+                    <a 
+                      href="https://share.google/sfZGGEZA42EyczYlw" 
+                      class="btn-continue-google" 
+                      id="btn-continue-google" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label="Continue to Google Reviews for Balaji Granites"
+                    >
+                      <svg class="google-g-logo" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                      </svg>
+                      <span>CONTINUE TO GOOGLE REVIEWS</span>
+                      <svg class="btn-arrow-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+
+                  <!-- Post-Click Confirmation Notice -->
+                  <div class="handoff-notice" id="handoff-notice" style="display: none;" role="status">
+                    <div class="notice-icon" aria-hidden="true">✓</div>
+                    <div class="notice-text">
+                      <strong>Thank you!</strong> Our Google Business Profile page has opened in a new tab. Please choose your star rating and post your review on Google.
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
         <!-- Final Architectural Footer -->
         <footer class="site-architectural-footer" id="site-footer" aria-label="Site Footer">
           <div class="footer-container">
